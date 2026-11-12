@@ -1,0 +1,180 @@
+{
+  "app": "Grimar",
+  "game": "WoW Forever",
+  "build": "1.60.1.70707",
+  "version": 17,
+  "activeMode": "pve",
+  "layouts": {
+    "pvp": {
+      "main": [
+        "macro-smart-mana-potion",
+        "macro-smart-healing-potion",
+        "major-healthstone",
+        "major-rejuvenation-potion",
+        "engineering-sprint",
+        "divine-favor",
+        "pvp-trinket",
+        "living-action-potion",
+        "macro-shield-devotion",
+        "macro-2h-retribution",
+        null,
+        null
+      ],
+      "numberRow": [
+        "blessing-kings",
+        "blessing-wisdom",
+        "blessing-might",
+        "greater-kings",
+        "greater-wisdom",
+        "greater-might",
+        null,
+        "redemption"
+      ],
+      "nagaBase": [
+        "macro-hammer-wrath-judgement",
+        "seal-command",
+        "macro-crusader-judgement",
+        "holy-shock",
+        "macro-holy-strike-judgement",
+        "seal-justice",
+        "consecration",
+        "hammer-justice",
+        "macro-repentance-stopattack",
+        "macro-self-holy-shock",
+        null,
+        "macro-mouseover-lay-on-hands"
+      ],
+      "nagaShift": [
+        "divine-shield",
+        "divine-protection",
+        "macro-mouseover-protection",
+        "macro-mouseover-flash-light",
+        "macro-mouseover-cleanse",
+        "macro-mouseover-holy-light",
+        "macro-mouseover-freedom",
+        "macro-mouseover-sacrifice",
+        "will-to-survive",
+        "heavy-runecloth-bandage",
+        "perception",
+        "macro-mouseover-divine-intervention"
+      ],
+      "mouse": [
+        "macro-thorium-cursor"
+      ]
+    },
+    "pve": {
+      "main": [
+        "major-mana-potion",
+        "major-healing-potion",
+        "major-healthstone",
+        "major-rejuvenation-potion",
+        "engineering-sprint",
+        "major-frenzy-potion",
+        "macro-dps-trinket",
+        "living-action-potion",
+        "macro-shield-devotion",
+        "macro-2h-retribution",
+        null,
+        null
+      ],
+      "numberRow": [
+        "blessing-kings",
+        "blessing-wisdom",
+        "blessing-might",
+        "greater-kings",
+        "greater-wisdom",
+        "greater-might",
+        null,
+        "redemption"
+      ],
+      "nagaBase": [
+        "macro-hammer-wrath-judgement",
+        "seal-command",
+        "macro-crusader-judgement",
+        "seal-righteousness",
+        "macro-holy-strike-judgement",
+        "exorcism",
+        "consecration",
+        "hammer-justice",
+        "macro-repentance-stopattack",
+        "seal-light",
+        "seal-wisdom",
+        "macro-mouseover-lay-on-hands"
+      ],
+      "nagaShift": [
+        "divine-shield",
+        "divine-protection",
+        "macro-mouseover-protection",
+        "macro-mouseover-flash-light",
+        "macro-mouseover-cleanse",
+        "macro-mouseover-holy-light",
+        "macro-mouseover-freedom",
+        "macro-mouseover-sacrifice",
+        "will-to-survive",
+        "heavy-runecloth-bandage",
+        "perception",
+        "macro-mouseover-divine-intervention"
+      ],
+      "mouse": [
+        "macro-thorium-cursor"
+      ]
+    },
+    "pvpReckoning": {
+      "main": [
+        "macro-smart-mana-potion",
+        "macro-smart-healing-potion",
+        "major-healthstone",
+        "major-rejuvenation-potion",
+        "engineering-sprint",
+        null,
+        "pvp-trinket",
+        "living-action-potion",
+        "macro-shield-devotion",
+        "macro-2h-retribution",
+        null,
+        null
+      ],
+      "numberRow": [
+        "blessing-kings",
+        "blessing-wisdom",
+        "blessing-might",
+        "greater-kings",
+        "greater-wisdom",
+        "greater-might",
+        null,
+        "redemption"
+      ],
+      "nagaBase": [
+        "macro-hammer-wrath-judgement",
+        "seal-command",
+        "macro-crusader-judgement",
+        "macro-swift-judgement",
+        "macro-holy-strike-judgement",
+        "seal-justice",
+        "consecration",
+        "hammer-justice",
+        "macro-repentance-stopattack",
+        null,
+        null,
+        "macro-mouseover-lay-on-hands"
+      ],
+      "nagaShift": [
+        "divine-shield",
+        "divine-protection",
+        "macro-mouseover-protection",
+        "macro-mouseover-flash-light",
+        "macro-mouseover-cleanse",
+        "macro-mouseover-holy-light",
+        "macro-mouseover-freedom",
+        "macro-mouseover-sacrifice",
+        "will-to-survive",
+        "heavy-runecloth-bandage",
+        "perception",
+        "macro-mouseover-divine-intervention"
+      ],
+      "mouse": [
+        "macro-thorium-cursor"
+      ]
+    }
+  }
+}
