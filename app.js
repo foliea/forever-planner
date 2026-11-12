@@ -24,6 +24,7 @@ let query = "";
 let dragPayload = null;
 let toastTimer;
 
+const isFirstRun = localStorage.getItem(STORAGE_KEY) === null;
 const storedState = loadLayouts();
 let activeMode = storedState.activeMode;
 let layouts = storedState.layouts;
@@ -458,10 +459,10 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), 1900);
 }
 
-async function applyPreset(presetId) {
+async function applyPreset(presetId, { confirm = true } = {}) {
   const presetPath = presetPaths[presetId];
   if (!presetPath) return;
-  if (!window.confirm("Replace all three layouts with the Default preset?")) {
+  if (confirm && !window.confirm("Replace all three layouts with the Default preset?")) {
     presetSelect.value = "";
     return;
   }
@@ -728,3 +729,4 @@ document.querySelector("#importButton").addEventListener("click", () => {
 
 renderSpellbook();
 switchMode(activeMode, false);
+if (isFirstRun) applyPreset("default", { confirm: false });
