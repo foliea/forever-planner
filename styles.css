@@ -596,6 +596,35 @@ kbd {
 .toolbar-actions {
   display: flex;
   gap: 20px;
+  align-items: center;
+}
+
+.preset-picker {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #767880;
+  font: 600 9px "DM Mono", monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.preset-picker select {
+  min-width: 96px;
+  padding: 6px 24px 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--gold-bright);
+  background: #111216;
+  cursor: pointer;
+  font: 600 9px "DM Mono", monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.preset-picker select:disabled {
+  cursor: wait;
+  opacity: 0.55;
 }
 
 .text-button {

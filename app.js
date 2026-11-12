@@ -13,6 +13,9 @@ const modeNames = {
   pve: "PvE",
   pvpReckoning: "PvP - Reckoning",
 };
+const presetPaths = {
+  default: "./grimar-layout-2026-11-12.json",
+};
 
 const spellMap = new Map(spells.map((spell) => [spell.id, spell]));
 const spellAliases = { "turn-evil": "turn-undead" };
@@ -35,6 +38,7 @@ const exportText = document.querySelector("#exportText");
 const macroExportDialog = document.querySelector("#macroExportDialog");
 const accountMacrosText = document.querySelector("#accountMacrosText");
 const characterMacrosText = document.querySelector("#characterMacrosText");
+const presetSelect = document.querySelector("#presetSelect");
 
 const macroExportNames = {
   "macro-self-holy-shock": "ShockHeal",
@@ -454,11 +458,36 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("show"), 1900);
 }
 
-function setStarterLayout() {
-  layout = normalizeLayout(starterLayout);
-  saveLayout();
-  renderBars();
-  showToast("Starter layout applied");
+async function applyPreset(presetId) {
+  const presetPath = presetPaths[presetId];
+  if (!presetPath) return;
+  if (!window.confirm("Replace all three layouts with the Default preset?")) {
+    presetSelect.value = "";
+    return;
+  }
+
+  presetSelect.disabled = true;
+  try {
+    const response = await fetch(presetPath, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Preset request failed: ${response.status}`);
+    const preset = await response.json();
+    const sourceLayouts = preset.layouts;
+    if (!sourceLayouts) throw new Error("Preset contains no layouts");
+
+    layouts = Object.fromEntries(
+      layoutModes.map((mode) => [mode, normalizeLayout(sourceLayouts[mode])]),
+    );
+    layout = layouts[activeMode];
+    saveLayout();
+    renderBars();
+    showToast("Default preset applied");
+  } catch (error) {
+    console.error(error);
+    showToast("Could not load preset");
+  } finally {
+    presetSelect.disabled = false;
+    presetSelect.value = "";
+  }
 }
 
 function clearAll(ask = true) {
@@ -644,7 +673,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-document.querySelector("#fillButton").addEventListener("click", setStarterLayout);
+presetSelect.addEventListener("change", () => applyPreset(presetSelect.value));
 document.querySelector("#clearButton").addEventListener("click", () => clearAll(true));
 document.querySelector("#resetButton").addEventListener("click", resetPlanner);
 document.querySelectorAll(".mode-tab").forEach((tab) => {

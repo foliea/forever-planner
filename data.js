@@ -204,23 +204,3 @@ const spellDescriptions = {
 spells.forEach((spell) => {
   spell.description = spellDescriptions[spell.id] ?? "A Paladin ability.";
 });
-
-const starterLayout = {
-  main: [
-    "seal-command", "judgement", "holy-strike", "consecration",
-    "hammer-justice", "repentance", "exorcism", "hammer-wrath",
-    "flash-light", "holy-light", "divine-protection", "divine-shield",
-  ],
-  nagaBase: [
-    "blessing-freedom", "blessing-protection", "cleanse",
-    "lay-on-hands", "blessing-sacrifice", "purify",
-    "devotion-aura", "retribution-aura", "concentration-aura",
-    "seal-fury", "holy-shield", "righteous-fury",
-  ],
-  nagaShift: [
-    "blessing-might", "blessing-wisdom", "blessing-kings",
-    "greater-might", "greater-wisdom", "greater-kings",
-    "redemption", "divine-intervention", "turn-undead",
-    "holy-wrath", "holy-shock", "templars-bulwark",
-  ],
-};
