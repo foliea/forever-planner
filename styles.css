@@ -1350,16 +1350,6 @@ dialog::backdrop {
   background: rgba(255, 128, 0, 0.06);
 }
 
-.consumable-lockout-buff {
-  color: #e5c76e;
-  background: rgba(229, 199, 110, 0.06);
-}
-
-.consumable-lockout-weapon {
-  color: #dd7b79;
-  background: rgba(221, 123, 121, 0.06);
-}
-
 .gear-column {
   display: flex;
   flex-direction: column;
