@@ -152,8 +152,8 @@ const ROADMAP_ACTIONS = [
     rewardId: "archlight-talisman", reason: "Begin the Pamela/Darrowshire chain while leveling through the Plaguelands.",
   }),
   roadmapAction("infernal-lasso-quest", "Brought to Heel — Infernal Lasso", "quest", 45, {
-    rewardId: "infernal-lasso", optional: true,
-    reason: "Do this opportunistically; the live starting-object location remains uncertain.",
+    rewardId: "infernal-lasso",
+    reason: "Efficient quest trinket for both PvP and pre-raid; complete it while leveling if the route is available.",
   }),
   roadmapAction("ice-spear", "Hero of the Stormpike — Ice Barbed Spear", "quest", 51, {
     rewardId: "ice-barbed-spear", reason: "Take the quest before AV so a rank-cap win also awards your weapon.",
@@ -176,10 +176,6 @@ const ROADMAP_ACTIONS = [
   roadmapAction("lightforge-belt-buy", "Buy Lightforge Belt", "market", 53, {
     rewardId: "lightforge-belt", reason: "Prefer the BoE belt from the Auction House over prolonged trash farming.",
   }),
-  roadmapAction("briarwood", "UBRS — Briarwood Reed", "dungeon", 59, {
-    rewardId: "briarwood-reed", group: "UBRS",
-    reason: "Check for Jed Runewatcher on every UBRS run; this is the first dungeon priority.",
-  }),
   roadmapAction("lightforge-shoulders", "UBRS — Lightforge Spaulders", "dungeon", 59, {
     rewardId: "lightforge-spaulders", group: "UBRS",
     reason: "The Beast drop and one of the three efficient Lightforge pieces.",
@@ -199,7 +195,7 @@ const ROADMAP_ACTIONS = [
 ];
 
 const CORE_PRE_RAID_PRIORITY = [
-  "briarwood",
+  "infernal-lasso-quest",
   "stalwart-helm-craft",
   "arcanoweave-cloak-roadmap",
   "lightforge-belt-buy",
@@ -550,22 +546,22 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "trinket-one") {
-    return slot("pre-raid-trinket-one", "Trinket 1", "inv_misc_root_02", [
-        item("briarwood-reed", "Briarwood Reed", "UBRS · Jed Runewatcher", {
-          itemId: 12930,
-          icon: "inv_misc_root_02",
-          quality: "Rare",
-          tooltip: "Item Level 60 · Trinket · +15 Spell Damage and Healing; doubled in Marsh and Swamp areas.",
-        }),
-      ]);
-  }
-  if (gearSlot.id === "trinket-two") {
-    return slot("pre-raid-trinket-two", "Trinket 2", "inv_jewelry_talisman_09", [
+    return slot("pre-raid-trinket-one", "Trinket 1", "inv_jewelry_talisman_09", [
       item("draconic-emblem", "Draconic Infused Emblem", "UBRS · General Drakkisath", {
         itemId: 22268,
         icon: "inv_jewelry_talisman_09",
         quality: "Rare",
         tooltip: "Item Level 63 · Binds when picked up · Unique · Trinket · Requires Level 58 · Equip: Chance on harmful spellcast to gain +35 Spell Damage and Healing for 10 sec; spell damage is doubled against Dragonkin.",
+      }),
+    ]);
+  }
+  if (gearSlot.id === "trinket-two") {
+    return slot("pre-raid-trinket-two", "Trinket 2", "spell_nature_slow", [
+      item("infernal-lasso", "Infernal Lasso", "Brought to Heel quest", {
+        itemId: 219345,
+        icon: "spell_nature_slow",
+        quality: "Rare",
+        tooltip: "Item Level 50 · Trinket · +8 Spell Power · Use: 504 Fire damage over 12 sec and roots Demons and Beasts for 6 sec.",
       }),
     ]);
   }
