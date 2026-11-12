@@ -101,15 +101,15 @@ const ROADMAP_ACTIONS = [
     reason: "Deterministic PvP cloak with +8 to every primary stat.",
   }),
   roadmapAction("base-wrists", "Premier Chevalier Armsplints", "purchase", 55, {
-    honor: 4500, marks: { wsg: 10 },
+    honor: 4500, marks: { wsg: 10 }, rewardId: "vindication-wrists",
     reason: "Buy the rare base early; it is required for the Rank 8 epic wrist upgrade.",
   }),
   roadmapAction("base-belt", "Premier Chevalier Cinch", "purchase", 55, {
-    honor: 6000, marks: { ab: 10 },
+    honor: 6000, marks: { ab: 10 }, rewardId: "vindication-waist",
     reason: "Buy the rare base early; it is required for the Rank 8 epic belt upgrade.",
   }),
   roadmapAction("base-boots", "Premier Chevalier Sabatons", "purchase", 55, {
-    honor: 7500, marks: { darkspear: 10 },
+    honor: 7500, marks: { darkspear: 10 }, rewardId: "vindication-boots",
     reason: "Required for the Rank 9 epic boots.",
   }),
   roadmapAction("base-gloves", "Premier Chevalier Gauntlets", "purchase", 55, {
@@ -165,16 +165,21 @@ const ROADMAP_ACTIONS = [
     rewardId: "blood-martyr", group: "Stratholme",
     reason: "Complete the Aurius event while running Baron Rivendare and select the ring reward.",
   }),
-  roadmapAction("stalwart-helm-craft", "Craft Stalwart Helm", "craft", 56, {
-    rewardId: "stalwart-helm",
-    reason: "Plate-only raid headpiece with 2% Hit and 38 Spell Power.",
+  roadmapAction("star-mystaria", "Stratholme — Star of Mystaria", "dungeon", 58, {
+    rewardId: "star-mystaria", group: "Stratholme",
+    reason: "Balnazzar necklace with 1.3% Hit; replaces the quest neck without using a plate slot.",
+  }),
+  roadmapAction("battleborn-armbraces", "UBRS — Battleborn Armbraces", "dungeon", 58, {
+    rewardId: "battleborn-armbraces", group: "UBRS",
+    reason: "Rend drop with 1% Hit and 1% melee Critical Strike; helps complete the affordable 4.2% Hit setup.",
   }),
   roadmapAction("arcanoweave-cloak-roadmap", "Buy Arcanoweave Cloak", "currency", 60, {
     rewardId: "arcanoweave-cloak",
     reason: "Undermine vendor cloak adds the final 1% Hit plus 16 Spell Power without replacing plate armor.",
   }),
   roadmapAction("lightforge-belt-buy", "Buy Lightforge Belt", "market", 53, {
-    rewardId: "lightforge-belt", reason: "Prefer the BoE belt from the Auction House over prolonged trash farming.",
+    rewardId: "lightforge-belt",
+    reason: "Use the BoE belt for the fifth Lightforge piece and its additional 0.5% Hit.",
   }),
   roadmapAction("lightforge-shoulders", "UBRS — Lightforge Spaulders", "dungeon", 59, {
     rewardId: "lightforge-spaulders", group: "UBRS",
@@ -182,7 +187,15 @@ const ROADMAP_ACTIONS = [
   }),
   roadmapAction("lightforge-chest", "UBRS — Lightforge Breastplate", "dungeon", 59, {
     rewardId: "lightforge-breastplate", group: "UBRS",
-    reason: "Drakkisath drop that completes the efficient Lightforge 3-piece.",
+    reason: "Drakkisath drop and a core piece of the planned Lightforge mix.",
+  }),
+  roadmapAction("lightforge-legs", "Stratholme — Lightforge Legplates", "dungeon", 58, {
+    rewardId: "lightforge-legplates", group: "Stratholme",
+    reason: "Baron Rivendare drop that replaces the weak Lightforge Belt while overlapping with Blood of the Martyr.",
+  }),
+  roadmapAction("lightforge-helm", "Scholomance — Lightforge Helm", "dungeon", 57, {
+    rewardId: "lightforge-helm", group: "Scholomance",
+    reason: "Darkmaster Gandling drop that unlocks the Lightforge 4-piece bonus without displacing a later epic PvP upgrade.",
   }),
   roadmapAction("draconic", "UBRS — Draconic Infused Emblem", "dungeon", 59, {
     rewardId: "draconic-emblem", group: "UBRS",
@@ -196,11 +209,14 @@ const ROADMAP_ACTIONS = [
 
 const CORE_PRE_RAID_PRIORITY = [
   "infernal-lasso-quest",
-  "stalwart-helm-craft",
   "arcanoweave-cloak-roadmap",
+  "star-mystaria",
+  "battleborn-armbraces",
   "lightforge-belt-buy",
   "lightforge-shoulders",
   "lightforge-chest",
+  "lightforge-legs",
+  "lightforge-helm",
   "draconic",
 ];
 
@@ -359,12 +375,12 @@ const leftSlots = [
     }),
   ]),
   slot("wrists", "Wrists", "inv_bracer_13", [
-    item("epic-vindication-wrists", "Premier Knight-Captain's Chevalier Armguards", "Rank 8 · Wrist upgrade seal", {
-      itemId: 272778,
-      icon: "./assets/icons/item-272778.jpg",
-      quality: "Epic",
-      enchant: enchant("FINAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
-      tooltip: mixedVindicationTooltip("Item Level 65 · Binds when picked up · Wrist · Plate · 323 Armor · +20 Stamina · +12 Strength · +7 Intellect · Requires Level 60"),
+    item("vindication-wrists", "Premier Chevalier Armsplints", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272721,
+      icon: "./assets/icons/item-272721.jpg",
+      quality: "Rare",
+      enchant: enchant("BUDGET", "+9 Strength", "budget"),
+      tooltip: "Item Level 60 · Binds when picked up · Wrist · Plate · 274 Armor · +14 Stamina · +9 Strength · +5 Intellect · Requires Level 55",
     }),
   ]),
   slot("weapon", "Two-Hand", "inv_spear_04", [
@@ -397,12 +413,12 @@ const rightSlots = [
     }),
   ]),
   slot("waist", "Waist", "inv_belt_13", [
-    item("epic-vindication-waist", "Premier Knight-Captain's Chevalier Belt", "Rank 8 · Belt upgrade seal", {
-      itemId: 272779,
-      icon: "./assets/icons/item-272779.jpg",
-      quality: "Epic",
+    item("vindication-waist", "Premier Chevalier Cinch", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272720,
+      icon: "./assets/icons/item-272720.jpg",
+      quality: "Rare",
       enchant: enchant("TINKER", "Nitro Boosts · Engineering 280 · up to +160% movement speed for up to 8 sec", "final"),
-      tooltip: mixedVindicationTooltip("Item Level 65 · Binds when picked up · Waist · Plate · 415 Armor · +26 Stamina · +17 Strength · +10 Intellect · Requires Level 60"),
+      tooltip: "Item Level 60 · Binds when picked up · Waist · Plate · 353 Armor · +19 Stamina · +12 Strength · +7 Intellect · Requires Level 55",
     }),
   ]),
   slot("legs", "Legs", "inv_pants_plate_04", [
@@ -415,12 +431,12 @@ const rightSlots = [
     }),
   ]),
   slot("feet", "Feet", "inv_boots_plate_03", [
-    item("epic-vindication-boots", "Premier Knight-Champion's Chevalier Boots", "Rank 9 · Feet upgrade seal", {
-      itemId: 272781,
-      icon: "./assets/icons/item-272781.jpg",
-      quality: "Epic",
-      enchant: enchant("FINAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-      tooltip: mixedVindicationTooltip("Item Level 65 · 507 Armor · +26 Stamina · +12 Strength · +8 Intellect · +14 Spell Power"),
+    item("vindication-boots", "Premier Chevalier Sabatons", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272718,
+      icon: "./assets/icons/item-272718.jpg",
+      quality: "Rare",
+      enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+      tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
     }),
   ]),
   slot("ring-one", "Finger 1", "inv_jewelry_ring_15", [
@@ -459,13 +475,24 @@ const rightSlots = [
 
 const preRaidLeftSlots = leftSlots.map((gearSlot) => {
   if (gearSlot.id === "head") {
-    return slot("pre-raid-head", "Head", "./assets/icons/stalwart-helm.png", [
-      item("stalwart-helm", "Stalwart Helm", "Crafted · Blacksmithing", {
-        itemId: 250599,
-        icon: "./assets/icons/stalwart-helm.png",
-        quality: "Epic",
-        enchant: enchant("FINAL", "Arcanum of Rapidity · +1% Haste", "final", "Lesser Arcanum of Voracity · +8 Strength"),
-        tooltip: "Item Level 61 · Binds when equipped · Head · Plate · 565 Armor · +12 Strength · +20 Hit · +38 Spell Damage and Healing · Requires Level 56",
+    return slot("pre-raid-head", "Head", "./assets/icons/lightforge-helm.jpg", [
+      item("lightforge-helm", "Lightforge Helm", "Scholomance · Darkmaster Gandling", {
+        itemId: 16727,
+        icon: "./assets/icons/lightforge-helm.jpg",
+        quality: "Rare",
+        enchant: enchant("BUDGET", "Lesser Arcanum of Constitution · +100 Health", "budget"),
+        tooltip: lightforgeTooltip("Item Level 62 · 526 Armor · +14 Strength · +20 Stamina · +13 Intellect · +7 Agility · +4 Mana per 5 sec"),
+      }),
+    ]);
+  }
+  if (gearSlot.id === "neck") {
+    return slot("pre-raid-neck", "Neck", "inv_jewelry_talisman_08", [
+      item("star-mystaria", "Star of Mystaria", "Stratholme · Balnazzar", {
+        itemId: 12103,
+        icon: "inv_jewelry_talisman_08",
+        quality: "Rare",
+        enchant: enchant("FINAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
+        tooltip: "Item Level 63 · Binds when picked up · Neck · +7 Spirit · +7 Intellect · +7 Stamina · +13 Hit · Requires Level 58",
       }),
     ]);
   }
@@ -502,13 +529,13 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "wrists") {
-    return slot("pre-raid-wrists", "Wrists", "inv_bracer_18", [
-      item("epic-vindication-wrists", "Premier Knight-Captain's Chevalier Armguards", "Rank 8 · Wrist upgrade seal", {
-        itemId: 272778,
-        icon: "./assets/icons/item-272778.jpg",
-        quality: "Epic",
+    return slot("pre-raid-wrists", "Wrists", "./assets/icons/battleborn-armbraces.jpg", [
+      item("battleborn-armbraces", "Battleborn Armbraces", "UBRS · Warchief Rend Blackhand", {
+        itemId: 12936,
+        icon: "./assets/icons/battleborn-armbraces.jpg",
+        quality: "Rare",
         enchant: enchant("FINAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
-        tooltip: mixedVindicationTooltip("Item Level 65 · Binds when picked up · Wrist · Plate · 323 Armor · +20 Stamina · +12 Strength · +7 Intellect · Requires Level 60"),
+        tooltip: "Item Level 63 · Binds when picked up · Wrist · Plate · 287 Armor · +7 Spirit · +10 Hit · +14 Critical Strike · Requires Level 58",
       }),
     ]);
   }
@@ -518,7 +545,7 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
 const preRaidRightSlots = rightSlots.map((gearSlot) => {
   if (gearSlot.id === "waist") {
     return slot("pre-raid-waist", "Waist", "./assets/icons/lightforge-belt.jpg", [
-      item("lightforge-belt", "Lightforge Belt", "Stratholme trash · BoE", {
+      item("lightforge-belt", "Lightforge Belt", "BoE · Auction House", {
         itemId: 16723,
         icon: "./assets/icons/lightforge-belt.jpg",
         quality: "Rare",
@@ -527,14 +554,14 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
       }),
     ]);
   }
-  if (gearSlot.id === "feet") {
-    return slot("pre-raid-feet", "Feet", "inv_boots_plate_03", [
-      item("epic-vindication-boots", "Premier Knight-Champion's Chevalier Boots", "Rank 9 · Feet upgrade seal", {
-        itemId: 272781,
-        icon: "./assets/icons/item-272781.jpg",
-        quality: "Epic",
-        enchant: enchant("FINAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-        tooltip: mixedVindicationTooltip("Item Level 65 · 507 Armor · +26 Stamina · +12 Strength · +8 Intellect · +14 Spell Power"),
+  if (gearSlot.id === "legs") {
+    return slot("pre-raid-legs", "Legs", "./assets/icons/lightforge-legplates.jpg", [
+      item("lightforge-legplates", "Lightforge Legplates", "Stratholme · Baron Rivendare", {
+        itemId: 16728,
+        icon: "./assets/icons/lightforge-legplates.jpg",
+        quality: "Rare",
+        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+        tooltip: lightforgeTooltip("Item Level 61 · 557 Armor · +20 Strength · +14 Stamina · +12 Intellect · +9 Agility · +3 Mana per 5 sec"),
       }),
     ]);
   }
