@@ -722,7 +722,7 @@ function candidateMarkup(candidate, compact = false) {
   const disabled = !candidate.trackable;
   const icon = candidate.icon ?? "inv_misc_questionmark";
   return `
-    <label class="gear-candidate${checked ? " obtained" : ""}${disabled ? " pending" : ""}${compact ? " compact" : ""}" data-gear-id="${candidate.id}">
+    <label class="gear-candidate${checked ? " obtained" : ""}${disabled ? " pending" : ""}${compact ? " compact" : ""}">
       <input
         type="checkbox"
         data-item-id="${candidate.id}"
@@ -757,8 +757,9 @@ function enchantMarkup(recommendation) {
 
 function slotMarkup(gearSlot) {
   const displayIcon = gearSlot.items[0]?.icon ?? gearSlot.icon;
+  const displayItem = gearSlot.items[0];
   return `
-    <article class="gear-slot-card" data-slot="${gearSlot.id}">
+    <article class="gear-slot-card" data-slot="${gearSlot.id}"${displayItem ? ` data-gear-id="${displayItem.id}"` : ""}>
       <img src="${iconUrl(displayIcon)}" alt="">
       <div class="gear-slot-copy">
         <span>${gearSlot.name}</span>

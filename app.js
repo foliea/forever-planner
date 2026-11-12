@@ -515,7 +515,7 @@ function readableLayout(sourceLayout) {
 function serializeLayout() {
   return JSON.stringify(
     {
-      app: "Lightbind",
+      app: "Grimar",
       game: "WoW Forever",
       build: "1.60.1.70707",
       layouts: {
@@ -676,7 +676,7 @@ document.querySelector("#copyCharacterMacrosButton").addEventListener("click", (
 );
 
 document.querySelector("#importButton").addEventListener("click", () => {
-  const text = window.prompt("Paste a Lightbind layout:");
+  const text = window.prompt("Paste a Grimar layout:");
   if (!text) return;
   try {
     const imported = parseImport(text);

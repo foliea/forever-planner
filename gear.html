@@ -7,7 +7,7 @@
       name="description"
       content="Paladin PvP and pre-raid gear target tracker for World of Warcraft: Forever."
     />
-    <title>Lightbind — Paladin Gear Targets</title>
+    <title>Grimar — Paladin Preparation</title>
     <link rel="stylesheet" href="./styles.css?v=61" />
   </head>
   <body>
@@ -15,7 +15,7 @@
     <div class="ambient ambient-two"></div>
 
     <header class="topbar">
-      <a class="brand" href="./index.html" aria-label="Lightbind action bar planner">
+      <a class="brand" href="./index.html" aria-label="Grimar action bar planner">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 40 40" fill="none">
             <path d="M20 4v32M4 20h32" />
@@ -24,8 +24,8 @@
           </svg>
         </span>
         <span>
-          <strong>LIGHTBIND</strong>
-          <small>PALADIN GEAR TARGETS</small>
+          <strong>GRIMAR</strong>
+          <small>PALADIN PREPARATION</small>
         </span>
       </a>
       <div class="build-pill">
@@ -43,14 +43,11 @@
     <main class="app-shell gear-app">
       <section class="intro gear-intro">
         <div>
-          <p class="eyebrow"><span></span> PvP target list</p>
-          <h1>Build the<br /><em>Retribution Paladin.</em></h1>
+          <p class="eyebrow"><span></span> WoW Forever</p>
+          <h1><em>Retribution Paladin</em></h1>
         </div>
         <div class="intro-copy">
-          <p>
-            A visual target sheet for your planned PvP equipment. Mark pieces as
-            obtained while you assemble the set; progress is saved in this browser.
-          </p>
+          <p>Gear, consumables, and progression. Progress is saved in this browser.</p>
           <div class="gear-progress" aria-live="polite">
             <div>
               <span id="gearProgressText">0 / 0 obtained</span>
@@ -63,7 +60,19 @@
         </div>
       </section>
 
-      <section class="roadmap-shell" aria-labelledby="roadmapTitle">
+      <nav class="gear-tabs" aria-label="Planner sections">
+        <button class="gear-tab active" type="button" data-gear-tab="pvp-starter">
+          PvP
+        </button>
+        <button class="gear-tab" type="button" data-gear-tab="pre-raid">
+          Pre-raid
+        </button>
+        <button class="gear-tab" type="button" data-gear-tab="roadmap">
+          Roadmap
+        </button>
+      </nav>
+
+      <section class="roadmap-shell gear-tab-panel" data-gear-panel="roadmap" aria-labelledby="roadmapTitle" hidden>
         <div class="roadmap-heading">
           <div>
             <p class="section-label">Adaptive gearing roadmap</p>
@@ -146,20 +155,11 @@
         </details>
       </section>
 
-      <nav class="gear-tabs" aria-label="Gear loadouts">
-        <button class="gear-tab active" type="button" data-gear-tab="pvp-starter">
-          PvP Rank 9
-        </button>
-        <button class="gear-tab" type="button" data-gear-tab="pre-raid">
-          Pre-raid
-        </button>
-      </nav>
-
       <section class="gear-workspace gear-tab-panel active" data-gear-panel="pvp-starter">
         <div class="gear-toolbar">
           <div>
             <p class="section-label">Loadout 01</p>
-            <h2>PvP — Retribution</h2>
+            <h2>PvP</h2>
           </div>
           <span class="modifier-tag shift">RANK 9 VINDICATION MIX</span>
         </div>
@@ -349,7 +349,7 @@
         <div class="gear-toolbar">
           <div>
             <p class="section-label">Loadout 02</p>
-            <h2>Expected pre-raid gear</h2>
+            <h2>Expected pre-raid</h2>
           </div>
           <span class="modifier-tag shift">FIRST RAID TARGETS</span>
         </div>
@@ -424,6 +424,6 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="./gear.js?v=65"></script>
+    <script src="./gear.js?v=66"></script>
   </body>
 </html>
