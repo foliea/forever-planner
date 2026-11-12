@@ -3,7 +3,7 @@
   "game": "WoW Forever",
   "build": "1.60.1.70707",
   "version": 17,
-  "activeMode": "pve",
+  "activeMode": "pvp",
   "layouts": {
     "pvp": {
       "main": [
@@ -34,7 +34,7 @@
         "macro-hammer-wrath-judgement",
         "seal-command",
         "macro-crusader-judgement",
-        "holy-shock",
+        "macro-offensive-holy-shock",
         "macro-holy-strike-judgement",
         "seal-justice",
         "consecration",
