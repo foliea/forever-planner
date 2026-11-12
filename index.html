@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A Paladin action bar planner for World of Warcraft: Forever."
+    />
+    <title>Lightbind — Paladin Action Bar Planner</title>
+    <link rel="stylesheet" href="./styles.css?v=35" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Lightbind home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 4v32M4 20h32" />
+            <path d="m9 9 22 22M31 9 9 31" />
+            <circle cx="20" cy="20" r="7" />
+          </svg>
+        </span>
+        <span>
+          <strong>LIGHTBIND</strong>
+          <small>PALADIN BAR PLANNER</small>
+        </span>
+      </a>
+      <div class="build-pill">
+        <span class="status-dot"></span>
+        <span>FOREVER BUILD 1.60.1.70707</span>
+      </div>
+      <div class="header-actions">
+        <a class="button ghost button-link" href="./gear.html">Gear targets</a>
+        <button class="button ghost" id="resetButton" type="button">
+          <span class="button-icon">↺</span> Reset
+        </button>
+        <button class="button ghost" id="macroExportButton" type="button">
+          Export macros
+        </button>
+        <button class="button primary" id="exportButton" type="button">
+          Export layout <span class="button-icon">↗</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="intro">
+        <div>
+          <p class="eyebrow"><span></span> Forge your setup</p>
+          <h1>Every spell.<br /><em>Right where it belongs.</em></h1>
+        </div>
+        <div class="intro-copy">
+          <p>
+            Build your Paladin layout before you log in. Drag any spell onto a
+            slot, move it between bars, and keep your setup saved in this browser.
+          </p>
+          <div class="save-state" id="saveState">
+            <span>✓</span> Saved locally
+          </div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="spellbook panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">Spellbook</p>
+              <h2>Abilities &amp; items</h2>
+            </div>
+            <span class="count-badge" id="spellCount">0</span>
+          </div>
+
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-4-4"></path>
+            </svg>
+            <input id="searchInput" type="search" placeholder="Search spells..." />
+            <kbd>/</kbd>
+          </label>
+
+          <div class="filters" id="filters" role="group" aria-label="Spell filters">
+            <button class="filter active" data-filter="All" type="button">All</button>
+            <button class="filter" data-filter="Holy" type="button">Holy</button>
+            <button class="filter" data-filter="Protection" type="button">Protection</button>
+            <button class="filter" data-filter="Retribution" type="button">Retribution</button>
+            <button class="filter" data-filter="Human" type="button">Racials</button>
+            <button class="filter" data-filter="Items" type="button">Items</button>
+            <button class="filter" data-filter="Macros" type="button">Macros</button>
+          </div>
+
+          <div class="spell-list" id="spellList"></div>
+        </aside>
+
+        <section class="layout-area">
+          <div class="layout-toolbar">
+            <div>
+              <p class="section-label" id="modeLabel">PvP - Shock loadout</p>
+              <h2>Action bar layout</h2>
+            </div>
+            <div class="layout-controls">
+              <div class="mode-tabs" id="modeTabs" role="tablist" aria-label="Layout mode">
+                <button class="mode-tab active" type="button" role="tab" aria-selected="true" data-mode="pvp">
+                  <span class="mode-dot"></span> PvP - Shock
+                </button>
+                <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="pve">
+                  <span class="mode-dot"></span> PvE
+                </button>
+                <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="pvpReckoning">
+                  <span class="mode-dot"></span> PvP - Reckoning
+                </button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="text-button" id="clearButton" type="button">Clear all</button>
+                <button class="text-button accent" id="fillButton" type="button">Starter layout ✦</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bar-card normal-card">
+            <div class="bar-card-header">
+              <div class="bar-title">
+                <span class="bar-number">01</span>
+                <div>
+                  <h3>Main action bar</h3>
+                  <p>Core rotation &amp; combat</p>
+                </div>
+              </div>
+              <span class="bar-shape">12 SLOTS + M3</span>
+            </div>
+            <div class="main-control-row">
+              <div class="normal-bar drop-grid" id="mainBar" data-bar="main"></div>
+              <div class="mouse-control">
+                <span>Mouse</span>
+                <div class="mouse-grid drop-grid" id="mouseBar" data-bar="mouse"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bar-card number-row-card">
+            <div class="bar-card-header">
+              <div class="bar-title">
+                <span class="bar-number">02</span>
+                <div>
+                  <h3>Extended number row</h3>
+                  <p>Additional keyboard bindings</p>
+                </div>
+              </div>
+              <span class="bar-shape">8 SLOTS</span>
+            </div>
+            <div class="number-row-bar drop-grid" id="numberRow" data-bar="numberRow"></div>
+          </div>
+
+          <div class="naga-section">
+            <div class="naga-heading">
+              <div>
+                <p class="section-label">Naga grid</p>
+                <h2>Thumb controls</h2>
+              </div>
+              <p>Mirrors the physical 3 × 4 button layout</p>
+            </div>
+
+            <div class="naga-cards">
+              <div class="bar-card naga-card">
+                <div class="bar-card-header">
+                  <div class="bar-title">
+                    <span class="bar-number">03</span>
+                    <div>
+                      <h3>Naga — Base</h3>
+                      <p>Utility &amp; movement</p>
+                    </div>
+                  </div>
+                  <span class="modifier-tag">NO MODIFIER</span>
+                </div>
+                <div class="naga-shell">
+                  <div class="naga-grid drop-grid" id="nagaBase" data-bar="nagaBase"></div>
+                </div>
+              </div>
+
+              <div class="bar-card naga-card">
+                <div class="bar-card-header">
+                  <div class="bar-title">
+                    <span class="bar-number">04</span>
+                    <div>
+                      <h3>Naga — Shift</h3>
+                      <p>Cooldowns &amp; support</p>
+                    </div>
+                  </div>
+                  <span class="modifier-tag shift">SHIFT +</span>
+                </div>
+                <div class="naga-shell">
+                  <div class="naga-grid drop-grid" id="nagaShift" data-bar="nagaShift"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <footer class="workspace-footer">
+            <p><span>◆</span> Drag from the spellbook or click a spell to fill the next open slot.</p>
+            <p>Right-click a filled slot to clear it.</p>
+          </footer>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog id="exportDialog">
+      <form method="dialog" class="dialog-card">
+        <div class="dialog-heading">
+          <div>
+            <p class="section-label">Your loadout</p>
+            <h2>Export layout</h2>
+          </div>
+          <button class="close-button" value="cancel" aria-label="Close">×</button>
+        </div>
+        <p class="dialog-copy">Copy this text to back up or share your exact setup.</p>
+        <textarea id="exportText" readonly></textarea>
+        <div class="dialog-actions">
+          <button class="button ghost" id="importButton" type="button">Import instead</button>
+          <button class="button primary" id="copyButton" type="button">Copy to clipboard</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="macroExportDialog">
+      <form method="dialog" class="dialog-card macro-export-card">
+        <div class="dialog-heading">
+          <div>
+            <p class="section-label">ZMacros</p>
+            <h2>Export macros</h2>
+          </div>
+          <button class="close-button" value="cancel" aria-label="Close">×</button>
+        </div>
+        <p class="dialog-copy">
+          In ZMacros, import the first block as General macros and the second as
+          Character macros.
+        </p>
+        <div class="macro-export-section">
+          <div class="macro-export-heading">
+            <div>
+              <strong>Account-wide</strong>
+              <span>Enable “General macro” before importing</span>
+            </div>
+            <button class="text-button accent" id="copyAccountMacrosButton" type="button">Copy</button>
+          </div>
+          <textarea class="export-text macro-export-text" id="accountMacrosText" readonly></textarea>
+        </div>
+        <div class="macro-export-section">
+          <div class="macro-export-heading">
+            <div>
+              <strong>Character-specific</strong>
+              <span>Disable “General macro” before importing</span>
+            </div>
+            <button class="text-button accent" id="copyCharacterMacrosButton" type="button">Copy</button>
+          </div>
+          <textarea class="export-text macro-export-text" id="characterMacrosText" readonly></textarea>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="./data.js?v=33"></script>
+    <script src="./app.js?v=33"></script>
+  </body>
+</html>

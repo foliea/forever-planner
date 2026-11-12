@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Paladin PvP and pre-raid gear target tracker for World of Warcraft: Forever."
+    />
+    <title>Lightbind — Paladin Gear Targets</title>
+    <link rel="stylesheet" href="./styles.css?v=61" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <header class="topbar">
+      <a class="brand" href="./index.html" aria-label="Lightbind action bar planner">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 4v32M4 20h32" />
+            <path d="m9 9 22 22M31 9 9 31" />
+            <circle cx="20" cy="20" r="7" />
+          </svg>
+        </span>
+        <span>
+          <strong>LIGHTBIND</strong>
+          <small>PALADIN GEAR TARGETS</small>
+        </span>
+      </a>
+      <div class="build-pill">
+        <span class="status-dot"></span>
+        <span>FOREVER BUILD 1.60.1.70707</span>
+      </div>
+      <div class="header-actions">
+        <a class="button ghost button-link" href="./index.html">Action bars</a>
+        <button class="button ghost" id="resetGearButton" type="button">
+          <span class="button-icon">↺</span> Reset progress
+        </button>
+      </div>
+    </header>
+
+    <main class="app-shell gear-app">
+      <section class="intro gear-intro">
+        <div>
+          <p class="eyebrow"><span></span> PvP target list</p>
+          <h1>Build the<br /><em>Retribution Paladin.</em></h1>
+        </div>
+        <div class="intro-copy">
+          <p>
+            A visual target sheet for your planned PvP equipment. Mark pieces as
+            obtained while you assemble the set; progress is saved in this browser.
+          </p>
+          <div class="gear-progress" aria-live="polite">
+            <div>
+              <span id="gearProgressText">0 / 0 obtained</span>
+              <strong id="gearProgressPercent">0%</strong>
+            </div>
+            <div class="gear-progress-track">
+              <span id="gearProgressBar"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="roadmap-shell" aria-labelledby="roadmapTitle">
+        <div class="roadmap-heading">
+          <div>
+            <p class="section-label">Adaptive gearing roadmap</p>
+            <h2 id="roadmapTitle">One plan. Updated by your progress.</h2>
+          </div>
+          <p>Cap PvP first each reset, spend intelligently, then route into the highest-value quests and dungeons.</p>
+        </div>
+
+        <div class="roadmap-controls">
+          <label>
+            <span>Level</span>
+            <input id="roadmapLevel" type="number" min="1" max="60" inputmode="numeric">
+          </label>
+          <label>
+            <span>PvP rank</span>
+            <select id="roadmapRank"></select>
+          </label>
+          <label>
+            <span>Honor</span>
+            <input id="roadmapHonor" type="number" min="0" max="25000" step="100" inputmode="numeric">
+          </label>
+          <label>
+            <span>Honor earned while capping</span>
+            <input id="roadmapCapHonor" type="number" min="0" max="25000" step="100" inputmode="numeric">
+          </label>
+          <label>
+            <span>AV Marks</span>
+            <input id="roadmapMarkAv" type="number" min="0" step="1" inputmode="numeric">
+          </label>
+          <label>
+            <span>AB Marks</span>
+            <input id="roadmapMarkAb" type="number" min="0" step="1" inputmode="numeric">
+          </label>
+          <label>
+            <span>WSG Marks</span>
+            <input id="roadmapMarkWsg" type="number" min="0" step="1" inputmode="numeric">
+          </label>
+          <label>
+            <span>Darkspear Marks</span>
+            <input id="roadmapMarkDarkspear" type="number" min="0" step="1" inputmode="numeric">
+          </label>
+        </div>
+
+        <div class="roadmap-reset-row">
+          <label class="roadmap-cap-toggle">
+            <input id="roadmapWeeklyCap" type="checkbox">
+            <span>Rank Points capped this reset</span>
+          </label>
+          <button class="button ghost" id="roadmapNewReset" type="button">Start new reset</button>
+        </div>
+
+        <article class="roadmap-decision" id="roadmapDecision" aria-live="polite"></article>
+
+        <div class="roadmap-columns">
+          <section>
+            <div class="roadmap-column-title">
+              <span class="roadmap-priority-dot now"></span>
+              <h3>Do now</h3>
+            </div>
+            <div class="roadmap-list" id="roadmapNow"></div>
+          </section>
+          <section>
+            <div class="roadmap-column-title">
+              <span class="roadmap-priority-dot next"></span>
+              <h3>Next</h3>
+            </div>
+            <div class="roadmap-list" id="roadmapNext"></div>
+          </section>
+          <section>
+            <div class="roadmap-column-title">
+              <span class="roadmap-priority-dot later"></span>
+              <h3>Blocked / later</h3>
+            </div>
+            <div class="roadmap-list" id="roadmapLater"></div>
+          </section>
+        </div>
+        <details class="roadmap-completed">
+          <summary>Completed objectives <span id="roadmapCompletedCount">0</span></summary>
+          <div class="roadmap-list" id="roadmapCompleted"></div>
+        </details>
+      </section>
+
+      <nav class="gear-tabs" aria-label="Gear loadouts">
+        <button class="gear-tab active" type="button" data-gear-tab="pvp-starter">
+          PvP Rank 9
+        </button>
+        <button class="gear-tab" type="button" data-gear-tab="pre-raid">
+          Pre-raid
+        </button>
+      </nav>
+
+      <section class="gear-workspace gear-tab-panel active" data-gear-panel="pvp-starter">
+        <div class="gear-toolbar">
+          <div>
+            <p class="section-label">Loadout 01</p>
+            <h2>PvP — Retribution</h2>
+          </div>
+          <span class="modifier-tag shift">RANK 9 VINDICATION MIX</span>
+        </div>
+
+        <div class="character-sheet" id="characterSheet">
+          <div class="gear-column" id="gearLeft"></div>
+
+          <div class="character-core stats-core">
+            <p>Human Paladin</p>
+            <strong>Retribution</strong>
+            <span class="character-subtitle">PvP starter loadout</span>
+            <div class="stat-recap" id="pvpStatRecap"></div>
+          </div>
+
+          <div class="gear-column" id="gearRight"></div>
+        </div>
+
+        <section class="consumables-panel" aria-labelledby="pvpConsumablesTitle">
+          <div class="consumables-heading">
+            <div>
+              <p class="section-label">Consumable kit</p>
+              <h3 id="pvpConsumablesTitle">PvP carry list</h3>
+            </div>
+            <p>Draught macros use the Battleground item first and fall back to the normal potion. Identical badge text means a shared lockout.</p>
+          </div>
+          <div class="consumables-grid" id="pvpConsumables"></div>
+        </section>
+
+        <section class="gear-plan questie-guide legacy-acquisition">
+          <div class="gear-plan-heading">
+            <div>
+              <p class="section-label">Quest tracker</p>
+              <h2>Level first. Collect efficiently. Finish with Honor.</h2>
+            </div>
+            <p>
+              Use quests and dungeon runs to cover as many slots as possible while
+              gaining experience. Save the dedicated Honor grind for level 60.
+            </p>
+          </div>
+
+          <div class="questie-tracker-bar">
+            <div>
+              <span class="questie-logo">Q</span>
+              <strong>Retribution Gear Route</strong>
+            </div>
+            <span>Tracked objectives</span>
+          </div>
+
+          <div class="plan-timeline">
+            <article class="plan-phase">
+              <div class="plan-level">
+                <span>50–54</span>
+                <small>3 quests</small>
+              </div>
+              <div>
+                <h3>Complete the efficient quest rewards</h3>
+                <ul class="questie-list">
+                  <li data-guide-id="songstone">
+                    <div class="questie-quest-title">
+                      <span class="questie-marker">!</span>
+                      <strong>[50] The Princess’s Surprise</strong>
+                    </div>
+                    <p>Start the Alliance princess chain with Royal Historian Archesonus beside Ironforge’s throne room. Continue through <em>The Fate of the Kingdom</em>, then accept this quest from Princess Moira inside BRD and return to King Magni in Ironforge.</p>
+                    <span class="questie-reward" data-reward-id="songstone-ironforge">Reward: Songstone of Ironforge</span>
+                  </li>
+                  <li data-guide-id="ice-barbed-spear">
+                    <div class="questie-quest-title">
+                      <span class="questie-marker">!</span>
+                      <strong>[51] Hero of the Stormpike</strong>
+                    </div>
+                    <p>Take <em>The Battle of Alterac</em> from Prospector Stonehewer outside the Alliance AV entrance in Alterac Mountains (40.6, 79.6). Win an AV and complete the follow-up.</p>
+                    <span class="questie-reward" data-reward-id="ice-barbed-spear">Reward choice: Ice Barbed Spear</span>
+                  </li>
+                  <li data-guide-id="infernal-lasso">
+                    <div class="questie-quest-title">
+                      <span class="questie-marker">!</span>
+                      <strong>[54] Brought to Heel</strong>
+                    </div>
+                    <p>Available to Paladins in Forever from level 45. Start with <em>The Burning Beast</em> from a Weathered Etching, complete <em>Chains That Bind</em>, then continue with Bloodmage Lynnore in the Blasted Lands (50.6, 14.5). The exact Forever location of the starting etching is not yet documented.</p>
+                    <span class="questie-reward" data-reward-id="infernal-lasso">Reward: Infernal Lasso</span>
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="plan-phase">
+              <div class="plan-level">
+                <span>55–60</span>
+                <small>2 targets</small>
+              </div>
+              <div>
+                <h3>Finish the high-value dungeon targets</h3>
+                <ul class="questie-list">
+                  <li data-guide-id="blood-martyr">
+                    <div class="questie-quest-title">
+                      <span class="questie-marker kill">◆</span>
+                      <strong>[55] Aurius / Baron Rivendare</strong>
+                    </div>
+                    <p>Loot the Medallion of Faith in living-side Stratholme and give it to Aurius in Alonsus Chapel near the undead-side entrance. Kill Baron Rivendare, then speak to Aurius.</p>
+                    <span class="questie-reward" data-reward-id="blood-martyr">Reward: Blood of the Martyr</span>
+                  </li>
+                  <li data-guide-id="archlight-talisman">
+                    <div class="questie-quest-title">
+                      <span class="questie-marker">!</span>
+                      <strong>[60] Hidden Treasures</strong>
+                    </div>
+                    <p>Complete the Darrowshire story beginning with <em>Little Pamela</em>. After <em>The Battle of Darrowshire</em>, take <em>Hidden Treasures</em> from Pamela Redpath at Darrowshire (31.2, 78.0) and open Joseph’s Chest behind the house at (30.9, 77.8).</p>
+                    <span class="questie-reward" data-reward-id="archlight-talisman">Reward: Archlight Talisman</span>
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="plan-phase final">
+              <div class="plan-level">
+                <span>60</span>
+                <small>4 objectives</small>
+              </div>
+              <div>
+                <h3>Convert the remaining slots through PvP</h3>
+                <ul class="questie-list compact">
+                  <li data-guide-id="pvp-trinket"><p>Obtain <strong data-reward-id="greater-insignia-alliance">Greater Insignia of the Alliance</strong> first.</p></li>
+                  <li data-guide-id="aegis-marks"><p>Farm the Battleground Marks required by Vindication while accumulating Honor.</p></li>
+                  <li data-guide-id="dungeon-cleanup"><p>Complete missed dungeon targets when the run still offers strong value.</p></li>
+                  <li data-guide-id="relic-cleanup"><p>Finish Libram of Law.</p></li>
+                </ul>
+              </div>
+            </article>
+          </div>
+
+          <div class="honor-plan">
+            <div class="gear-panel-heading">
+              <div>
+                <p class="section-label">Level 60 priority</p>
+                <h3>Honor purchase order</h3>
+              </div>
+              <span>59,200 Honor for the 8 rare bases · upgrade seals extra</span>
+            </div>
+            <div class="honor-steps">
+              <div>
+                <span>01</span>
+                <strong>PvP trinket</strong>
+                <small>Unlock your essential crowd-control break first.</small>
+              </div>
+              <div>
+                <span>02</span>
+                <strong>Vindication 2-piece</strong>
+                <small>Shoulders + Gauntlets: 13,850 Honor, plus 10 AB and 10 WSG Marks.</small>
+              </div>
+              <div>
+                <span>03</span>
+                <strong>Vindication 4-piece</strong>
+                <small>Add Headguard + Sabatons for the reduced Hammer of Justice cooldown.</small>
+              </div>
+              <div>
+                <span>04</span>
+                <strong>Vindication 6-piece</strong>
+                <small>Add Breastplate + Leggings. Full set total: 48,700 Honor and 75 Marks.</small>
+              </div>
+              <div>
+                <span>05</span>
+                <strong>Wrists + Waist</strong>
+                <small>Finish with Armsplints and Cinch: 10,500 Honor and 20 additional Marks.</small>
+              </div>
+              <div>
+                <span>06</span>
+                <strong>Rank 8 upgrades</strong>
+                <small>Upgrade Armsplints and Cinch with the epic wrist and belt seals.</small>
+              </div>
+              <div>
+                <span>07</span>
+                <strong>Rank 9 boots</strong>
+                <small>Upgrade Chevalier Sabatons with the epic feet seal.</small>
+              </div>
+            </div>
+          </div>
+
+          <p class="plan-note">
+            The order is a guideline: Marks are likely to be the real gate. Buy an
+            equivalent Vindication piece earlier when you already have its Marks rather
+            than waiting on a specific Battleground queue.
+          </p>
+        </section>
+      </section>
+
+      <section class="gear-workspace gear-tab-panel" data-gear-panel="pre-raid" hidden>
+        <div class="gear-toolbar">
+          <div>
+            <p class="section-label">Loadout 02</p>
+            <h2>Expected pre-raid gear</h2>
+          </div>
+          <span class="modifier-tag shift">FIRST RAID TARGETS</span>
+        </div>
+
+        <div class="character-sheet">
+          <div class="gear-column" id="preRaidGearLeft"></div>
+
+          <div class="character-core stats-core">
+            <p>Human Paladin</p>
+            <strong>Retribution</strong>
+            <span class="character-subtitle">Starter set with first raid upgrades</span>
+            <div class="stat-recap" id="preRaidStatRecap"></div>
+          </div>
+
+          <div class="gear-column" id="preRaidGearRight"></div>
+        </div>
+
+        <section class="consumables-panel" aria-labelledby="raidConsumablesTitle">
+          <div class="consumables-heading">
+            <div>
+              <p class="section-label">Consumable kit</p>
+              <h3 id="raidConsumablesTitle">Raid preparation</h3>
+            </div>
+            <p>Bring the full buff stack and Major Spellblasting Potions. Identical badge text means a shared lockout or exclusive buff slot.</p>
+          </div>
+          <div class="consumables-grid" id="raidConsumables"></div>
+        </section>
+
+        <section class="honor-plan pre-raid-priority legacy-acquisition">
+          <div class="gear-panel-heading">
+            <div>
+              <p class="section-label">Pre-raid priority</p>
+              <h3>Shortest route to the finished loadout</h3>
+            </div>
+            <span>Immediate upgrades before expensive world loot</span>
+          </div>
+
+          <div class="honor-steps">
+            <div>
+              <span>01</span>
+              <strong data-reward-id="briarwood-reed">Briarwood Reed</strong>
+              <small>Check for Jed Runewatcher on every UBRS run. Secure the reliable +15 spell damage/healing trinket first.</small>
+            </div>
+            <div>
+              <span>02</span>
+              <strong>Hit core</strong>
+              <small>Craft <b data-reward-id="stalwart-helm">Stalwart Helm</b> and buy <b data-reward-id="arcanoweave-cloak">Arcanoweave Cloak</b> while retaining the epic PvP bracers. This reaches the 4.4% gear Hit target.</small>
+            </div>
+            <div>
+              <span>03</span>
+              <strong>Lightforge 3-piece</strong>
+              <small>Buy <b data-reward-id="lightforge-belt">Belt</b>, then target <b data-reward-id="lightforge-spaulders">Spaulders</b> from The Beast and <b data-reward-id="lightforge-breastplate">Breastplate</b> from Drakkisath for the static +18 bonus.</small>
+            </div>
+            <div>
+              <span>04</span>
+              <strong data-reward-id="draconic-emblem">Draconic Infused Emblem</strong>
+              <small>Keep farming General Drakkisath after the chest. Take the trinket immediately if it drops earlier.</small>
+            </div>
+            <div>
+              <span>05</span>
+              <strong data-reward-id="libram-law">Libram of Law</strong>
+              <small>Finish the shared PvP and pre-raid relic target with 50 Tarnished Undermine Reals.</small>
+            </div>
+          </div>
+
+          <p class="plan-note">
+            This is a priority list, not a restriction: equip Draconic Infused Emblem immediately if it drops while completing Lightforge 3-piece.
+          </p>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="./gear.js?v=64"></script>
+  </body>
+</html>
