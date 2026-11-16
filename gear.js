@@ -4,41 +4,19 @@ const ROADMAP_STORAGE_KEY = "lightbind-retribution-roadmap-v2";
 const ICON_ROOT = "./assets/icons/";
 
 const QUEST_CHAINS = {
-  songstone: [
-    questStep("The Smoldering Ruins of Thaurissan I", "Royal Historian Archesonus · Ironforge (38.4, 55.3)", "Listen to Archesonus and accept the follow-up that sends you to the Burning Steppes."),
-    questStep("The Smoldering Ruins of Thaurissan II", "Royal Historian Archesonus · Ironforge (38.4, 55.3)", "Inspect 12 Thaurissan Relics in the Burning Steppes, then return to Archesonus."),
-    questStep("Kharan Mighthammer", "King Magni · Ironforge (39.1, 56.2)", "Find Kharan in the BRD detention block. High Interrogator Gerstahn holds the prison key."),
-    questStep("Kharan’s Tale", "Kharan Mighthammer · BRD detention block", "Listen to Kharan’s story and speak to him again."),
-    questStep("The Bearer of Bad News", "Kharan Mighthammer · BRD → King Magni · Ironforge", "Carry Kharan’s news back to King Magni."),
-    questStep("The Fate of the Kingdom", "King Magni · Ironforge (39.1, 56.2)", "Defeat Emperor Dagran Thaurissan in BRD while keeping Princess Moira alive, then speak to her."),
-    questStep("The Princess’s Surprise", "Princess Moira · BRD → King Magni · Ironforge", "Return to King Magni and select Songstone of Ironforge."),
-  ],
   "ice-barbed-spear": [
     questStep("The Battle of Alterac", "Prospector Stonehewer · Alterac Mountains (40.6, 79.6)", "Enter Alterac Valley and defeat Drek’Thar by winning the battleground, then return to Stonehewer."),
     questStep("Hero of the Stormpike", "Prospector Stonehewer · Alterac Mountains (40.6, 79.6)", "Accept the immediate follow-up and select Ice Barbed Spear."),
   ],
-  "infernal-lasso": [
-    questStep("The Burning Beast", "Weathered Etching · original location Searing Gorge (24, 36)", "Inspect the etching and find Bloodmage Lynnore in the Blasted Lands. Forever’s current starting-object location remains unconfirmed."),
-    questStep("Chains That Bind", "Bloodmage Lynnore · Blasted Lands (50.6, 14.5)", "Collect 5 Infernal Chain Links from Shadowsworn mobs around (61, 40), then return to Lynnore."),
-    questStep("Brought to Heel", "Bloodmage Lynnore · Blasted Lands (50.6, 14.5)", "Find Calefactus around (47, 48), weaken him, use the provided lasso, loot Fel Lifeblood, and return to Lynnore."),
+  "sanctified-orb": [
+    questStep("Dispelling Evil", "High Priest Thel'danis · Western Plaguelands (52.1, 83.3)", "Complete the Paladin class quest at Chillwind Point."),
+    questStep("Inert Scourgestones", "High Priest Thel'danis · Western Plaguelands (52.1, 83.3)", "Carry the Inert Scourgestone to Commander Ashlam Valorfist at Chillwind Point (42.7, 84.0)."),
+    questStep("Forging the Mightstone", "Commander Ashlam Valorfist · Western Plaguelands (42.7, 84.0)", "Kill Gasher, Mijan, Zolo, Hukku, Zul'lor, and Loro in the Sunken Temple for two feathers of each color, then select Sanctified Orb."),
   ],
   "blood-martyr": [
     questStep("Medallion of Faith", "Chest · living-side Stratholme", "Loot the Medallion of Faith from its chest."),
     questStep("Aurius", "Alonsus Chapel · Stratholme", "Give the Medallion of Faith to Aurius before fighting Baron Rivendare."),
     questStep("Baron Rivendare", "Undead-side Stratholme", "Defeat Baron Rivendare, then speak to Aurius and collect Blood of the Martyr."),
-  ],
-  "archlight-talisman": [
-    questStep("Little Pamela", "Marlene Redpath · Western Plaguelands", "Travel to the ruins of Darrowshire in the Eastern Plaguelands and find Pamela Redpath."),
-    questStep("Pamela’s Doll", "Pamela Redpath · Darrowshire (31.2, 78.0)", "Recover the three doll pieces around Darrowshire and return the restored doll to Pamela."),
-    questStep("Auntie Marlene", "Pamela Redpath · Darrowshire", "Speak with Marlene Redpath near Sorrow Hill in the Western Plaguelands."),
-    questStep("A Strange Historian", "Marlene Redpath · Western Plaguelands", "Find Chromie inside the ruined inn at Andorhal."),
-    questStep("The Annals of Darrowshire", "Chromie · Andorhal", "Recover the Annals of Darrowshire from the ruined Andorhal town hall and return to Chromie."),
-    questStep("Brother Carlin", "Chromie · Andorhal → Carlin Redpath · Light’s Hope Chapel", "Carry Chromie’s information to Carlin Redpath at Light’s Hope Chapel."),
-    questStep("Heroes of Darrowshire", "Carlin Redpath · Light’s Hope Chapel", "Recover Davil’s Libram and Redpath’s Shield, then return them to Carlin."),
-    questStep("Marauders of Darrowshire", "Carlin Redpath · Light’s Hope Chapel", "Collect the required Darrowshire relics from Scourge forces in the Eastern Plaguelands."),
-    questStep("Return to Chromie", "Carlin Redpath · Light’s Hope Chapel → Chromie · Andorhal", "Bring the assembled relics back to Chromie."),
-    questStep("The Battle of Darrowshire", "Chromie · Andorhal", "Use the relic bundle in Darrowshire, complete the battle event, and speak with Joseph Redpath."),
-    questStep("Hidden Treasures", "Pamela Redpath · Darrowshire (31.2, 78.0)", "Use Joseph’s Key on Joseph’s Chest behind the house at (30.9, 77.8) and collect Archlight Talisman."),
   ],
 };
 
@@ -65,6 +43,7 @@ const SUMMARY_STATS = [
   ["intellect", "Intellect"],
   ["spirit", "Spirit"],
   ["hit", "Hit Chance"],
+  ["expertise", "Expertise"],
   ["criticalStrike", "Critical Strike Chance"],
   ["spellDamage", "Spell Damage"],
   ["healing", "Healing"],
@@ -96,9 +75,9 @@ const ROADMAP_ACTIONS = [
     minRank: 2, honor: 5250, rewardId: "greater-insignia-alliance",
     reason: "Your essential crowd-control break and first rank reward.",
   }),
-  roadmapAction("pvp-cloak", "Premier Sergeant's Cloak", "purchase", 55, {
-    minRank: 3, rewardId: "sergeant-cape",
-    reason: "Deterministic PvP cloak with +8 to every primary stat.",
+  roadmapAction("shroud-exile", "In Dreams — Shroud of the Exile", "quest", 50, {
+    rewardId: "shroud-of-the-exile",
+    reason: "Take the spell-damage cloak for the offensive PvP loadout.",
   }),
   roadmapAction("base-wrists", "Premier Chevalier Armsplints", "purchase", 55, {
     honor: 4500, marks: { wsg: 10 }, rewardId: "vindication-wrists",
@@ -148,18 +127,16 @@ const ROADMAP_ACTIONS = [
     minRank: 10, honor: 2250, dependsOn: ["base-gloves"],
     reason: "Rank 10 upgrade; prioritize it once raids are open.",
   }),
-  roadmapAction("archlight", "Hidden Treasures — Archlight Talisman", "quest", 50, {
-    rewardId: "archlight-talisman", reason: "Begin the Pamela/Darrowshire chain while leveling through the Plaguelands.",
-  }),
-  roadmapAction("infernal-lasso-quest", "Brought to Heel — Infernal Lasso", "quest", 45, {
-    rewardId: "infernal-lasso",
-    reason: "Efficient quest trinket for both PvP and pre-raid; complete it while leveling if the route is available.",
+  roadmapAction("sanctified-orb-quest", "Forging the Mightstone — Sanctified Orb", "quest", 50, {
+    rewardId: "sanctified-orb",
+    reason: "Already obtained: a reliable +15 Spell Power trinket for both PvP and pre-raid.",
   }),
   roadmapAction("ice-spear", "Hero of the Stormpike — Ice Barbed Spear", "quest", 51, {
     rewardId: "ice-barbed-spear", reason: "Take the quest before AV so a rank-cap win also awards your weapon.",
   }),
-  roadmapAction("songstone", "The Princess's Surprise — Songstone", "quest", 52, {
-    rewardId: "songstone-ironforge", reason: "Complete the BRD princess chain during your leveling dungeon route.",
+  roadmapAction("relentless-scythe", "LBRS — Relentless Scythe", "dungeon", 57, {
+    rewardId: "relentless-scythe", group: "LBRS",
+    reason: "Already obtained: use it as the pre-raid weapon for its Strength, Agility, and Expertise.",
   }),
   roadmapAction("blood-martyr-quest", "Aurius / Baron Rivendare — Blood of the Martyr", "dungeon", 58, {
     rewardId: "blood-martyr", group: "Stratholme",
@@ -197,6 +174,14 @@ const ROADMAP_ACTIONS = [
     rewardId: "lightforge-helm", group: "Scholomance",
     reason: "Darkmaster Gandling drop that unlocks the Lightforge 4-piece bonus without displacing a later epic PvP upgrade.",
   }),
+  roadmapAction("don-mauricios-band", "Scholomance — Don Mauricio's Band", "dungeon", 58, {
+    rewardId: "don-mauricios-band", group: "Scholomance",
+    reason: "Darkmaster Gandling ring that replaces the missed Songstone with effectively identical weighted PvE damage.",
+  }),
+  roadmapAction("jeremans-bauble", "Mount Hyjal — Return to Jereman", "quest", 60, {
+    rewardId: "jeremans-bauble", group: "Mount Hyjal",
+    reason: "Guaranteed quest ring with +15 Spell Power and +11 Intellect; replaces Blood of the Martyr in the pre-raid set.",
+  }),
   roadmapAction("draconic", "UBRS — Draconic Infused Emblem", "dungeon", 59, {
     rewardId: "draconic-emblem", group: "UBRS",
     reason: "Farm alongside the Lightforge chest; equip it immediately if it drops first.",
@@ -208,7 +193,8 @@ const ROADMAP_ACTIONS = [
 ];
 
 const CORE_PRE_RAID_PRIORITY = [
-  "infernal-lasso-quest",
+  "sanctified-orb-quest",
+  "relentless-scythe",
   "arcanoweave-cloak-roadmap",
   "star-mystaria",
   "battleborn-armbraces",
@@ -217,6 +203,8 @@ const CORE_PRE_RAID_PRIORITY = [
   "lightforge-chest",
   "lightforge-legs",
   "lightforge-helm",
+  "don-mauricios-band",
+  "jeremans-bauble",
   "draconic",
 ];
 
@@ -339,13 +327,13 @@ const leftSlots = [
       tooltip: vindicationTooltip("509 Armor · +25 Stamina · +11 Strength · +7 Intellect · +7 Critical Strike · +7 Spell Power"),
     }),
   ]),
-  slot("neck", "Neck", "inv_jewelry_necklace_01", [
-    item("archlight-talisman", "Archlight Talisman", "Hidden Treasures quest", {
-      itemId: 15856,
-      icon: "inv_jewelry_necklace_11",
+  slot("neck", "Neck", "./assets/icons/inv_jewelry_talisman_08.jpg", [
+    item("star-mystaria", "Star of Mystaria", "Stratholme · Balnazzar", {
+      itemId: 12103,
+      icon: "./assets/icons/inv_jewelry_talisman_08.jpg",
       quality: "Rare",
       enchant: enchant("FINAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
-      tooltip: "Item Level 60 · Binds when picked up · Neck · +8 Stamina · +10 Intellect · +12 Spell Power",
+      tooltip: "Item Level 63 · Binds when picked up · Neck · +7 Spirit · +7 Intellect · +7 Stamina · +13 Hit · Requires Level 58",
     }),
   ]),
   slot("shoulders", "Shoulders", "inv_shoulder_01", [
@@ -356,13 +344,13 @@ const leftSlots = [
       tooltip: vindicationTooltip("470 Armor · +19 Stamina · +11 Strength · +5 Intellect · +7 Spell Power"),
     }),
   ]),
-  slot("back", "Back", "inv_misc_cape_20", [
-    item("sergeant-cape", "Premier Sergeant's Cloak", "PvP · Rank 3", {
-      itemId: 272698,
-      icon: "inv_misc_cape_21",
+  slot("back", "Back", "./assets/icons/shroud-of-the-exile.jpg", [
+    item("shroud-of-the-exile", "Shroud of the Exile", "In Dreams quest", {
+      itemId: 15421,
+      icon: "./assets/icons/shroud-of-the-exile.jpg",
       quality: "Rare",
       enchant: enchant("BUDGET", "+3 Agility", "budget"),
-      tooltip: "Item Level 60 · Binds when picked up · Back · 43 Armor · +8 Strength · +8 Agility · +8 Stamina · +8 Intellect · +8 Spirit · Requires Level 55 · Requires Sergeant (Rank 3)",
+      tooltip: "Item Level 63 · Binds when picked up · Back · 45 Armor · +10 Intellect · +7 Spirit · +7 Stamina · +12 Spell Power",
     }),
   ]),
   slot("chest", "Chest", "inv_chest_plate04", [
@@ -388,7 +376,7 @@ const leftSlots = [
       itemId: 19106,
       icon: "inv_spear_04",
       quality: "Rare",
-      enchant: enchant("BUDGET", "Greater Impact · +7 Weapon Damage", "budget"),
+      enchant: enchant("PVP", "Steel Weapon Chain · Immune to Disarm", "final"),
       tooltip: "Item Level 63 · Two-Hand Polearm · 155–233 Damage · Speed 3.60 · +13 Strength · +21 Agility · +20 Stamina",
     }),
   ]),
@@ -439,12 +427,12 @@ const rightSlots = [
       tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
     }),
   ]),
-  slot("ring-one", "Finger 1", "inv_jewelry_ring_15", [
-    item("songstone-ironforge", "Songstone of Ironforge", "BRD quest", {
-      itemId: 12543,
-      icon: "inv_jewelry_ring_05",
+  slot("ring-one", "Finger 1", "./assets/icons/don-mauricios-band.jpg", [
+    item("don-mauricios-band", "Don Mauricio's Band of Domination", "Scholomance · Darkmaster Gandling", {
+      itemId: 22433,
+      icon: "./assets/icons/don-mauricios-band.jpg",
       quality: "Rare",
-      tooltip: "Item Level 60 · Finger · +7 Intellect · +2 Spell Penetration · +18 Spell Damage and Healing",
+      tooltip: "Item Level 63 · Binds when picked up · Finger · +10 Stamina · +11 Spell Power · +14 Critical Strike · Requires Level 58",
     }),
   ]),
   slot("ring-two", "Finger 2", "inv_jewelry_ring_21", [
@@ -463,12 +451,12 @@ const rightSlots = [
       tooltip: "Item Level 1 · Binds when picked up · Unique-Equipped · Trinket · Use: Removes all movement impairing effects and all effects which cause loss of control of your character. (5 Min Cooldown)",
     }),
   ]),
-  slot("trinket-two", "Trinket 2", "spell_nature_slow", [
-    item("infernal-lasso", "Infernal Lasso", "Quest", {
-      itemId: 219345,
-      icon: "spell_nature_slow",
+  slot("trinket-two", "Trinket 2", "./assets/icons/sanctified-orb.jpg", [
+    item("sanctified-orb", "Sanctified Orb", "Forging the Mightstone quest", {
+      itemId: 20512,
+      icon: "./assets/icons/sanctified-orb.jpg",
       quality: "Rare",
-      tooltip: "Item Level 50 · Trinket · +8 Spell Power · Use: 504 Fire damage over 12 sec and roots Demons and Beasts for 6 sec.",
+      tooltip: "Item Level 52 · Binds when picked up · Unique · Trinket · +15 Spell Power · Use: Restores 319 to 361 mana, doubled in Wasteland or Haunted areas · 5 Min Cooldown",
     }),
   ]),
 ];
@@ -539,6 +527,17 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
       }),
     ]);
   }
+  if (gearSlot.id === "weapon") {
+    return slot("pre-raid-weapon", "Two-Hand", "inv_sword_18", [
+      item("relentless-scythe", "Relentless Scythe", "LBRS · Overlord Wyrmthalak", {
+        itemId: 13163,
+        icon: "inv_sword_18",
+        quality: "Rare",
+        enchant: enchant("BUDGET", "Greater Impact · +7 Weapon Damage", "budget"),
+        tooltip: "Item Level 62 · Binds when picked up · Two-Hand Sword · 140–210 Damage · Speed 3.30 · +20 Strength · +9 Agility · +11 Stamina · +15 Parry · +10 Expertise · Requires Level 57",
+      }),
+    ]);
+  }
   return gearSlot;
 });
 
@@ -565,6 +564,26 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
       }),
     ]);
   }
+  if (gearSlot.id === "ring-one") {
+    return slot("pre-raid-ring-one", "Finger 1", "./assets/icons/don-mauricios-band.jpg", [
+      item("don-mauricios-band", "Don Mauricio's Band of Domination", "Scholomance · Darkmaster Gandling", {
+        itemId: 22433,
+        icon: "./assets/icons/don-mauricios-band.jpg",
+        quality: "Rare",
+        tooltip: "Item Level 63 · Binds when picked up · Finger · +10 Stamina · +11 Spell Power · +14 Critical Strike · Requires Level 58",
+      }),
+    ]);
+  }
+  if (gearSlot.id === "ring-two") {
+    return slot("pre-raid-ring-two", "Finger 2", "./assets/icons/jeremans-bauble.jpg", [
+      item("jeremans-bauble", "Jereman's Bauble", "Mount Hyjal · Return to Jereman", {
+        itemId: 275738,
+        icon: "./assets/icons/jeremans-bauble.jpg",
+        quality: "Rare",
+        tooltip: "Item Level 61 · Binds when picked up · Finger · +11 Intellect · +7 Spirit · +15 Spell Power",
+      }),
+    ]);
+  }
   if (gearSlot.id === "trinket-one") {
     return slot("pre-raid-trinket-one", "Trinket 1", "inv_jewelry_talisman_09", [
       item("draconic-emblem", "Draconic Infused Emblem", "UBRS · General Drakkisath", {
@@ -576,12 +595,12 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "trinket-two") {
-    return slot("pre-raid-trinket-two", "Trinket 2", "spell_nature_slow", [
-      item("infernal-lasso", "Infernal Lasso", "Brought to Heel quest", {
-        itemId: 219345,
-        icon: "spell_nature_slow",
+    return slot("pre-raid-trinket-two", "Trinket 2", "./assets/icons/sanctified-orb.jpg", [
+      item("sanctified-orb", "Sanctified Orb", "Forging the Mightstone quest", {
+        itemId: 20512,
+        icon: "./assets/icons/sanctified-orb.jpg",
         quality: "Rare",
-        tooltip: "Item Level 50 · Trinket · +8 Spell Power · Use: 504 Fire damage over 12 sec and roots Demons and Beasts for 6 sec.",
+        tooltip: "Item Level 52 · Binds when picked up · Unique · Trinket · +15 Spell Power · Use: Restores 319 to 361 mana, doubled in Wasteland or Haunted areas · 5 Min Cooldown",
       }),
     ]);
   }
@@ -1230,6 +1249,7 @@ function loadoutSummaryMarkup(left, right) {
 
 function formatSummaryStat(stat, value) {
   if (stat === "hit") return `+${trimDecimals(value / 10)}%`;
+  if (stat === "expertise") return `+${trimDecimals(value / 10)}%`;
   if (stat === "criticalStrike") return `+${trimDecimals(value / 14)}%`;
   return `+${value}`;
 }
@@ -1253,6 +1273,7 @@ function addStaticStats(totals, tooltip) {
     addStatMatch(totals, segment, /\+(\d+)\s+Intellect/i, "intellect");
     addStatMatch(totals, segment, /\+(\d+)\s+Spirit/i, "spirit");
     addStatMatch(totals, segment, /\+(\d+)\s+Hit/i, "hit");
+    addStatMatch(totals, segment, /\+(\d+)\s+Expertise/i, "expertise");
     addStatMatch(totals, segment, /\+(\d+)\s+(?:Critical Strike|Crit Rating)/i, "criticalStrike");
     addStatMatch(totals, segment, /\+(\d+)\s+Spell Penetration/i, "spellPenetration");
     addStatMatch(totals, segment, /\+?(\d+)\s+(?:Mana per 5 sec|mana per 5 sec)/i, "mp5");
@@ -1424,6 +1445,10 @@ function highlightItemStats(line) {
     )
     .replace(
       /(\+\d+\s+Hit)/gi,
+      '<span class="wow-green-stat">$1</span>',
+    )
+    .replace(
+      /(\+\d+\s+Expertise)/gi,
       '<span class="wow-green-stat">$1</span>',
     )
     .replace(
