@@ -142,13 +142,21 @@ const ROADMAP_ACTIONS = [
     rewardId: "blood-martyr", group: "Stratholme",
     reason: "Complete the Aurius event while running Baron Rivendare and select the ring reward.",
   }),
-  roadmapAction("star-mystaria", "Stratholme — Star of Mystaria", "dungeon", 58, {
-    rewardId: "star-mystaria", group: "Stratholme",
-    reason: "Balnazzar necklace with 1.3% Hit; replaces the quest neck without using a plate slot.",
+  roadmapAction("nacreous-shell-necklace", "Stratholme Live — Nacreous Shell Necklace", "dungeon", 56, {
+    rewardId: "nacreous-shell-necklace", group: "Stratholme Live",
+    reason: "Cannon Master Willey necklace with Intellect, Stamina, 1% Hit, and +9 Spell Power.",
+  }),
+  roadmapAction("grand-crusaders-helm", "Stratholme Live — Grand Crusader's Helm", "dungeon", 58, {
+    rewardId: "grand-crusaders-helm", group: "Stratholme Live",
+    reason: "Balnazzar plate helm with Strength, Stamina, and +17 Holy Spell Damage.",
+  }),
+  roadmapAction("heartflame-gauntlets", "Shaper's Terrace — Heartflame Gauntlets", "dungeon", 58, {
+    rewardId: "heartflame-gauntlets", group: "Shaper's Terrace",
+    reason: "Cinder/Vitrix plate gloves with Intellect, 1% Crit, and +18 Holy Spell Damage.",
   }),
   roadmapAction("battleborn-armbraces", "UBRS — Battleborn Armbraces", "dungeon", 58, {
     rewardId: "battleborn-armbraces", group: "UBRS",
-    reason: "Rend drop with 1% Hit and 1% melee Critical Strike; helps complete the affordable 4.2% Hit setup.",
+    reason: "Rend drop with 1% Hit and 1% Critical Strike; helps complete the approximately 4.4% Hit setup.",
   }),
   roadmapAction("arcanoweave-cloak-roadmap", "Buy Arcanoweave Cloak", "currency", 60, {
     rewardId: "arcanoweave-cloak",
@@ -156,7 +164,7 @@ const ROADMAP_ACTIONS = [
   }),
   roadmapAction("lightforge-belt-buy", "Buy Lightforge Belt", "market", 53, {
     rewardId: "lightforge-belt",
-    reason: "Use the BoE belt for the fifth Lightforge piece and its additional 0.5% Hit.",
+    reason: "Use the BoE belt for the third Lightforge piece, +18 Spell Power set bonus, and another 0.5% Hit.",
   }),
   roadmapAction("lightforge-shoulders", "UBRS — Lightforge Spaulders", "dungeon", 59, {
     rewardId: "lightforge-spaulders", group: "UBRS",
@@ -166,17 +174,10 @@ const ROADMAP_ACTIONS = [
     rewardId: "lightforge-breastplate", group: "UBRS",
     reason: "Drakkisath drop and a core piece of the planned Lightforge mix.",
   }),
-  roadmapAction("lightforge-legs", "Stratholme — Lightforge Legplates", "dungeon", 58, {
-    rewardId: "lightforge-legplates", group: "Stratholme",
-    reason: "Baron Rivendare drop that replaces the weak Lightforge Belt while overlapping with Blood of the Martyr.",
-  }),
-  roadmapAction("lightforge-helm", "Scholomance — Lightforge Helm", "dungeon", 57, {
-    rewardId: "lightforge-helm", group: "Scholomance",
-    reason: "Darkmaster Gandling drop that unlocks the Lightforge 4-piece bonus without displacing a later epic PvP upgrade.",
-  }),
   roadmapAction("don-mauricios-band", "Scholomance — Don Mauricio's Band", "dungeon", 58, {
     rewardId: "don-mauricios-band", group: "Scholomance",
-    reason: "Darkmaster Gandling ring that replaces the missed Songstone with effectively identical weighted PvE damage.",
+    reason: "Optional small damage upgrade over Blood of the Martyr; do not prioritize Scholomance solely for this ring.",
+    optional: true,
   }),
   roadmapAction("jeremans-bauble", "Mount Hyjal — Return to Jereman", "quest", 60, {
     rewardId: "jeremans-bauble", group: "Mount Hyjal",
@@ -195,17 +196,17 @@ const ROADMAP_ACTIONS = [
 const CORE_PRE_RAID_PRIORITY = [
   "sanctified-orb-quest",
   "relentless-scythe",
-  "arcanoweave-cloak-roadmap",
-  "star-mystaria",
+  "grand-crusaders-helm",
+  "nacreous-shell-necklace",
   "battleborn-armbraces",
-  "lightforge-belt-buy",
   "lightforge-shoulders",
   "lightforge-chest",
-  "lightforge-legs",
-  "lightforge-helm",
-  "don-mauricios-band",
-  "jeremans-bauble",
   "draconic",
+  "heartflame-gauntlets",
+  "lightforge-belt-buy",
+  "arcanoweave-cloak-roadmap",
+  "jeremans-bauble",
+  "don-mauricios-band",
 ];
 
 const PVP_CONSUMABLES = [
@@ -327,13 +328,13 @@ const leftSlots = [
       tooltip: vindicationTooltip("509 Armor · +25 Stamina · +11 Strength · +7 Intellect · +7 Critical Strike · +7 Spell Power"),
     }),
   ]),
-  slot("neck", "Neck", "./assets/icons/inv_jewelry_talisman_08.jpg", [
-    item("star-mystaria", "Star of Mystaria", "Stratholme · Balnazzar", {
-      itemId: 12103,
-      icon: "./assets/icons/inv_jewelry_talisman_08.jpg",
+  slot("neck", "Neck", "./assets/icons/nacreous-shell-necklace.jpg", [
+    item("nacreous-shell-necklace", "Nacreous Shell Necklace", "Stratholme Live · Cannon Master Willey", {
+      itemId: 22403,
+      icon: "./assets/icons/nacreous-shell-necklace.jpg",
       quality: "Rare",
       enchant: enchant("FINAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
-      tooltip: "Item Level 63 · Binds when picked up · Neck · +7 Spirit · +7 Intellect · +7 Stamina · +13 Hit · Requires Level 58",
+      tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Intellect · +7 Stamina · +10 Hit · +9 Spell Power · Requires Level 56",
     }),
   ]),
   slot("shoulders", "Shoulders", "inv_shoulder_01", [
@@ -463,24 +464,24 @@ const rightSlots = [
 
 const preRaidLeftSlots = leftSlots.map((gearSlot) => {
   if (gearSlot.id === "head") {
-    return slot("pre-raid-head", "Head", "./assets/icons/lightforge-helm.jpg", [
-      item("lightforge-helm", "Lightforge Helm", "Scholomance · Darkmaster Gandling", {
-        itemId: 16727,
-        icon: "./assets/icons/lightforge-helm.jpg",
+    return slot("pre-raid-head", "Head", "./assets/icons/grand-crusaders-helm.jpg", [
+      item("grand-crusaders-helm", "Grand Crusader's Helm", "Stratholme Live · Balnazzar", {
+        itemId: 18718,
+        icon: "./assets/icons/grand-crusaders-helm.jpg",
         quality: "Rare",
         enchant: enchant("BUDGET", "Lesser Arcanum of Constitution · +100 Health", "budget"),
-        tooltip: lightforgeTooltip("Item Level 62 · 526 Armor · +14 Strength · +20 Stamina · +13 Intellect · +7 Agility · +4 Mana per 5 sec"),
+        tooltip: "Item Level 63 · Binds when picked up · Head · Plate · 534 Armor · +16 Strength · +16 Stamina · +10 Spirit · +10 Shadow Resistance · +17 Holy Spell Damage · Requires Level 58",
       }),
     ]);
   }
   if (gearSlot.id === "neck") {
-    return slot("pre-raid-neck", "Neck", "inv_jewelry_talisman_08", [
-      item("star-mystaria", "Star of Mystaria", "Stratholme · Balnazzar", {
-        itemId: 12103,
-        icon: "inv_jewelry_talisman_08",
+    return slot("pre-raid-neck", "Neck", "./assets/icons/nacreous-shell-necklace.jpg", [
+      item("nacreous-shell-necklace", "Nacreous Shell Necklace", "Stratholme Live · Cannon Master Willey", {
+        itemId: 22403,
+        icon: "./assets/icons/nacreous-shell-necklace.jpg",
         quality: "Rare",
         enchant: enchant("FINAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
-        tooltip: "Item Level 63 · Binds when picked up · Neck · +7 Spirit · +7 Intellect · +7 Stamina · +13 Hit · Requires Level 58",
+        tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Intellect · +7 Stamina · +10 Hit · +9 Spell Power · Requires Level 56",
       }),
     ]);
   }
@@ -542,6 +543,17 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
 });
 
 const preRaidRightSlots = rightSlots.map((gearSlot) => {
+  if (gearSlot.id === "hands") {
+    return slot("pre-raid-hands", "Hands", "./assets/icons/heartflame-gauntlets.jpg", [
+      item("heartflame-gauntlets", "Heartflame Gauntlets", "Shaper's Terrace · Cinder / Vitrix", {
+        itemId: 280028,
+        icon: "./assets/icons/heartflame-gauntlets.jpg",
+        quality: "Rare",
+        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+        tooltip: "Item Level 63 · Binds when picked up · Hands · Plate · 410 Armor · +14 Intellect · +14 Critical Strike · +18 Holy Spell Damage · Requires Level 58",
+      }),
+    ]);
+  }
   if (gearSlot.id === "waist") {
     return slot("pre-raid-waist", "Waist", "./assets/icons/lightforge-belt.jpg", [
       item("lightforge-belt", "Lightforge Belt", "BoE · Auction House", {
@@ -554,13 +566,13 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "legs") {
-    return slot("pre-raid-legs", "Legs", "./assets/icons/lightforge-legplates.jpg", [
-      item("lightforge-legplates", "Lightforge Legplates", "Stratholme · Baron Rivendare", {
-        itemId: 16728,
-        icon: "./assets/icons/lightforge-legplates.jpg",
+    return slot("pre-raid-legs", "Legs", "./assets/icons/item-272744.jpg", [
+      item("vindication-legs", "Premier Chevalier Leggings", "PvP · Level 55 · Honor + Marks", {
+        itemId: 272744,
+        icon: "./assets/icons/item-272744.jpg",
         quality: "Rare",
-        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
-        tooltip: lightforgeTooltip("Item Level 61 · 557 Armor · +20 Strength · +14 Stamina · +12 Intellect · +9 Agility · +3 Mana per 5 sec"),
+        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor; save Rapidity for epic legs", "budget"),
+        tooltip: vindicationTooltip("548 Armor · +25 Stamina · +13 Strength · +7 Critical Strike · +7 Spell Power"),
       }),
     ]);
   }
@@ -1278,7 +1290,7 @@ function addStaticStats(totals, tooltip) {
     addStatMatch(totals, segment, /\+(\d+)\s+Spell Penetration/i, "spellPenetration");
     addStatMatch(totals, segment, /\+?(\d+)\s+(?:Mana per 5 sec|mana per 5 sec)/i, "mp5");
 
-    const sharedPower = segment.match(/\+(\d+)\s+(?:Spell Power|Spell Damage and Healing)/i);
+    const sharedPower = segment.match(/\+(\d+)\s+(?:Spell Power|Spell Damage and Healing|Holy Spell Damage)/i);
     if (sharedPower) {
       totals.spellDamage += Number(sharedPower[1]);
       totals.healing += Number(sharedPower[1]);
@@ -1436,7 +1448,7 @@ function formatItemTooltip(text, equippedPieces = 0) {
 function highlightItemStats(line) {
   return line
     .replace(
-      /(\+\d+%?\s+(?:Healing|Spell Power|Spell Penetration|Spell Damage(?: and Healing)?))/gi,
+      /(\+\d+%?\s+(?:Healing|Spell Power|Spell Penetration|(?:Holy )?Spell Damage(?: and Healing)?))/gi,
       '<span class="wow-green-stat">$1</span>',
     )
     .replace(
@@ -1449,6 +1461,10 @@ function highlightItemStats(line) {
     )
     .replace(
       /(\+\d+\s+Expertise)/gi,
+      '<span class="wow-green-stat">$1</span>',
+    )
+    .replace(
+      /(\+\d+\s+Shadow Resistance)/gi,
       '<span class="wow-green-stat">$1</span>',
     )
     .replace(
