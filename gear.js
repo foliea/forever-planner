@@ -1464,6 +1464,10 @@ function highlightItemStats(line) {
       '<span class="wow-green-stat">$1</span>',
     )
     .replace(
+      /(\+\d+\s+Parry)/gi,
+      '<span class="wow-green-stat">$1</span>',
+    )
+    .replace(
       /(\+\d+\s+Shadow Resistance)/gi,
       '<span class="wow-green-stat">$1</span>',
     )
