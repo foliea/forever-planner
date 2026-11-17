@@ -3,6 +3,20 @@ const GUIDE_STORAGE_KEY = "lightbind-shockadin-guide-v1";
 const ROADMAP_STORAGE_KEY = "lightbind-retribution-roadmap-v2";
 const ICON_ROOT = "./assets/icons/";
 const MYTHICSIM_SHOCKADIN_TALENTS = "05025210221021--0523330110130033";
+const MYTHICSIM_PALADIN_TALENT_SPELL_IDS = [
+  [
+    20205, 20262, 20237, 1310899, 20224, 429144, 20216, 20210, 1237268,
+    1310904, 426065, 1328548, 1310905, 1311606, 1328550, 5923, 1310911,
+  ],
+  [
+    20257, 20127, 20189, 20174, 1224697, 1311015, 20487, 20150, 20143,
+    1310994, 20468, 20096, 1328546, 20925, 20177, 1311034, 1328544,
+  ],
+  [
+    20060, 20101, 25956, 20117, 1311074, 9452, 9453, 20375, 26022,
+    9799, 1311087, 20111, 1328370, 20066, 20049, 1311084, 1310735,
+  ],
+];
 const MYTHICSIM_SLOT_ORDER = [
   "Head",
   "Neck",
@@ -23,24 +37,24 @@ const MYTHICSIM_SLOT_ORDER = [
 ];
 const MYTHICSIM_ENCHANTS = {
   "pvp-starter": {
-    Head: 2544,
+    Head: 1506,
     Neck: 8218,
     Back: 7667,
     Chest: 1891,
     Wrists: 7665,
     Hands: 7646,
-    Legs: 2543,
+    Legs: 8492,
     Feet: 8492,
     "Two-Hand": 37,
   },
   "pre-raid": {
-    Head: 2544,
+    Head: 1506,
     Neck: 8218,
     Back: 7667,
     Chest: 1891,
     Wrists: 7665,
     Hands: 7646,
-    Legs: 2543,
+    Legs: 8492,
     Feet: 8492,
     "Two-Hand": 7662,
   },
@@ -367,7 +381,7 @@ const leftSlots = [
       itemId: 272743,
       icon: "./assets/icons/item-272743.jpg",
       quality: "Rare",
-      enchant: enchant("BUDGET", "Lesser Arcanum of Constitution · +100 Health", "budget"),
+      enchant: enchant("OPTIMAL", "Lesser Arcanum of Voracity · +8 Strength", "final", "Lesser Arcanum of Constitution · +100 Health"),
       tooltip: vindicationTooltip("509 Armor · +25 Stamina · +11 Strength · +7 Intellect · +7 Critical Strike · +7 Spell Power"),
     }),
   ]),
@@ -376,7 +390,7 @@ const leftSlots = [
       itemId: 22403,
       icon: "./assets/icons/nacreous-shell-necklace.jpg",
       quality: "Rare",
-      enchant: enchant("FINAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
+      enchant: enchant("OPTIMAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
       tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Intellect · +7 Stamina · +10 Hit · +9 Spell Power · Requires Level 56",
     }),
   ]),
@@ -393,7 +407,7 @@ const leftSlots = [
       itemId: 15421,
       icon: "./assets/icons/shroud-of-the-exile.jpg",
       quality: "Rare",
-      enchant: enchant("BUDGET", "+3 Agility", "budget"),
+      enchant: enchant("OPTIMAL", "Cloak Agility · +5 Agility", "final", "+3 Agility"),
       tooltip: "Item Level 63 · Binds when picked up · Back · 45 Armor · +10 Intellect · +7 Spirit · +7 Stamina · +12 Spell Power",
     }),
   ]),
@@ -402,7 +416,7 @@ const leftSlots = [
       itemId: 272742,
       icon: "./assets/icons/item-272742.jpg",
       quality: "Rare",
-      enchant: enchant("BUDGET", "+4 All Stats", "budget"),
+      enchant: enchant("OPTIMAL", "Greater Stats · +4 All Stats", "final"),
       tooltip: vindicationTooltip("627 Armor · +25 Stamina · +11 Strength · +11 Intellect · +7 Critical Strike"),
     }),
   ]),
@@ -411,7 +425,7 @@ const leftSlots = [
       itemId: 272721,
       icon: "./assets/icons/item-272721.jpg",
       quality: "Rare",
-      enchant: enchant("BUDGET", "+9 Strength", "budget"),
+      enchant: enchant("OPTIMAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
       tooltip: "Item Level 60 · Binds when picked up · Wrist · Plate · 274 Armor · +14 Stamina · +9 Strength · +5 Intellect · Requires Level 55",
     }),
   ]),
@@ -420,7 +434,7 @@ const leftSlots = [
       itemId: 19106,
       icon: "inv_spear_04",
       quality: "Rare",
-      enchant: enchant("PVP", "Steel Weapon Chain · Immune to Disarm", "final"),
+      enchant: enchant("OPTIMAL PVP", "Steel Weapon Chain · Immune to Disarm", "final"),
       tooltip: "Item Level 63 · Two-Hand Polearm · 155–233 Damage · Speed 3.60 · +13 Strength · +21 Agility · +20 Stamina",
     }),
   ]),
@@ -440,7 +454,7 @@ const rightSlots = [
       itemId: 272719,
       icon: "./assets/icons/item-272719.jpg",
       quality: "Rare",
-      enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+      enchant: enchant("OPTIMAL", "Holy Power · +20 Holy Damage", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
       tooltip: vindicationTooltip("392 Armor · +19 Stamina · +11 Strength · +5 Intellect · +7 Spell Power · Increases the duration of Repentance by 1 sec"),
     }),
   ]),
@@ -458,7 +472,7 @@ const rightSlots = [
       itemId: 272744,
       icon: "./assets/icons/item-272744.jpg",
       quality: "Rare",
-      enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor; save Rapidity for epic legs", "budget"),
+      enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
       tooltip: vindicationTooltip("548 Armor · +25 Stamina · +13 Strength · +7 Critical Strike · +7 Spell Power"),
     }),
   ]),
@@ -467,7 +481,7 @@ const rightSlots = [
       itemId: 272718,
       icon: "./assets/icons/item-272718.jpg",
       quality: "Rare",
-      enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+      enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
       tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
     }),
   ]),
@@ -512,7 +526,7 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
         itemId: 18718,
         icon: "./assets/icons/grand-crusaders-helm.jpg",
         quality: "Rare",
-        enchant: enchant("BUDGET", "Lesser Arcanum of Constitution · +100 Health", "budget"),
+        enchant: enchant("OPTIMAL", "Lesser Arcanum of Voracity · +8 Strength", "final", "Lesser Arcanum of Constitution · +100 Health"),
         tooltip: "Item Level 63 · Binds when picked up · Head · Plate · 534 Armor · +16 Strength · +16 Stamina · +10 Spirit · +10 Shadow Resistance · +17 Holy Spell Damage · Requires Level 58",
       }),
     ]);
@@ -523,7 +537,7 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
         itemId: 22403,
         icon: "./assets/icons/nacreous-shell-necklace.jpg",
         quality: "Rare",
-        enchant: enchant("FINAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
+        enchant: enchant("OPTIMAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
         tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Intellect · +7 Stamina · +10 Hit · +9 Spell Power · Requires Level 56",
       }),
     ]);
@@ -544,7 +558,7 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
         itemId: 272411,
         icon: "./assets/icons/arcanoweave-cloak.png",
         quality: "Rare",
-        enchant: enchant("FINAL", "+5 Agility — durable item-level 65 target", "final", "+3 Agility"),
+        enchant: enchant("OPTIMAL", "Cloak Agility · +5 Agility", "final", "+3 Agility"),
         tooltip: "Item Level 65 · Binds when picked up · Back · 46 Armor · +8 Intellect · +10 Hit · +16 Spell Damage and Healing · Requires Level 60",
       }),
     ]);
@@ -555,7 +569,7 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
         itemId: 16726,
         icon: "inv_chest_plate03",
         quality: "Rare",
-        enchant: enchant("BUDGET", "+4 All Stats", "budget"),
+        enchant: enchant("OPTIMAL", "Greater Stats · +4 All Stats", "final"),
         tooltip: lightforgeTooltip("Item Level 63 · 657 Armor · +13 Strength · +21 Stamina · +16 Intellect · +8 Spirit · +7 Critical Strike"),
       }),
     ]);
@@ -566,7 +580,7 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
         itemId: 12936,
         icon: "./assets/icons/battleborn-armbraces.jpg",
         quality: "Rare",
-        enchant: enchant("FINAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
+        enchant: enchant("OPTIMAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
         tooltip: "Item Level 63 · Binds when picked up · Wrist · Plate · 287 Armor · +7 Spirit · +10 Hit · +14 Critical Strike · Requires Level 58",
       }),
     ]);
@@ -577,7 +591,7 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
         itemId: 13163,
         icon: "inv_sword_18",
         quality: "Rare",
-        enchant: enchant("BUDGET", "Greater Impact · +7 Weapon Damage", "budget"),
+        enchant: enchant("OPTIMAL", "Spellblasting · +65 Spell Power", "final", "Greater Impact · +7 Weapon Damage"),
         tooltip: "Item Level 62 · Binds when picked up · Two-Hand Sword · 140–210 Damage · Speed 3.30 · +20 Strength · +9 Agility · +11 Stamina · +15 Parry · +10 Expertise · Requires Level 57",
       }),
     ]);
@@ -592,7 +606,7 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
         itemId: 280028,
         icon: "./assets/icons/heartflame-gauntlets.jpg",
         quality: "Rare",
-        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+        enchant: enchant("OPTIMAL", "Holy Power · +20 Holy Damage", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
         tooltip: "Item Level 63 · Binds when picked up · Hands · Plate · 410 Armor · +14 Intellect · +14 Critical Strike · +18 Holy Spell Damage · Requires Level 58",
       }),
     ]);
@@ -614,8 +628,19 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
         itemId: 272744,
         icon: "./assets/icons/item-272744.jpg",
         quality: "Rare",
-        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor; save Rapidity for epic legs", "budget"),
+        enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
         tooltip: vindicationTooltip("548 Armor · +25 Stamina · +13 Strength · +7 Critical Strike · +7 Spell Power"),
+      }),
+    ]);
+  }
+  if (gearSlot.id === "feet") {
+    return slot("pre-raid-feet", "Feet", "./assets/icons/item-272718.jpg", [
+      item("vindication-boots", "Premier Chevalier Sabatons", "PvP · Level 55 · Honor + Marks", {
+        itemId: 272718,
+        icon: "./assets/icons/item-272718.jpg",
+        quality: "Rare",
+        enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
+        tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
       }),
     ]);
   }
@@ -1381,9 +1406,25 @@ function mythicSimExport(loadoutId) {
     class: "paladin",
     level: 60,
     talents: MYTHICSIM_SHOCKADIN_TALENTS,
+    mythicsim: {
+      clientBuild: "70707",
+      talentSource: "traits",
+      talentSpells: mythicSimTalentSpells(MYTHICSIM_SHOCKADIN_TALENTS),
+    },
     professions: [{ name: "Engineering", level: 300 }],
     gear: { items },
   }, null, 2);
+}
+
+function mythicSimTalentSpells(talents) {
+  const ranksByTree = talents.split("-");
+  return MYTHICSIM_PALADIN_TALENT_SPELL_IDS.map((spellIds, treeIndex) => {
+    const ranks = ranksByTree[treeIndex] || "";
+    return spellIds.map((spellId, nodeIndex) => [
+      spellId,
+      Number(ranks[nodeIndex] || 0),
+    ]);
+  });
 }
 
 async function copyMythicSimText(textarea) {
