@@ -2,6 +2,49 @@ const GEAR_STORAGE_KEY = "lightbind-shockadin-gear-v1";
 const GUIDE_STORAGE_KEY = "lightbind-shockadin-guide-v1";
 const ROADMAP_STORAGE_KEY = "lightbind-retribution-roadmap-v2";
 const ICON_ROOT = "./assets/icons/";
+const MYTHICSIM_SHOCKADIN_TALENTS = "05025210221021--0523330110130033";
+const MYTHICSIM_SLOT_ORDER = [
+  "Head",
+  "Neck",
+  "Shoulders",
+  "Back",
+  "Chest",
+  "Wrists",
+  "Hands",
+  "Waist",
+  "Legs",
+  "Feet",
+  "Finger 1",
+  "Finger 2",
+  "Trinket 1",
+  "Trinket 2",
+  "Two-Hand",
+  "Libram",
+];
+const MYTHICSIM_ENCHANTS = {
+  "pvp-starter": {
+    Head: 2544,
+    Neck: 8218,
+    Back: 7667,
+    Chest: 1891,
+    Wrists: 7665,
+    Hands: 7646,
+    Legs: 2543,
+    Feet: 8492,
+    "Two-Hand": 37,
+  },
+  "pre-raid": {
+    Head: 2544,
+    Neck: 8218,
+    Back: 7667,
+    Chest: 1891,
+    Wrists: 7665,
+    Hands: 7646,
+    Legs: 2543,
+    Feet: 8492,
+    "Two-Hand": 7662,
+  },
+};
 
 const QUEST_CHAINS = {
   "ice-barbed-spear": [
@@ -1316,6 +1359,65 @@ function activeLoadoutSlots() {
     : [leftSlots, rightSlots];
 }
 
+function mythicSimExport(loadoutId) {
+  const [left, right] = loadoutId === "pre-raid"
+    ? [preRaidLeftSlots, preRaidRightSlots]
+    : [leftSlots, rightSlots];
+  const slotsByName = new Map([...left, ...right].map((gearSlot) => [gearSlot.name, gearSlot]));
+  const items = MYTHICSIM_SLOT_ORDER.flatMap((slotName) => {
+    const candidate = slotsByName.get(slotName)?.items[0];
+    if (!candidate?.itemId) return [];
+    const exported = { id: candidate.itemId };
+    const enchantId = MYTHICSIM_ENCHANTS[loadoutId]?.[slotName];
+    if (enchantId) exported.enchant = enchantId;
+    return [exported];
+  });
+
+  return JSON.stringify({
+    name: loadoutId === "pre-raid" ? "Grimar Pre-raid" : "Grimar PvP",
+    realm: "",
+    flavor: "forever",
+    race: "Human",
+    class: "paladin",
+    level: 60,
+    talents: MYTHICSIM_SHOCKADIN_TALENTS,
+    professions: [{ name: "Engineering", level: 300 }],
+    gear: { items },
+  }, null, 2);
+}
+
+async function copyMythicSimText(textarea) {
+  try {
+    await navigator.clipboard.writeText(textarea.value);
+  } catch {
+    textarea.focus();
+    textarea.select();
+    document.execCommand("copy");
+  }
+  showToast("MythicSim export copied");
+}
+
+function setupMythicSimExport() {
+  const dialog = document.querySelector("#mythicSimExportDialog");
+  const textarea = document.querySelector("#mythicSimExportText");
+  const title = document.querySelector("#mythicSimExportTitle");
+
+  document.querySelectorAll("[data-mythicsim-export]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const loadoutId = button.dataset.mythicsimExport;
+      textarea.value = mythicSimExport(loadoutId);
+      title.textContent = loadoutId === "pre-raid" ? "Export pre-raid loadout" : "Export PvP loadout";
+      dialog.showModal();
+      textarea.focus();
+      textarea.select();
+    });
+  });
+
+  document.querySelector("#copyMythicSimExport").addEventListener("click", () => {
+    copyMythicSimText(textarea);
+  });
+}
+
 function trackedItems() {
   return activeLoadoutSlots()
     .flatMap((slots) => slots.flatMap((gearSlot) => gearSlot.items))
@@ -1835,6 +1937,7 @@ function setupGearTabs() {
 setupRoadmapControls();
 render();
 setupGearTabs();
+setupMythicSimExport();
 setupQuestChains();
 setupGuideChecklist();
 setupQuestTooltips();

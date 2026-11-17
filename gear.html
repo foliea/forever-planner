@@ -8,7 +8,7 @@
       content="Paladin PvP and pre-raid gear target tracker for World of Warcraft: Forever."
     />
     <title>Grimar — Paladin Preparation</title>
-    <link rel="stylesheet" href="./styles.css?v=64" />
+    <link rel="stylesheet" href="./styles.css?v=65" />
   </head>
   <body>
     <div class="ambient ambient-one"></div>
@@ -44,7 +44,6 @@
       <section class="intro gear-intro">
         <div>
           <p class="eyebrow"><span></span> WoW Forever</p>
-          <h1><em>Retribution Paladin</em></h1>
         </div>
         <div class="intro-copy">
           <p>Gear, consumables, and progression. Progress is saved in this browser.</p>
@@ -161,7 +160,12 @@
             <p class="section-label">Loadout 01</p>
             <h2>PvP</h2>
           </div>
-          <span class="modifier-tag shift">RANK 9 VINDICATION MIX</span>
+          <div class="gear-toolbar-actions">
+            <span class="modifier-tag shift">RANK 9 VINDICATION MIX</span>
+            <button class="button ghost" type="button" data-mythicsim-export="pvp-starter">
+              Export to MythicSim
+            </button>
+          </div>
         </div>
 
         <div class="character-sheet" id="characterSheet">
@@ -335,7 +339,12 @@
             <p class="section-label">Loadout 02</p>
             <h2>Expected pre-raid</h2>
           </div>
-          <span class="modifier-tag shift">FIRST RAID TARGETS</span>
+          <div class="gear-toolbar-actions">
+            <span class="modifier-tag shift">FIRST RAID TARGETS</span>
+            <button class="button ghost" type="button" data-mythicsim-export="pre-raid">
+              Export to MythicSim
+            </button>
+          </div>
         </div>
 
         <div class="character-sheet">
@@ -406,8 +415,36 @@
       </section>
     </main>
 
+    <dialog id="mythicSimExportDialog">
+      <form method="dialog" class="dialog-card">
+        <div class="dialog-heading">
+          <div>
+            <p class="section-label">MythicSim · Shockadin</p>
+            <h2 id="mythicSimExportTitle">Export loadout</h2>
+          </div>
+          <button class="close-button" value="cancel" aria-label="Close">×</button>
+        </div>
+        <p class="dialog-copy">
+          Import this JSON into MythicSim. It contains the selected gear, the best
+          planned enchants, and the Shockadin talents.
+        </p>
+        <textarea class="export-text" id="mythicSimExportText" readonly></textarea>
+        <div class="dialog-actions">
+          <a
+            class="button ghost button-link"
+            href="https://mythicsim.com/wow-forever/sim"
+            target="_blank"
+            rel="noreferrer"
+          >Open MythicSim</a>
+          <button class="button primary" id="copyMythicSimExport" type="button">
+            Copy to clipboard
+          </button>
+        </div>
+      </form>
+    </dialog>
+
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="./gear.js?v=83"></script>
+    <script src="./gear.js?v=86"></script>
   </body>
 </html>
