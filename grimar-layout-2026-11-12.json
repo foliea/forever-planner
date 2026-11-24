@@ -2,7 +2,7 @@
   "app": "Grimar",
   "game": "WoW Forever",
   "build": "1.60.1.70707",
-  "version": 17,
+  "version": 18,
   "activeMode": "pvp",
   "layouts": {
     "pvp": {
@@ -13,11 +13,11 @@
         "major-rejuvenation-potion",
         "engineering-sprint",
         "divine-favor",
-        "pvp-trinket",
-        "living-action-potion",
+        "macro-dps-trinket",
+        "macro-trinket-two",
+        "swiftness-potion",
         "macro-shield-devotion",
         "macro-2h-retribution",
-        null,
         null
       ],
       "numberRow": [
@@ -71,10 +71,10 @@
         "engineering-sprint",
         "major-frenzy-potion",
         "macro-dps-trinket",
-        "living-action-potion",
+        "macro-trinket-two",
+        "swiftness-potion",
         "macro-shield-devotion",
         "macro-2h-retribution",
-        null,
         null
       ],
       "numberRow": [
@@ -127,11 +127,11 @@
         "major-rejuvenation-potion",
         "engineering-sprint",
         null,
-        "pvp-trinket",
-        "living-action-potion",
+        "macro-dps-trinket",
+        "macro-trinket-two",
+        "swiftness-potion",
         "macro-shield-devotion",
         "macro-2h-retribution",
-        null,
         null
       ],
       "numberRow": [

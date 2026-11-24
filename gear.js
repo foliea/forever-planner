@@ -1,6 +1,7 @@
 const GEAR_STORAGE_KEY = "lightbind-shockadin-gear-v1";
 const GUIDE_STORAGE_KEY = "lightbind-shockadin-guide-v1";
 const ROADMAP_STORAGE_KEY = "lightbind-retribution-roadmap-v2";
+const ACTION_BAR_STORAGE_KEY = "lightbind-paladin-layout-v1";
 const ICON_ROOT = "./assets/icons/";
 const MYTHICSIM_SHOCKADIN_TALENTS = "05025210221021--0523330110130033";
 const MYTHICSIM_PALADIN_TALENT_SPELL_IDS = [
@@ -295,7 +296,7 @@ const PVP_CONSUMABLES = [
   consumable("pvp-major-mana-potion", "Major Mana Potion", "Macro fallback", "./assets/icons/forever-134856.png", "Requires Level 49 · Use: Restores 1,350 to 2,250 mana · Normal-world fallback for the smart mana macro · Shares its cooldown family with Battleground draughts · 2 Min Cooldown", "Alchemy"),
   consumable("pvp-major-rejuvenation", "Major Rejuvenation Potion", "Optional recovery", "inv_potion_47", "Requires Level 50 · Use: Restores 1,440 to 1,760 health and mana · Expensive combined emergency option · 2 Min Cooldown", "Alchemy"),
   consumable("pvp-healthstone", "Major Healthstone", "Separate recovery", "./assets/icons/forever-135230.png", "Use: Restores 1,440 health · Separate from the potion cooldown · 2 Min Cooldown", "Warlock"),
-  consumable("pvp-living-action", "Living Action Potion", "CC break", "inv_potion_07", "Requires Level 47 · Use: Removes stun and movement-impairing effects and grants immunity to them for 5 sec · 2 Min Cooldown", "Alchemy"),
+  consumable("pvp-swiftness", "Swiftness Potion", "Mobility", "inv_potion_95", "Requires Level 5 · Use: Increases run speed by 50% for 15 sec · Shares the potion cooldown · 2 Min Cooldown", "Alchemy"),
   consumable("pvp-bandage", "Heavy Runecloth Bandage", "First Aid", "inv_misc_bandage_12", "Use: Heals 2,000 health over 8 sec · Damage interrupts the channel and applies Recently Bandaged", "First Aid"),
   consumable("pvp-thorium-grenade", "Thorium Grenade", "Engineering", "inv_misc_bomb_08", "Requires Engineering 260 · Use: Deals 300 to 500 Fire damage and stuns for 3 sec in a 3-yard radius · 1 Min Cooldown", "Engineering"),
   consumable("pvp-arcane-bomb", "Arcane Bomb", "Engineering · niche", "spell_shadow_mindbomb", "Requires Engineering 300 · Use: Burns 675 to 1,125 mana, deals half the mana drained as damage, and silences for 5 sec · 1 Min Cooldown", "Engineering"),
@@ -332,9 +333,9 @@ const PVP_CONSUMABLE_GROUPS = [
     ],
   },
   {
-    title: "Defensive utility",
-    note: "Choose according to enemy control and damage schools",
-    ids: ["pvp-living-action", "pvp-protection-potions"],
+    title: "Mobility and defensive utility",
+    note: "Choose speed or protection according to the battleground and enemy damage",
+    ids: ["pvp-swiftness", "pvp-protection-potions"],
   },
   {
     title: "Engineering",
@@ -381,7 +382,7 @@ const CONSUMABLE_LOCKOUTS = {
   "pvp-major-mana-potion": lockout("POTION FAMILY · 2M", "potion"),
   "pvp-major-rejuvenation": lockout("POTION FAMILY · 2M", "potion"),
   "pvp-healthstone": lockout("HEALTHSTONE · SEPARATE 2M", "separate"),
-  "pvp-living-action": lockout("POTION FAMILY · 2M", "potion"),
+  "pvp-swiftness": lockout("POTION FAMILY · 2M", "potion"),
   "pvp-bandage": lockout("BANDAGE · 60S LOCKOUT", "separate"),
   "pvp-thorium-grenade": lockout("EXPLOSIVE · SHARED 1M", "engineering"),
   "pvp-arcane-bomb": lockout("EXPLOSIVE · SHARED 1M", "engineering"),
@@ -398,13 +399,13 @@ const CONSUMABLE_LOCKOUTS = {
 };
 
 const leftSlots = [
-  slot("head", "Head", "inv_helmet_05", [
-    item("epic-vindication-head", "Premier Field Marshal's Chevalier Faceguard", "PvP · Rank 13 seal upgrade", {
-      itemId: 272783,
-      icon: "inv_helmet_05",
-      quality: "Epic",
-      enchant: enchant("OPTIMAL", "Lesser Arcanum of Voracity · +8 Strength", "final", "Lesser Arcanum of Constitution · +100 Health"),
-      tooltip: epicVindicationTooltip("599 Armor · +12 Strength · +34 Stamina · +8 Intellect · +14 Critical Strike · +14 Spell Power"),
+  slot("head", "Head", "./assets/icons/item-272743.jpg", [
+    item("vindication-head", "Premier Chevalier Headguard", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272743,
+      icon: "./assets/icons/item-272743.jpg",
+      quality: "Rare",
+      enchant: enchant("BUDGET", "Lesser Arcanum of Constitution · +100 Health", "budget"),
+      tooltip: vindicationTooltip("509 Armor · +25 Stamina · +11 Strength · +7 Intellect · +7 Critical Strike · +7 Spell Power"),
     }),
   ]),
   slot("neck", "Neck", "./assets/icons/emberfury-talisman.jpg", [
@@ -416,12 +417,12 @@ const leftSlots = [
       tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Stamina · +7 Fire Resistance · +14 Critical Strike · +6 Spell Power · Requires Level 56",
     }),
   ]),
-  slot("shoulders", "Shoulders", "inv_shoulder_20", [
-    item("epic-vindication-shoulders", "Premier Marshal's Chevalier Pauldrons", "PvP · Rank 12 seal upgrade", {
-      itemId: 272785,
-      icon: "inv_shoulder_20",
-      quality: "Epic",
-      tooltip: epicVindicationTooltip("553 Armor · +12 Strength · +26 Stamina · +8 Intellect · +14 Spell Power"),
+  slot("shoulders", "Shoulders", "./assets/icons/item-272745.jpg", [
+    item("vindication-shoulders", "Premier Chevalier Shoulders", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272745,
+      icon: "./assets/icons/item-272745.jpg",
+      quality: "Rare",
+      tooltip: vindicationTooltip("470 Armor · +19 Stamina · +11 Strength · +5 Intellect · +7 Spell Power"),
     }),
   ]),
   slot("back", "Back", "./assets/icons/shroud-of-the-exile.jpg", [
@@ -433,13 +434,13 @@ const leftSlots = [
       tooltip: "Item Level 63 · Binds when picked up · Back · 45 Armor · +10 Intellect · +7 Spirit · +7 Stamina · +12 Spell Power",
     }),
   ]),
-  slot("chest", "Chest", "inv_chest_plate03", [
-    item("epic-vindication-chest", "Premier Field Marshal's Chevalier Chestplate", "PvP · Rank 13 seal upgrade", {
-      itemId: 272782,
-      icon: "inv_chest_plate03",
-      quality: "Epic",
-      enchant: enchant("OPTIMAL", "Greater Stats · +4 All Stats", "final"),
-      tooltip: epicVindicationTooltip("738 Armor · +15 Strength · +34 Stamina · +12 Intellect · +14 Critical Strike"),
+  slot("chest", "Chest", "./assets/icons/item-272742.jpg", [
+    item("vindication-chest", "Premier Chevalier Breastplate", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272742,
+      icon: "./assets/icons/item-272742.jpg",
+      quality: "Rare",
+      enchant: enchant("BUDGET", "Greater Stats · +4 All Stats", "budget"),
+      tooltip: vindicationTooltip("627 Armor · +25 Stamina · +11 Strength · +11 Intellect · +7 Critical Strike"),
     }),
   ]),
   slot("wrists", "Wrists", "./assets/icons/item-272778.jpg", [
@@ -448,7 +449,7 @@ const leftSlots = [
       icon: "./assets/icons/item-272778.jpg",
       quality: "Epic",
       enchant: enchant("OPTIMAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
-      tooltip: "Item Level 65 · Binds when picked up · Wrist · Plate · 323 Armor · +12 Strength · +20 Stamina · +7 Intellect · Requires Level 60",
+      tooltip: epicVindicationTooltip("Binds when picked up · Wrist · Plate · 323 Armor · +12 Strength · +20 Stamina · +7 Intellect · Requires Level 60"),
     }),
   ]),
   slot("weapon", "Two-Hand", "./assets/icons/unstoppable-force.jpg", [
@@ -471,13 +472,13 @@ const leftSlots = [
 ];
 
 const rightSlots = [
-  slot("hands", "Hands", "inv_gauntlets_29", [
-    item("epic-vindication-hands", "Premier Lieutenant Commander's Chevalier Gloves", "PvP · Rank 10 seal upgrade", {
-      itemId: 272780,
-      icon: "inv_gauntlets_29",
-      quality: "Epic",
-      enchant: enchant("OPTIMAL", "Holy Power · +20 Holy Damage", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-      tooltip: epicVindicationTooltip("461 Armor · +13 Strength · +26 Stamina · +7 Intellect · +7 Critical Strike · +7 Spell Power · Increases the duration of Repentance by 1 sec"),
+  slot("hands", "Hands", "./assets/icons/item-272719.jpg", [
+    item("vindication-hands", "Premier Chevalier Gauntlets", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272719,
+      icon: "./assets/icons/item-272719.jpg",
+      quality: "Rare",
+      enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+      tooltip: vindicationTooltip("392 Armor · +19 Stamina · +11 Strength · +5 Intellect · +7 Spell Power · Increases the duration of Repentance by 1 sec"),
     }),
   ]),
   slot("waist", "Waist", "./assets/icons/item-272779.jpg", [
@@ -485,25 +486,25 @@ const rightSlots = [
       itemId: 272779,
       icon: "./assets/icons/item-272779.jpg",
       quality: "Epic",
-      tooltip: "Item Level 65 · Binds when picked up · Waist · Plate · 415 Armor · +17 Strength · +26 Stamina · +10 Intellect · Requires Level 60",
+      tooltip: epicVindicationTooltip("Binds when picked up · Waist · Plate · 415 Armor · +17 Strength · +26 Stamina · +10 Intellect · Requires Level 60"),
     }),
   ]),
-  slot("legs", "Legs", "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg", [
-    item("epic-vindication-legs", "Premier Marshal's Chevalier Legplates", "PvP · Rank 12 seal upgrade", {
-      itemId: 272784,
-      icon: "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg",
-      quality: "Epic",
-      enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-      tooltip: epicVindicationTooltip("646 Armor · +15 Strength · +34 Stamina · +14 Critical Strike · +14 Spell Power"),
+  slot("legs", "Legs", "./assets/icons/item-272744.jpg", [
+    item("vindication-legs", "Premier Chevalier Leggings", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272744,
+      icon: "./assets/icons/item-272744.jpg",
+      quality: "Rare",
+      enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+      tooltip: vindicationTooltip("548 Armor · +25 Stamina · +13 Strength · +7 Critical Strike · +7 Spell Power"),
     }),
   ]),
-  slot("feet", "Feet", "./assets/icons/item-272781.jpg", [
-    item("epic-vindication-boots", "Premier Knight-Champion's Chevalier Boots", "PvP · Rank 9 seal upgrade", {
-      itemId: 272781,
-      icon: "./assets/icons/item-272781.jpg",
-      quality: "Epic",
-      enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-      tooltip: epicVindicationTooltip("507 Armor · +12 Strength · +26 Stamina · +8 Intellect · +14 Spell Power"),
+  slot("feet", "Feet", "./assets/icons/item-272718.jpg", [
+    item("vindication-boots", "Premier Chevalier Sabatons", "PvP · Level 55 · Honor + Marks", {
+      itemId: 272718,
+      icon: "./assets/icons/item-272718.jpg",
+      quality: "Rare",
+      enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+      tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
     }),
   ]),
   slot("ring-one", "Finger 1", "./assets/icons/don-mauricios-band.jpg", [
@@ -644,24 +645,24 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "legs") {
-    return slot("pre-raid-legs", "Legs", "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg", [
-      item("epic-vindication-legs", "Premier Marshal's Chevalier Legplates", "PvP · Rank 12 seal upgrade", {
-        itemId: 272784,
-        icon: "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg",
-        quality: "Epic",
-        enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-        tooltip: epicVindicationTooltip("646 Armor · +15 Strength · +34 Stamina · +14 Critical Strike · +14 Spell Power"),
+    return slot("pre-raid-legs", "Legs", "./assets/icons/item-272744.jpg", [
+      item("vindication-legs", "Premier Chevalier Leggings", "PvP · Level 55 · Honor + Marks", {
+        itemId: 272744,
+        icon: "./assets/icons/item-272744.jpg",
+        quality: "Rare",
+        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+        tooltip: vindicationTooltip("548 Armor · +25 Stamina · +13 Strength · +7 Critical Strike · +7 Spell Power"),
       }),
     ]);
   }
   if (gearSlot.id === "feet") {
-    return slot("pre-raid-feet", "Feet", "./assets/icons/item-272781.jpg", [
-      item("epic-vindication-boots", "Premier Knight-Champion's Chevalier Boots", "PvP · Rank 9 seal upgrade", {
-        itemId: 272781,
-        icon: "./assets/icons/item-272781.jpg",
-        quality: "Epic",
-        enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-        tooltip: epicVindicationTooltip("507 Armor · +12 Strength · +26 Stamina · +8 Intellect · +14 Spell Power"),
+    return slot("pre-raid-feet", "Feet", "./assets/icons/item-272718.jpg", [
+      item("vindication-boots", "Premier Chevalier Sabatons", "PvP · Level 55 · Honor + Marks", {
+        itemId: 272718,
+        icon: "./assets/icons/item-272718.jpg",
+        quality: "Rare",
+        enchant: enchant("BUDGET", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor", "budget"),
+        tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
       }),
     ]);
   }
@@ -715,6 +716,7 @@ const PRE_RAID_LOADOUT_TARGETS = new Set(
   [...preRaidLeftSlots, ...preRaidRightSlots].flatMap((gearSlot) => gearSlot.items.map((candidate) => candidate.id)),
 );
 
+const hadStoredGear = localStorage.getItem(GEAR_STORAGE_KEY) !== null;
 let obtained = loadObtained();
 let completedGuideItems = loadSavedSet(GUIDE_STORAGE_KEY);
 let roadmapState = loadRoadmapState();
@@ -815,6 +817,27 @@ function loadObtained() {
       changed = true;
     }
   });
+  const blueVindicationMigration = `${GEAR_STORAGE_KEY}-blue-vindication-owned-v1`;
+  if (localStorage.getItem(blueVindicationMigration) !== "1") {
+    [
+      "epic-vindication-head",
+      "epic-vindication-shoulders",
+      "epic-vindication-chest",
+      "epic-vindication-hands",
+      "epic-vindication-legs",
+      "epic-vindication-boots",
+    ].forEach((itemId) => saved.delete(itemId));
+    [
+      "vindication-head",
+      "vindication-shoulders",
+      "vindication-chest",
+      "vindication-hands",
+      "vindication-legs",
+      "vindication-boots",
+    ].forEach((itemId) => saved.add(itemId));
+    localStorage.setItem(blueVindicationMigration, "1");
+    changed = true;
+  }
   if (changed) {
     localStorage.setItem(GEAR_STORAGE_KEY, JSON.stringify([...saved]));
   }
@@ -852,21 +875,25 @@ function defaultRoadmapState() {
   };
 }
 
-function loadRoadmapState() {
+function normalizeRoadmapState(saved) {
   const defaults = defaultRoadmapState();
+  if (!saved || typeof saved !== "object") return defaults;
+  return {
+    ...defaults,
+    ...saved,
+    marks: { ...defaults.marks, ...(saved.marks ?? {}) },
+    completed: Array.isArray(saved.completed) ? saved.completed : [],
+    skipped: Array.isArray(saved.skipped) ? saved.skipped : [],
+    transactions: saved.transactions && typeof saved.transactions === "object" ? saved.transactions : {},
+  };
+}
+
+function loadRoadmapState() {
   try {
     const saved = JSON.parse(localStorage.getItem(ROADMAP_STORAGE_KEY));
-    if (!saved || typeof saved !== "object") return defaults;
-    return {
-      ...defaults,
-      ...saved,
-      marks: { ...defaults.marks, ...(saved.marks ?? {}) },
-      completed: Array.isArray(saved.completed) ? saved.completed : [],
-      skipped: Array.isArray(saved.skipped) ? saved.skipped : [],
-      transactions: saved.transactions && typeof saved.transactions === "object" ? saved.transactions : {},
-    };
+    return normalizeRoadmapState(saved);
   } catch {
-    return defaults;
+    return defaultRoadmapState();
   }
 }
 
@@ -1943,6 +1970,75 @@ function toggleSkippedRoadmapAction(actionId) {
   render();
 }
 
+async function saveRepositoryProfile() {
+  if (!window.showSaveFilePicker) {
+    showToast("Profile-file saving requires Chrome or Edge");
+    return;
+  }
+  let actionBars = null;
+  try {
+    actionBars = JSON.parse(localStorage.getItem(ACTION_BAR_STORAGE_KEY));
+  } catch {
+    actionBars = null;
+  }
+  if (!actionBars?.layouts || (actionBars.version ?? 0) < 18) {
+    const response = await fetch("./grimar-layout-2026-11-12.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Could not load action-bar preset");
+    actionBars = await response.json();
+  }
+  const profile = {
+    app: "Grimar",
+    format: "repository-profile",
+    version: 1,
+    savedAt: new Date().toISOString(),
+    actionBars,
+    obtainedGear: [...obtained],
+    completedGuideItems: [...completedGuideItems],
+    roadmap: roadmapState,
+  };
+  const handle = await window.showSaveFilePicker({
+    suggestedName: "grimar-profile.json",
+    types: [{
+      description: "Grimar profile",
+      accept: { "application/json": [".json"] },
+    }],
+  });
+  const writable = await handle.createWritable();
+  await writable.write(`${JSON.stringify(profile, null, 2)}\n`);
+  await writable.close();
+  showToast("grimar-profile.json updated");
+}
+
+async function hydrateRepositoryProfile() {
+  if (hadStoredGear) return;
+  const response = await fetch("./grimar-profile.json", { cache: "no-store" });
+  if (!response.ok) return;
+  const profile = await response.json();
+  if (profile?.format !== "repository-profile") return;
+  if (Array.isArray(profile.obtainedGear)) {
+    obtained = new Set(profile.obtainedGear);
+    saveObtained();
+  }
+  if (Array.isArray(profile.completedGuideItems)) {
+    completedGuideItems = new Set(profile.completedGuideItems);
+    saveGuideProgress();
+  }
+  if (profile.roadmap && typeof profile.roadmap === "object") {
+    roadmapState = normalizeRoadmapState(profile.roadmap);
+    saveRoadmapState();
+  }
+  render();
+  updateGuideChecklist();
+}
+
+document.querySelector("#saveProfileButton").addEventListener("click", () => {
+  saveRepositoryProfile().catch((error) => {
+    if (error?.name === "AbortError") return;
+    console.error(error);
+    showToast("Could not save profile file");
+  });
+});
+
 document.querySelector("#resetGearButton").addEventListener("click", () => {
   if (!window.confirm("Clear all gear, roadmap, and guide progress?")) return;
   obtained = new Set();
@@ -2020,6 +2116,7 @@ function setupGearTabs() {
 setupRoadmapControls();
 render();
 setupGearTabs();
+hydrateRepositoryProfile().catch(console.error);
 setupMythicSimExport();
 setupQuestChains();
 setupGuideChecklist();

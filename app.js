@@ -1,7 +1,7 @@
 const STORAGE_KEY = "lightbind-paladin-layout-v1";
 const barSizes = { main: 12, numberRow: 8, nagaBase: 12, nagaShift: 12, mouse: 1 };
 const barKeys = {
-  main: ["1", "2", "3", "4", "Q", "E", "F", "C", "S+Q", "S+E", "S+F", "S+C"],
+  main: ["1", "2", "3", "4", "Q", "E", "F", "C", "A", "S+Q", "S+E", "S+C"],
   numberRow: ["5", "6", "7", "8", "9", "0", "-", "="],
   nagaBase: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
   nagaShift: ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"],
@@ -60,7 +60,8 @@ const macroExportNames = {
   "macro-shield-devotion": "ShieldDevAura",
   "macro-2h-retribution": "TwoHandRetAura",
   "macro-thorium-cursor": "GrenadeCursor",
-  "macro-dps-trinket": "DPSTrinket",
+  "macro-dps-trinket": "Trinket1",
+  "macro-trinket-two": "Trinket2",
   "macro-smart-healing-potion": "HealPotion",
   "macro-smart-mana-potion": "ManaPotion",
 };
@@ -132,6 +133,22 @@ function migrateMacroIntent(sourceLayout) {
   return migrated;
 }
 
+function migrateMainKeys(sourceLayout, usePvpUtilityBindings) {
+  const migrated = normalizeLayout(sourceLayout);
+  const oldShiftQ = migrated.main[8];
+  const oldShiftE = migrated.main[9];
+  const oldShiftC = migrated.main[11];
+  migrated.main[8] = usePvpUtilityBindings ? "swiftness-potion" : null;
+  migrated.main[9] = oldShiftQ;
+  migrated.main[10] = oldShiftE;
+  migrated.main[11] = oldShiftC;
+  if (usePvpUtilityBindings) {
+    migrated.main[6] = "macro-dps-trinket";
+    migrated.main[7] = "macro-trinket-two";
+  }
+  return migrated;
+}
+
 function loadLayouts() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -182,6 +199,11 @@ function loadLayouts() {
       if ((saved.version ?? 0) < 17 && reckoningIsEmpty) {
         pvpReckoning = normalizeLayout(pvp);
       }
+      if ((saved.version ?? 0) < 18) {
+        pvp = migrateMainKeys(pvp, true);
+        pve = migrateMainKeys(pve, true);
+        pvpReckoning = migrateMainKeys(pvpReckoning, true);
+      }
       return {
         activeMode: savedMode,
         layouts: { pvp, pve, pvpReckoning },
@@ -213,7 +235,7 @@ function saveLayout() {
   layout = snapshot;
   localStorage.setItem(
     STORAGE_KEY,
-    JSON.stringify({ version: 17, activeMode, layouts }),
+    JSON.stringify({ version: 18, activeMode, layouts }),
   );
   const state = document.querySelector("#saveState");
   state.innerHTML = "<span>✓</span> Saved locally";

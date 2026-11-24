@@ -79,6 +79,7 @@ const spells = [
   { id: "warsong-bandage", name: "Warsong Gulch Runecloth Bandage", school: "Items", icon: "inv_misc_bandage_12", kind: "Battleground Bandage" },
   { id: "highlander-bandage", name: "Highlander's Runecloth Bandage", school: "Items", icon: "inv_misc_bandage_12", kind: "Battleground Bandage" },
   { id: "living-action-potion", name: "Living Action Potion", school: "Items", icon: "inv_potion_07", kind: "Utility Potion" },
+  { id: "swiftness-potion", name: "Swiftness Potion", school: "Items", icon: "inv_potion_95", kind: "Utility Potion" },
   { id: "demonic-rune", name: "Demonic Rune", school: "Items", icon: "inv_misc_rune_04", kind: "Mana Consumable" },
   { id: "major-rejuvenation-potion", name: "Major Rejuvenation Potion", school: "Items", icon: "inv_potion_47", kind: "Raid Consumable" },
 
@@ -101,7 +102,8 @@ const spells = [
   { id: "macro-shield-devotion", name: "Shield + Devotion Aura", school: "Macros", icon: "spell_holy_devotionaura", kind: "Equipment-set Macro", macro: true, macroText: "#showtooltip Devotion Aura\n/equipset Shield\n/cast Devotion Aura" },
   { id: "macro-2h-retribution", name: "2H + Retribution Aura", school: "Macros", icon: "spell_holy_auraoflight", kind: "Equipment-set Macro", macro: true, macroText: "#showtooltip Retribution Aura\n/equipset TwoHand\n/cast Retribution Aura" },
   { id: "macro-thorium-cursor", name: "Thorium Grenade at Cursor", school: "Macros", icon: "inv_misc_bomb_08", kind: "Ground-target Macro", macro: true, macroScope: "account", macroText: "#showtooltip Thorium Grenade\n/use [@cursor] Thorium Grenade" },
-  { id: "macro-dps-trinket", name: "DPS Trinket", school: "Macros", icon: "inv_jewelry_talisman_06", kind: "Trinket Macro", macro: true, macroScope: "account", macroText: "#showtooltip\n/use 13" },
+  { id: "macro-dps-trinket", name: "Trinket 1", school: "Macros", icon: "inv_jewelry_talisman_06", kind: "Trinket Macro", macro: true, macroScope: "account", macroText: "#showtooltip\n/use 13" },
+  { id: "macro-trinket-two", name: "Trinket 2", school: "Macros", icon: "inv_jewelry_talisman_06", kind: "Trinket Macro", macro: true, macroScope: "account", macroText: "#showtooltip\n/use 14" },
   { id: "macro-smart-healing-potion", name: "PvP / Normal Healing Potion", school: "Macros", icon: "inv_potion_54", iconUrl: "./assets/icons/forever-134818.png", kind: "Consumable Fallback Macro", macro: true, macroScope: "account", macroText: "#showtooltip Major Healing Draught\n/use Major Healing Draught\n/use Major Healing Potion" },
   { id: "macro-smart-mana-potion", name: "PvP / Normal Mana Potion", school: "Macros", icon: "inv_potion_76", iconUrl: "./assets/icons/forever-134860.png", kind: "Consumable Fallback Macro", macro: true, macroScope: "account", macroText: "#showtooltip Major Mana Draught\n/use Major Mana Draught\n/use Major Mana Potion" },
 ];
@@ -176,6 +178,7 @@ const spellDescriptions = {
   "warsong-bandage": "Heals 2,000 health over 8 seconds. Usable only in Warsong Gulch; damage interrupts the channel.",
   "highlander-bandage": "Heals 2,000 health over 8 seconds. Usable only in Arathi Basin; damage interrupts the channel.",
   "living-action-potion": "Removes stun and movement-impairing effects and grants immunity to them for 5 seconds. 2 minute potion cooldown.",
+  "swiftness-potion": "Increases run speed by 50% for 15 seconds. Shares the normal 2 minute potion cooldown.",
   "demonic-rune": "Restores 900 to 1,500 mana at the cost of 600 to 1,000 health. Off the global cooldown and separate from potion cooldowns.",
   "major-rejuvenation-potion": "Restores 1,440 to 1,760 health and mana. 2 minute potion cooldown.",
   "macro-self-holy-shock": "Casts Holy Shock on a living friendly mouseover; otherwise it heals you.",
@@ -196,7 +199,8 @@ const spellDescriptions = {
   "macro-shield-devotion": "Your Shift+Q intent: equip the saved Equipment Manager set named Shield, then activate Devotion Aura.",
   "macro-2h-retribution": "Your Shift+E intent: equip the saved Equipment Manager set named TwoHand, then activate Retribution Aura.",
   "macro-thorium-cursor": "Your M3 intent: throw a Thorium Grenade at your cursor position without confirming the targeting reticle.",
-  "macro-dps-trinket": "Your PvE F intent: activate the trinket equipped in the upper trinket slot. Change 13 to 14 if you equip it in the lower slot.",
+  "macro-dps-trinket": "Your F intent: activate Trinket 1 in the upper equipment slot (slot 13).",
+  "macro-trinket-two": "Your C intent: activate Trinket 2 in the lower equipment slot (slot 14).",
   "macro-smart-healing-potion": "Tries the Battleground-only Major Healing Draught first. When it cannot be used, the same press falls back to a normal Major Healing Potion.",
   "macro-smart-mana-potion": "Tries the Battleground-only Major Mana Draught first. When it cannot be used, the same press falls back to a normal Major Mana Potion.",
 };

@@ -1,0 +1,24 @@
+{
+  "app": "Grimar",
+  "format": "repository-profile",
+  "version": 1,
+  "actionBarsFile": "./grimar-layout-2026-11-12.json",
+  "obtainedGear": [
+    "vindication-head",
+    "emberfury-talisman",
+    "vindication-shoulders",
+    "shroud-of-the-exile",
+    "vindication-chest",
+    "unstoppable-force",
+    "libram-law",
+    "vindication-hands",
+    "vindication-legs",
+    "vindication-boots",
+    "blood-martyr",
+    "jeremans-bauble",
+    "greater-insignia-alliance",
+    "sanctified-orb"
+  ],
+  "completedGuideItems": [],
+  "roadmap": null
+}
