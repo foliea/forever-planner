@@ -449,7 +449,7 @@ const leftSlots = [
       icon: "./assets/icons/item-272778.jpg",
       quality: "Epic",
       enchant: enchant("OPTIMAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
-      tooltip: epicVindicationTooltip("Binds when picked up · Wrist · Plate · 323 Armor · +12 Strength · +20 Stamina · +7 Intellect · Requires Level 60"),
+      tooltip: "Item Level 65 · Binds when picked up · Wrist · Plate · 323 Armor · +12 Strength · +20 Stamina · +7 Intellect · Requires Level 60",
     }),
   ]),
   slot("weapon", "Two-Hand", "./assets/icons/unstoppable-force.jpg", [
@@ -486,7 +486,7 @@ const rightSlots = [
       itemId: 272779,
       icon: "./assets/icons/item-272779.jpg",
       quality: "Epic",
-      tooltip: epicVindicationTooltip("Binds when picked up · Waist · Plate · 415 Armor · +17 Strength · +26 Stamina · +10 Intellect · Requires Level 60"),
+      tooltip: "Item Level 65 · Binds when picked up · Waist · Plate · 415 Armor · +17 Strength · +26 Stamina · +10 Intellect · Requires Level 60",
     }),
   ]),
   slot("legs", "Legs", "./assets/icons/item-272744.jpg", [
