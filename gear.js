@@ -83,6 +83,11 @@ const SET_BONUS_RULES = {
     { pieces: 4, label: "4p: −10 sec Hammer of Justice cooldown" },
     { pieces: 6, label: "6p: +20 Stamina", stats: { stamina: 20 } },
   ],
+  "Field Marshal's Vindication": [
+    { pieces: 2, label: "2p: +20 Stamina", stats: { stamina: 20 } },
+    { pieces: 3, label: "3p: −10 sec Hammer of Justice cooldown" },
+    { pieces: 6, label: "6p: +23 Spell Damage/Healing", stats: { spellDamage: 23, healing: 23 } },
+  ],
   "Lightforge Armor": [
     { pieces: 2, label: "2p: +8 All Resistances", stats: { resistance: 8 } },
     { pieces: 3, label: "3p: +18 Spell Damage/Healing", stats: { spellDamage: 18, healing: 18 } },
@@ -169,7 +174,7 @@ const ROADMAP_ACTIONS = [
     reason: "Finish the six-piece set after the cheaper breakpoints.",
   }),
   roadmapAction("seal-wrists", "Epic Chevalier wrist upgrade", "purchase", 60, {
-    minRank: 8, honor: 1125, dependsOn: ["base-wrists"], rewardId: "epic-vindication-wrists",
+    minRank: 8, honor: 1200, dependsOn: ["base-wrists"], rewardId: "epic-vindication-wrists",
     reason: "Rank 8 seal converts the rare Armsplints into epic Armguards.",
   }),
   roadmapAction("seal-belt", "Epic Chevalier belt upgrade", "purchase", 60, {
@@ -181,19 +186,32 @@ const ROADMAP_ACTIONS = [
     reason: "Rank 9 seal upgrades the boots while preserving mixed-set counting.",
   }),
   roadmapAction("seal-gloves", "Epic Chevalier gloves upgrade", "purchase", 60, {
-    minRank: 10, honor: 2250, dependsOn: ["base-gloves"],
+    minRank: 10, honor: 2250, dependsOn: ["base-gloves"], rewardId: "epic-vindication-hands",
     reason: "Rank 10 upgrade; prioritize it once raids are open.",
+  }),
+  roadmapAction("seal-shoulders", "Epic Chevalier shoulder upgrade", "purchase", 60, {
+    minRank: 12, honor: 2250, dependsOn: ["base-shoulders"], rewardId: "epic-vindication-shoulders",
+    reason: "Rank 12 seal converts the rare shoulders into Premier Marshal's Chevalier Pauldrons.",
+  }),
+  roadmapAction("seal-legs", "Epic Chevalier leg upgrade", "purchase", 60, {
+    minRank: 12, honor: 2650, dependsOn: ["base-legs"], rewardId: "epic-vindication-legs",
+    reason: "Rank 12 seal converts the rare leggings into Premier Marshal's Chevalier Legplates.",
+  }),
+  roadmapAction("seal-head", "Epic Chevalier head upgrade", "purchase", 60, {
+    minRank: 13, dependsOn: ["base-head"], rewardId: "epic-vindication-head",
+    reason: "Rank 13 seal converts the rare headguard into the Field Marshal epic; its Honor price is not confirmed yet.",
+  }),
+  roadmapAction("seal-chest", "Epic Chevalier chest upgrade", "purchase", 60, {
+    minRank: 13, honor: 2650, dependsOn: ["base-chest"], rewardId: "epic-vindication-chest",
+    reason: "Rank 13 seal converts the rare breastplate into the Field Marshal epic.",
   }),
   roadmapAction("sanctified-orb-quest", "Forging the Mightstone — Sanctified Orb", "quest", 50, {
     rewardId: "sanctified-orb",
     reason: "Already obtained: a reliable +15 Spell Power trinket for both PvP and pre-raid.",
   }),
-  roadmapAction("ice-spear", "Hero of the Stormpike — Ice Barbed Spear", "quest", 51, {
-    rewardId: "ice-barbed-spear", reason: "Take the quest before AV so a rank-cap win also awards your weapon.",
-  }),
-  roadmapAction("relentless-scythe", "LBRS — Relentless Scythe", "dungeon", 57, {
-    rewardId: "relentless-scythe", group: "LBRS",
-    reason: "Already obtained: use it as the pre-raid weapon for its Strength, Agility, and Expertise.",
+  roadmapAction("unstoppable-force", "Alterac Valley — The Unstoppable Force", "purchase", 55, {
+    rewardId: "unstoppable-force",
+    reason: "Already obtained; use it in both loadouts for its Strength, Stamina, Critical Strike, and stun proc.",
   }),
   roadmapAction("blood-martyr-quest", "Aurius / Baron Rivendare — Blood of the Martyr", "dungeon", 58, {
     rewardId: "blood-martyr", group: "Stratholme",
@@ -202,6 +220,10 @@ const ROADMAP_ACTIONS = [
   roadmapAction("nacreous-shell-necklace", "Stratholme Live — Nacreous Shell Necklace", "dungeon", 56, {
     rewardId: "nacreous-shell-necklace", group: "Stratholme Live",
     reason: "Cannon Master Willey necklace with Intellect, Stamina, 1% Hit, and +9 Spell Power.",
+  }),
+  roadmapAction("emberfury-talisman", "UBRS — Emberfury Talisman", "dungeon", 56, {
+    rewardId: "emberfury-talisman", group: "UBRS",
+    reason: "Already obtained from Pyroguard Emberseer; equipped in the PvP loadout.",
   }),
   roadmapAction("grand-crusaders-helm", "Stratholme Live — Grand Crusader's Helm", "dungeon", 58, {
     rewardId: "grand-crusaders-helm", group: "Stratholme Live",
@@ -252,7 +274,7 @@ const ROADMAP_ACTIONS = [
 
 const CORE_PRE_RAID_PRIORITY = [
   "sanctified-orb-quest",
-  "relentless-scythe",
+  "unstoppable-force",
   "grand-crusaders-helm",
   "nacreous-shell-necklace",
   "battleborn-armbraces",
@@ -377,29 +399,29 @@ const CONSUMABLE_LOCKOUTS = {
 
 const leftSlots = [
   slot("head", "Head", "inv_helmet_05", [
-    item("vindication-head", "Premier Chevalier Headguard", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272743,
-      icon: "./assets/icons/item-272743.jpg",
-      quality: "Rare",
+    item("epic-vindication-head", "Premier Field Marshal's Chevalier Faceguard", "PvP · Rank 13 seal upgrade", {
+      itemId: 272783,
+      icon: "inv_helmet_05",
+      quality: "Epic",
       enchant: enchant("OPTIMAL", "Lesser Arcanum of Voracity · +8 Strength", "final", "Lesser Arcanum of Constitution · +100 Health"),
-      tooltip: vindicationTooltip("509 Armor · +25 Stamina · +11 Strength · +7 Intellect · +7 Critical Strike · +7 Spell Power"),
+      tooltip: epicVindicationTooltip("599 Armor · +12 Strength · +34 Stamina · +8 Intellect · +14 Critical Strike · +14 Spell Power"),
     }),
   ]),
-  slot("neck", "Neck", "./assets/icons/nacreous-shell-necklace.jpg", [
-    item("nacreous-shell-necklace", "Nacreous Shell Necklace", "Stratholme Live · Cannon Master Willey", {
-      itemId: 22403,
-      icon: "./assets/icons/nacreous-shell-necklace.jpg",
+  slot("neck", "Neck", "./assets/icons/emberfury-talisman.jpg", [
+    item("emberfury-talisman", "Emberfury Talisman", "UBRS · Pyroguard Emberseer", {
+      itemId: 12929,
+      icon: "./assets/icons/emberfury-talisman.jpg",
       quality: "Rare",
       enchant: enchant("OPTIMAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
-      tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Intellect · +7 Stamina · +10 Hit · +9 Spell Power · Requires Level 56",
+      tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Stamina · +7 Fire Resistance · +14 Critical Strike · +6 Spell Power · Requires Level 56",
     }),
   ]),
-  slot("shoulders", "Shoulders", "inv_shoulder_01", [
-    item("vindication-shoulders", "Premier Chevalier Shoulders", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272745,
-      icon: "./assets/icons/item-272745.jpg",
-      quality: "Rare",
-      tooltip: vindicationTooltip("470 Armor · +19 Stamina · +11 Strength · +5 Intellect · +7 Spell Power"),
+  slot("shoulders", "Shoulders", "inv_shoulder_20", [
+    item("epic-vindication-shoulders", "Premier Marshal's Chevalier Pauldrons", "PvP · Rank 12 seal upgrade", {
+      itemId: 272785,
+      icon: "inv_shoulder_20",
+      quality: "Epic",
+      tooltip: epicVindicationTooltip("553 Armor · +12 Strength · +26 Stamina · +8 Intellect · +14 Spell Power"),
     }),
   ]),
   slot("back", "Back", "./assets/icons/shroud-of-the-exile.jpg", [
@@ -411,31 +433,31 @@ const leftSlots = [
       tooltip: "Item Level 63 · Binds when picked up · Back · 45 Armor · +10 Intellect · +7 Spirit · +7 Stamina · +12 Spell Power",
     }),
   ]),
-  slot("chest", "Chest", "inv_chest_plate04", [
-    item("vindication-chest", "Premier Chevalier Breastplate", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272742,
-      icon: "./assets/icons/item-272742.jpg",
-      quality: "Rare",
+  slot("chest", "Chest", "inv_chest_plate03", [
+    item("epic-vindication-chest", "Premier Field Marshal's Chevalier Chestplate", "PvP · Rank 13 seal upgrade", {
+      itemId: 272782,
+      icon: "inv_chest_plate03",
+      quality: "Epic",
       enchant: enchant("OPTIMAL", "Greater Stats · +4 All Stats", "final"),
-      tooltip: vindicationTooltip("627 Armor · +25 Stamina · +11 Strength · +11 Intellect · +7 Critical Strike"),
+      tooltip: epicVindicationTooltip("738 Armor · +15 Strength · +34 Stamina · +12 Intellect · +14 Critical Strike"),
     }),
   ]),
-  slot("wrists", "Wrists", "inv_bracer_13", [
-    item("vindication-wrists", "Premier Chevalier Armsplints", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272721,
-      icon: "./assets/icons/item-272721.jpg",
-      quality: "Rare",
+  slot("wrists", "Wrists", "./assets/icons/item-272778.jpg", [
+    item("epic-vindication-wrists", "Premier Knight-Captain's Chevalier Armguards", "PvP · Rank 8 seal upgrade", {
+      itemId: 272778,
+      icon: "./assets/icons/item-272778.jpg",
+      quality: "Epic",
       enchant: enchant("OPTIMAL", "Greater Spellpower · +16 Spell Power", "final", "+9 Strength"),
-      tooltip: "Item Level 60 · Binds when picked up · Wrist · Plate · 274 Armor · +14 Stamina · +9 Strength · +5 Intellect · Requires Level 55",
+      tooltip: "Item Level 65 · Binds when picked up · Wrist · Plate · 323 Armor · +12 Strength · +20 Stamina · +7 Intellect · Requires Level 60",
     }),
   ]),
-  slot("weapon", "Two-Hand", "inv_spear_04", [
-    item("ice-barbed-spear", "Ice Barbed Spear", "Hero of the Stormpike", {
-      itemId: 19106,
-      icon: "inv_spear_04",
-      quality: "Rare",
+  slot("weapon", "Two-Hand", "./assets/icons/unstoppable-force.jpg", [
+    item("unstoppable-force", "The Unstoppable Force", "Alterac Valley", {
+      itemId: 19323,
+      icon: "./assets/icons/unstoppable-force.jpg",
+      quality: "Epic",
       enchant: enchant("OPTIMAL PVP", "Steel Weapon Chain · Immune to Disarm", "final"),
-      tooltip: "Item Level 63 · Two-Hand Polearm · 155–233 Damage · Speed 3.60 · +13 Strength · +21 Agility · +20 Stamina",
+      tooltip: "Item Level 60 · Binds when picked up · Unique · Two-Hand Mace · 152–255 Damage · Speed 3.60 · +18 Strength · +17 Stamina · +28 Critical Strike · Chance on hit: Stuns target for 1 sec · Requires Level 55",
     }),
   ]),
   slot("relic", "Libram", "inv_relics_libramofhope", [
@@ -450,39 +472,38 @@ const leftSlots = [
 
 const rightSlots = [
   slot("hands", "Hands", "inv_gauntlets_29", [
-    item("vindication-hands", "Premier Chevalier Gauntlets", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272719,
-      icon: "./assets/icons/item-272719.jpg",
-      quality: "Rare",
+    item("epic-vindication-hands", "Premier Lieutenant Commander's Chevalier Gloves", "PvP · Rank 10 seal upgrade", {
+      itemId: 272780,
+      icon: "inv_gauntlets_29",
+      quality: "Epic",
       enchant: enchant("OPTIMAL", "Holy Power · +20 Holy Damage", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-      tooltip: vindicationTooltip("392 Armor · +19 Stamina · +11 Strength · +5 Intellect · +7 Spell Power · Increases the duration of Repentance by 1 sec"),
+      tooltip: epicVindicationTooltip("461 Armor · +13 Strength · +26 Stamina · +7 Intellect · +7 Critical Strike · +7 Spell Power · Increases the duration of Repentance by 1 sec"),
     }),
   ]),
-  slot("waist", "Waist", "inv_belt_13", [
-    item("vindication-waist", "Premier Chevalier Cinch", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272720,
-      icon: "./assets/icons/item-272720.jpg",
-      quality: "Rare",
-      enchant: enchant("TINKER", "Nitro Boosts · Engineering 280 · up to +160% movement speed for up to 8 sec", "final"),
-      tooltip: "Item Level 60 · Binds when picked up · Waist · Plate · 353 Armor · +19 Stamina · +12 Strength · +7 Intellect · Requires Level 55",
+  slot("waist", "Waist", "./assets/icons/item-272779.jpg", [
+    item("epic-vindication-waist", "Premier Knight-Captain's Chevalier Belt", "PvP · Rank 8 seal upgrade", {
+      itemId: 272779,
+      icon: "./assets/icons/item-272779.jpg",
+      quality: "Epic",
+      tooltip: "Item Level 65 · Binds when picked up · Waist · Plate · 415 Armor · +17 Strength · +26 Stamina · +10 Intellect · Requires Level 60",
     }),
   ]),
-  slot("legs", "Legs", "inv_pants_plate_04", [
-    item("vindication-legs", "Premier Chevalier Leggings", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272744,
-      icon: "./assets/icons/item-272744.jpg",
-      quality: "Rare",
+  slot("legs", "Legs", "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg", [
+    item("epic-vindication-legs", "Premier Marshal's Chevalier Legplates", "PvP · Rank 12 seal upgrade", {
+      itemId: 272784,
+      icon: "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg",
+      quality: "Epic",
       enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-      tooltip: vindicationTooltip("548 Armor · +25 Stamina · +13 Strength · +7 Critical Strike · +7 Spell Power"),
+      tooltip: epicVindicationTooltip("646 Armor · +15 Strength · +34 Stamina · +14 Critical Strike · +14 Spell Power"),
     }),
   ]),
-  slot("feet", "Feet", "inv_boots_plate_03", [
-    item("vindication-boots", "Premier Chevalier Sabatons", "PvP · Level 55 · Honor + Marks", {
-      itemId: 272718,
-      icon: "./assets/icons/item-272718.jpg",
-      quality: "Rare",
+  slot("feet", "Feet", "./assets/icons/item-272781.jpg", [
+    item("epic-vindication-boots", "Premier Knight-Champion's Chevalier Boots", "PvP · Rank 9 seal upgrade", {
+      itemId: 272781,
+      icon: "./assets/icons/item-272781.jpg",
+      quality: "Epic",
       enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-      tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
+      tooltip: epicVindicationTooltip("507 Armor · +12 Strength · +26 Stamina · +8 Intellect · +14 Spell Power"),
     }),
   ]),
   slot("ring-one", "Finger 1", "./assets/icons/don-mauricios-band.jpg", [
@@ -586,13 +607,13 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "weapon") {
-    return slot("pre-raid-weapon", "Two-Hand", "inv_sword_18", [
-      item("relentless-scythe", "Relentless Scythe", "LBRS · Overlord Wyrmthalak", {
-        itemId: 13163,
-        icon: "inv_sword_18",
-        quality: "Rare",
+    return slot("pre-raid-weapon", "Two-Hand", "./assets/icons/unstoppable-force.jpg", [
+      item("unstoppable-force", "The Unstoppable Force", "Alterac Valley", {
+        itemId: 19323,
+        icon: "./assets/icons/unstoppable-force.jpg",
+        quality: "Epic",
         enchant: enchant("OPTIMAL", "Spellblasting · +65 Spell Power", "final", "Greater Impact · +7 Weapon Damage"),
-        tooltip: "Item Level 62 · Binds when picked up · Two-Hand Sword · 140–210 Damage · Speed 3.30 · +20 Strength · +9 Agility · +11 Stamina · +15 Parry · +10 Expertise · Requires Level 57",
+        tooltip: "Item Level 60 · Binds when picked up · Unique · Two-Hand Mace · 152–255 Damage · Speed 3.60 · +18 Strength · +17 Stamina · +28 Critical Strike · Chance on hit: Stuns target for 1 sec · Requires Level 55",
       }),
     ]);
   }
@@ -623,24 +644,24 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "legs") {
-    return slot("pre-raid-legs", "Legs", "./assets/icons/item-272744.jpg", [
-      item("vindication-legs", "Premier Chevalier Leggings", "PvP · Level 55 · Honor + Marks", {
-        itemId: 272744,
-        icon: "./assets/icons/item-272744.jpg",
-        quality: "Rare",
+    return slot("pre-raid-legs", "Legs", "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg", [
+      item("epic-vindication-legs", "Premier Marshal's Chevalier Legplates", "PvP · Rank 12 seal upgrade", {
+        itemId: 272784,
+        icon: "https://raw.githubusercontent.com/Napalmsteak/Classic-WoW-Item-Caches/main/icons/inv_pants_04.jpg",
+        quality: "Epic",
         enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-        tooltip: vindicationTooltip("548 Armor · +25 Stamina · +13 Strength · +7 Critical Strike · +7 Spell Power"),
+        tooltip: epicVindicationTooltip("646 Armor · +15 Strength · +34 Stamina · +14 Critical Strike · +14 Spell Power"),
       }),
     ]);
   }
   if (gearSlot.id === "feet") {
-    return slot("pre-raid-feet", "Feet", "./assets/icons/item-272718.jpg", [
-      item("vindication-boots", "Premier Chevalier Sabatons", "PvP · Level 55 · Honor + Marks", {
-        itemId: 272718,
-        icon: "./assets/icons/item-272718.jpg",
-        quality: "Rare",
+    return slot("pre-raid-feet", "Feet", "./assets/icons/item-272781.jpg", [
+      item("epic-vindication-boots", "Premier Knight-Champion's Chevalier Boots", "PvP · Rank 9 seal upgrade", {
+        itemId: 272781,
+        icon: "./assets/icons/item-272781.jpg",
+        quality: "Epic",
         enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
-        tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
+        tooltip: epicVindicationTooltip("507 Armor · +12 Strength · +26 Stamina · +8 Intellect · +14 Spell Power"),
       }),
     ]);
   }
@@ -762,6 +783,10 @@ function mixedVindicationTooltip(stats) {
   return `${stats} · Lieutenant Commander's Vindication — (2) +23 Spell Damage and Healing · (4) −10 sec Hammer of Justice cooldown · (6) +20 Stamina`;
 }
 
+function epicVindicationTooltip(stats) {
+  return `Item Level 65 · ${stats} · Field Marshal's Vindication — (2) +20 Stamina · (3) −10 sec Hammer of Justice cooldown · (6) +23 Spell Damage and Healing`;
+}
+
 function lightforgeTooltip(stats) {
   return `${stats} · Lightforge Armor — (2) +8 All Resistances · (3) +18 Spell Damage and Healing · (4) 7% chance when struck by a harmful spell to silence the caster for 3 sec (60 sec cooldown) · (5) Chance on melee autoattack and spellcast to gain +65 Spell Damage and Healing for 10 sec · (6) +8 Mana per 5 sec`;
 }
@@ -771,12 +796,29 @@ function slot(id, name, icon, items) {
 }
 
 function iconUrl(icon) {
-  if (icon.startsWith("./")) return icon;
+  if (icon.startsWith("./") || icon.startsWith("https://")) return icon;
   return `${ICON_ROOT}${icon}.jpg`;
 }
 
 function loadObtained() {
-  return loadSavedSet(GEAR_STORAGE_KEY);
+  const saved = loadSavedSet(GEAR_STORAGE_KEY);
+  const migrations = [
+    ["emberfury-owned-v1", "emberfury-talisman"],
+    ["unstoppable-force-owned-v1", "unstoppable-force"],
+  ];
+  let changed = false;
+  migrations.forEach(([migration, itemId]) => {
+    const migrationKey = `${GEAR_STORAGE_KEY}-${migration}`;
+    if (localStorage.getItem(migrationKey) !== "1") {
+      saved.add(itemId);
+      localStorage.setItem(migrationKey, "1");
+      changed = true;
+    }
+  });
+  if (changed) {
+    localStorage.setItem(GEAR_STORAGE_KEY, JSON.stringify([...saved]));
+  }
+  return saved;
 }
 
 function loadSavedSet(storageKey) {
