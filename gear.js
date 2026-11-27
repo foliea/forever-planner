@@ -101,6 +101,7 @@ const SET_BONUS_RULES = {
 const SUMMARY_STATS = [
   ["armor", "Armor"],
   ["strength", "Strength"],
+  ["attackPower", "Attack Power"],
   ["agility", "Agility"],
   ["stamina", "Stamina"],
   ["intellect", "Intellect"],
@@ -218,10 +219,6 @@ const ROADMAP_ACTIONS = [
     rewardId: "blood-martyr", group: "Stratholme",
     reason: "Complete the Aurius event while running Baron Rivendare and select the ring reward.",
   }),
-  roadmapAction("nacreous-shell-necklace", "Stratholme Live — Nacreous Shell Necklace", "dungeon", 56, {
-    rewardId: "nacreous-shell-necklace", group: "Stratholme Live",
-    reason: "Cannon Master Willey necklace with Intellect, Stamina, 1% Hit, and +9 Spell Power.",
-  }),
   roadmapAction("emberfury-talisman", "UBRS — Emberfury Talisman", "dungeon", 56, {
     rewardId: "emberfury-talisman", group: "UBRS",
     reason: "Already obtained from Pyroguard Emberseer; equipped in the PvP loadout.",
@@ -254,10 +251,9 @@ const ROADMAP_ACTIONS = [
     rewardId: "lightforge-breastplate", group: "UBRS",
     reason: "Drakkisath drop and a core piece of the planned Lightforge mix.",
   }),
-  roadmapAction("don-mauricios-band", "Scholomance — Don Mauricio's Band", "dungeon", 58, {
-    rewardId: "don-mauricios-band", group: "Scholomance",
-    reason: "Optional small damage upgrade over Blood of the Martyr; do not prioritize Scholomance solely for this ring.",
-    optional: true,
+  roadmapAction("don-julios-band", "Alterac Valley — Don Julio's Band", "purchase", 55, {
+    rewardId: "don-julios-band", group: "Alterac Valley",
+    reason: "Predictable shared ring with 1% Hit, 1% Critical Strike, and +14 Attack Power for both loadouts.",
   }),
   roadmapAction("jeremans-bauble", "Mount Hyjal — Return to Jereman", "quest", 60, {
     rewardId: "jeremans-bauble", group: "Mount Hyjal",
@@ -277,7 +273,7 @@ const CORE_PRE_RAID_PRIORITY = [
   "sanctified-orb-quest",
   "unstoppable-force",
   "grand-crusaders-helm",
-  "nacreous-shell-necklace",
+  "don-julios-band",
   "battleborn-armbraces",
   "lightforge-shoulders",
   "lightforge-chest",
@@ -286,7 +282,6 @@ const CORE_PRE_RAID_PRIORITY = [
   "lightforge-belt-buy",
   "arcanoweave-cloak-roadmap",
   "jeremans-bauble",
-  "don-mauricios-band",
 ];
 
 const PVP_CONSUMABLES = [
@@ -507,12 +502,12 @@ const rightSlots = [
       tooltip: vindicationTooltip("431 Armor · +19 Stamina · +10 Strength · +7 Intellect · +7 Spell Power"),
     }),
   ]),
-  slot("ring-one", "Finger 1", "./assets/icons/don-mauricios-band.jpg", [
-    item("don-mauricios-band", "Don Mauricio's Band of Domination", "Scholomance · Darkmaster Gandling", {
-      itemId: 22433,
-      icon: "./assets/icons/don-mauricios-band.jpg",
-      quality: "Rare",
-      tooltip: "Item Level 63 · Binds when picked up · Finger · +10 Stamina · +11 Spell Power · +14 Critical Strike · Requires Level 58",
+  slot("ring-one", "Finger 1", "./assets/icons/don-julios-band.jpg", [
+    item("don-julios-band", "Don Julio's Band", "Alterac Valley · Stormpike Guard Exalted", {
+      itemId: 19325,
+      icon: "./assets/icons/don-julios-band.jpg",
+      quality: "Epic",
+      tooltip: "Item Level 60 · Binds when picked up · Unique-Equipped: Band of Don (1) · Finger · +10 Stamina · +10 Hit · +14 Critical Strike · +14 Attack Power · Requires Level 55",
     }),
   ]),
   slot("ring-two", "Finger 2", "inv_jewelry_ring_21", [
@@ -554,13 +549,13 @@ const preRaidLeftSlots = leftSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "neck") {
-    return slot("pre-raid-neck", "Neck", "./assets/icons/nacreous-shell-necklace.jpg", [
-      item("nacreous-shell-necklace", "Nacreous Shell Necklace", "Stratholme Live · Cannon Master Willey", {
-        itemId: 22403,
-        icon: "./assets/icons/nacreous-shell-necklace.jpg",
+    return slot("pre-raid-neck", "Neck", "./assets/icons/emberfury-talisman.jpg", [
+      item("emberfury-talisman", "Emberfury Talisman", "UBRS · Pyroguard Emberseer", {
+        itemId: 12929,
+        icon: "./assets/icons/emberfury-talisman.jpg",
         quality: "Rare",
         enchant: enchant("OPTIMAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
-        tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Intellect · +7 Stamina · +10 Hit · +9 Spell Power · Requires Level 56",
+        tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Stamina · +7 Fire Resistance · +14 Critical Strike · +6 Spell Power · Requires Level 56",
       }),
     ]);
   }
@@ -667,12 +662,12 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
     ]);
   }
   if (gearSlot.id === "ring-one") {
-    return slot("pre-raid-ring-one", "Finger 1", "./assets/icons/don-mauricios-band.jpg", [
-      item("don-mauricios-band", "Don Mauricio's Band of Domination", "Scholomance · Darkmaster Gandling", {
-        itemId: 22433,
-        icon: "./assets/icons/don-mauricios-band.jpg",
-        quality: "Rare",
-        tooltip: "Item Level 63 · Binds when picked up · Finger · +10 Stamina · +11 Spell Power · +14 Critical Strike · Requires Level 58",
+    return slot("pre-raid-ring-one", "Finger 1", "./assets/icons/don-julios-band.jpg", [
+      item("don-julios-band", "Don Julio's Band", "Alterac Valley · Stormpike Guard Exalted", {
+        itemId: 19325,
+        icon: "./assets/icons/don-julios-band.jpg",
+        quality: "Epic",
+        tooltip: "Item Level 60 · Binds when picked up · Unique-Equipped: Band of Don (1) · Finger · +10 Stamina · +10 Hit · +14 Critical Strike · +14 Attack Power · Requires Level 55",
       }),
     ]);
   }
@@ -810,6 +805,7 @@ function loadObtained() {
     ["grand-crusaders-helm-owned-v1", "grand-crusaders-helm"],
     ["epic-pvp-wrists-owned-v1", "epic-vindication-wrists"],
     ["epic-pvp-belt-owned-v1", "epic-vindication-waist"],
+    ["don-julios-band-owned-v1", "don-julios-band"],
   ];
   let changed = false;
   migrations.forEach(([migration, itemId]) => {
@@ -1420,6 +1416,7 @@ function addStaticStats(totals, tooltip) {
     if (/^(Equip:|Use:|Increases|Chance)/i.test(segment)) return;
     addStatMatch(totals, segment, /(\d+)\s+Armor/i, "armor");
     addStatMatch(totals, segment, /\+(\d+)\s+Strength/i, "strength");
+    addStatMatch(totals, segment, /\+(\d+)\s+Attack Power/i, "attackPower");
     addStatMatch(totals, segment, /\+(\d+)\s+Agility/i, "agility");
     addStatMatch(totals, segment, /\+(\d+)\s+Stamina/i, "stamina");
     addStatMatch(totals, segment, /\+(\d+)\s+Intellect/i, "intellect");
@@ -1688,6 +1685,10 @@ function highlightItemStats(line) {
     )
     .replace(
       /(\+\d+\s+(?:Critical Strike|Crit Rating))/gi,
+      '<span class="wow-green-stat">$1</span>',
+    )
+    .replace(
+      /(\+\d+\s+Attack Power)/gi,
       '<span class="wow-green-stat">$1</span>',
     )
     .replace(
