@@ -807,6 +807,9 @@ function loadObtained() {
   const migrations = [
     ["emberfury-owned-v1", "emberfury-talisman"],
     ["unstoppable-force-owned-v1", "unstoppable-force"],
+    ["grand-crusaders-helm-owned-v1", "grand-crusaders-helm"],
+    ["epic-pvp-wrists-owned-v1", "epic-vindication-wrists"],
+    ["epic-pvp-belt-owned-v1", "epic-vindication-waist"],
   ];
   let changed = false;
   migrations.forEach(([migration, itemId]) => {
