@@ -233,7 +233,7 @@ const ROADMAP_ACTIONS = [
   }),
   roadmapAction("battleborn-armbraces", "UBRS — Battleborn Armbraces", "dungeon", 58, {
     rewardId: "battleborn-armbraces", group: "UBRS",
-    reason: "Rend drop with 1% Hit and 1% Critical Strike; helps complete the approximately 4.4% Hit setup.",
+    reason: "Already obtained from Warchief Rend Blackhand; supplies 1% Hit and 1% Critical Strike.",
   }),
   roadmapAction("arcanoweave-cloak-roadmap", "Buy Arcanoweave Cloak", "currency", 60, {
     rewardId: "arcanoweave-cloak",
@@ -241,15 +241,15 @@ const ROADMAP_ACTIONS = [
   }),
   roadmapAction("lightforge-belt-buy", "Buy Lightforge Belt", "market", 53, {
     rewardId: "lightforge-belt",
-    reason: "Use the BoE belt for the third Lightforge piece, +18 Spell Power set bonus, and another 0.5% Hit.",
+    reason: "Already obtained; completes the three-piece Lightforge bonus and adds another 0.5% Hit.",
   }),
   roadmapAction("lightforge-shoulders", "UBRS — Lightforge Spaulders", "dungeon", 59, {
     rewardId: "lightforge-spaulders", group: "UBRS",
-    reason: "The Beast drop and one of the three efficient Lightforge pieces.",
+    reason: "Already obtained from The Beast; one of the three efficient Lightforge pieces.",
   }),
   roadmapAction("lightforge-chest", "UBRS — Lightforge Breastplate", "dungeon", 59, {
     rewardId: "lightforge-breastplate", group: "UBRS",
-    reason: "Drakkisath drop and a core piece of the planned Lightforge mix.",
+    reason: "Already obtained from General Drakkisath; a core piece of the planned Lightforge mix.",
   }),
   roadmapAction("don-julios-band", "Alterac Valley — Don Julio's Band", "purchase", 55, {
     rewardId: "don-julios-band", group: "Alterac Valley",
@@ -261,7 +261,7 @@ const ROADMAP_ACTIONS = [
   }),
   roadmapAction("draconic", "UBRS — Draconic Infused Emblem", "dungeon", 59, {
     rewardId: "draconic-emblem", group: "UBRS",
-    reason: "Farm alongside the Lightforge chest; equip it immediately if it drops first.",
+    reason: "Already obtained from General Drakkisath; equipped in the pre-raid loadout.",
   }),
   roadmapAction("libram-law-roadmap", "Libram of Law", "currency", 60, {
     rewardId: "libram-law",
@@ -713,6 +713,7 @@ const PRE_RAID_LOADOUT_TARGETS = new Set(
 
 const hadStoredGear = localStorage.getItem(GEAR_STORAGE_KEY) !== null;
 let obtained = loadObtained();
+let lockedObtained = new Set();
 let completedGuideItems = loadSavedSet(GUIDE_STORAGE_KEY);
 let roadmapState = loadRoadmapState();
 let toastTimer;
@@ -902,15 +903,18 @@ function saveRoadmapState() {
 
 function candidateMarkup(candidate, compact = false) {
   const checked = obtained.has(candidate.id);
-  const disabled = !candidate.trackable;
+  const pending = !candidate.trackable;
+  const locked = lockedObtained.has(candidate.id);
+  const disabled = pending || locked;
   const icon = candidate.icon ?? "inv_misc_questionmark";
   return `
-    <label class="gear-candidate${checked ? " obtained" : ""}${disabled ? " pending" : ""}${compact ? " compact" : ""}">
+    <label class="gear-candidate${checked ? " obtained" : ""}${pending ? " pending" : ""}${locked ? " locked-obtained" : ""}${compact ? " compact" : ""}">
       <input
         type="checkbox"
         data-item-id="${candidate.id}"
         ${checked ? "checked" : ""}
         ${disabled ? "disabled" : ""}
+        ${locked ? 'title="Saved as obtained in your profile"' : ""}
       >
       ${compact ? "" : `<img class="gear-candidate-icon" src="${iconUrl(icon)}" alt="">`}
       <span class="gear-check" aria-hidden="true">${checked ? "✓" : ""}</span>
@@ -1558,6 +1562,7 @@ document.querySelectorAll(".character-sheet").forEach((sheet) => {
 function handleItemChange(event) {
   const input = event.target.closest("[data-item-id]");
   if (!input) return;
+  if (lockedObtained.has(input.dataset.itemId)) return;
   hideGearTooltip();
   if (input.checked) obtained.add(input.dataset.itemId);
   else obtained.delete(input.dataset.itemId);
@@ -1957,7 +1962,9 @@ function undoRoadmapAction(actionId) {
     delete roadmapState.transactions[actionId];
   }
   roadmapState.completed = roadmapState.completed.filter((id) => id !== actionId);
-  if (action.rewardId) obtained.delete(action.rewardId);
+  if (action.rewardId && !lockedObtained.has(action.rewardId)) {
+    obtained.delete(action.rewardId);
+  }
   saveRoadmapState();
   saveObtained();
   render();
@@ -1993,9 +2000,10 @@ async function saveRepositoryProfile() {
   const profile = {
     app: "Grimar",
     format: "repository-profile",
-    version: 1,
+    version: 2,
     savedAt: new Date().toISOString(),
     actionBars,
+    lockedObtainedGear: [...lockedObtained],
     obtainedGear: [...obtained],
     completedGuideItems: [...completedGuideItems],
     roadmap: roadmapState,
@@ -2014,20 +2022,28 @@ async function saveRepositoryProfile() {
 }
 
 async function hydrateRepositoryProfile() {
-  if (hadStoredGear) return;
   const response = await fetch("./grimar-profile.json", { cache: "no-store" });
   if (!response.ok) return;
   const profile = await response.json();
   if (profile?.format !== "repository-profile") return;
+  const profileObtained = Array.isArray(profile.obtainedGear)
+    ? new Set(profile.obtainedGear)
+    : new Set();
+  lockedObtained = new Set(
+    Array.isArray(profile.lockedObtainedGear)
+      ? profile.lockedObtainedGear
+      : profile.obtainedGear ?? [],
+  );
   if (Array.isArray(profile.obtainedGear)) {
-    obtained = new Set(profile.obtainedGear);
+    if (!hadStoredGear) obtained = profileObtained;
+    lockedObtained.forEach((itemId) => obtained.add(itemId));
     saveObtained();
   }
-  if (Array.isArray(profile.completedGuideItems)) {
+  if (!hadStoredGear && Array.isArray(profile.completedGuideItems)) {
     completedGuideItems = new Set(profile.completedGuideItems);
     saveGuideProgress();
   }
-  if (profile.roadmap && typeof profile.roadmap === "object") {
+  if (!hadStoredGear && profile.roadmap && typeof profile.roadmap === "object") {
     roadmapState = normalizeRoadmapState(profile.roadmap);
     saveRoadmapState();
   }
@@ -2045,7 +2061,7 @@ document.querySelector("#saveProfileButton").addEventListener("click", () => {
 
 document.querySelector("#resetGearButton").addEventListener("click", () => {
   if (!window.confirm("Clear all gear, roadmap, and guide progress?")) return;
-  obtained = new Set();
+  obtained = new Set(lockedObtained);
   completedGuideItems = new Set();
   roadmapState = defaultRoadmapState();
   saveObtained();
