@@ -554,6 +554,28 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
 });
 
 const preRaidDegenLeftSlots = preRaidLeftSlots.map((gearSlot) => {
+  if (gearSlot.name === "Head") {
+    return slot("pre-raid-degen-head", "Head", "inv_helmet_08", [
+      item("soulforge-helm", "Soulforge Helm", "Dungeon Set 2 questline · final upgrade", {
+        itemId: 226997,
+        icon: "inv_helmet_08",
+        quality: "Epic",
+        enchant: enchant("OPTIMAL", "Lesser Arcanum of Voracity · +8 Strength", "final", "Lesser Arcanum of Constitution · +100 Health"),
+        tooltip: soulforgeTooltip("Item Level 60 · Binds when picked up · Head · Plate · 556 Armor · +16 Strength · +17 Stamina · +17 Intellect · +12 Spirit · +14 Critical Strike · +14 Spell Power"),
+      }),
+    ]);
+  }
+  if (gearSlot.name === "Neck") {
+    return slot("pre-raid-degen-neck", "Neck", "./assets/icons/nacreous-shell-necklace.jpg", [
+      item("nacreous-shell-necklace", "Nacreous Shell Necklace", "Stratholme Live · Cannon Master Willey", {
+        itemId: 22403,
+        icon: "./assets/icons/nacreous-shell-necklace.jpg",
+        quality: "Rare",
+        enchant: enchant("OPTIMAL", "Necklace Spell Power · +6 Spell Power", "final", "Necklace Strength · +5 Strength"),
+        tooltip: "Item Level 61 · Binds when picked up · Neck · +8 Intellect · +7 Stamina · +10 Hit · +9 Spell Power · Requires Level 56",
+      }),
+    ]);
+  }
   if (gearSlot.name === "Shoulders") {
     return slot("pre-raid-degen-shoulders", "Shoulders", "inv_shoulder_10", [
       item("soulforge-spaulders", "Soulforge Spaulders", "Dungeon Set 2 questline · Anthion's Parting Words", {
