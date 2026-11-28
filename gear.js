@@ -58,6 +58,17 @@ const MYTHICSIM_ENCHANTS = {
     Feet: 8492,
     "Two-Hand": 7662,
   },
+  "pre-raid-degen": {
+    Head: 1506,
+    Neck: 8218,
+    Back: 7667,
+    Chest: 1891,
+    Wrists: 7665,
+    Hands: 7646,
+    Legs: 8492,
+    Feet: 8492,
+    "Two-Hand": 7662,
+  },
 };
 
 const QUEST_CHAINS = {
@@ -94,6 +105,13 @@ const SET_BONUS_RULES = {
     { pieces: 4, label: "4p: 7% spell-silence retaliation" },
     { pieces: 5, label: "5p: chance to gain +65 Spell Damage/Healing" },
     { pieces: 6, label: "6p: +8 Mana per 5 sec", stats: { mp5: 8 } },
+  ],
+  "Soulforge Armor": [
+    { pieces: 2, label: "2p: +8 All Resistances", stats: { resistance: 8 } },
+    { pieces: 3, label: "3p: +8 Mana per 5 sec", stats: { mp5: 8 } },
+    { pieces: 4, label: "4p: chance to gain +65 Spell Damage/Healing" },
+    { pieces: 5, label: "5p: 7% spell-silence retaliation" },
+    { pieces: 6, label: "6p: +23 Spell Damage/Healing", stats: { spellDamage: 23, healing: 23 } },
   ],
 };
 
@@ -535,6 +553,68 @@ const preRaidRightSlots = rightSlots.map((gearSlot) => {
   return gearSlot;
 });
 
+const preRaidDegenLeftSlots = preRaidLeftSlots.map((gearSlot) => {
+  if (gearSlot.name === "Shoulders") {
+    return slot("pre-raid-degen-shoulders", "Shoulders", "inv_shoulder_10", [
+      item("soulforge-spaulders", "Soulforge Spaulders", "Dungeon Set 2 questline · Anthion's Parting Words", {
+        itemId: 226969,
+        icon: "inv_shoulder_10",
+        quality: "Rare",
+        tooltip: soulforgeTooltip("Item Level 65 · Binds when picked up · Shoulder · Plate · 507 Armor · +10 Strength · +11 Stamina · +11 Intellect · +10 Expertise · +8 Spell Power"),
+      }),
+    ]);
+  }
+  if (gearSlot.name === "Chest") {
+    return slot("pre-raid-degen-chest", "Chest", "inv_chest_plate03", [
+      item("soulforge-chest", "Soulforge Chest", "Dungeon Set 2 questline · final upgrade", {
+        itemId: 227000,
+        icon: "inv_chest_plate03",
+        quality: "Epic",
+        enchant: enchant("OPTIMAL", "Greater Stats · +4 All Stats", "final"),
+        tooltip: soulforgeTooltip("Item Level 60 · Binds when picked up · Chest · Plate · 684 Armor · +16 Strength · +17 Stamina · +17 Intellect · +12 Spirit · +14 Critical Strike · +14 Spell Power"),
+      }),
+    ]);
+  }
+  return gearSlot;
+});
+
+const preRaidDegenRightSlots = preRaidRightSlots.map((gearSlot) => {
+  if (gearSlot.name === "Waist") {
+    return slot("pre-raid-degen-waist", "Waist", "inv_belt_11", [
+      item("soulforge-waist", "Soulforge Waist", "Dungeon Set 2 questline · Just Compensation", {
+        itemId: 226994,
+        icon: "inv_belt_11",
+        quality: "Rare",
+        enchant: enchant("TINKER", "Nitro Boosts · Engineering 280 · up to +160% movement speed for up to 8 sec", "final"),
+        tooltip: soulforgeTooltip("Item Level 65 · Binds when picked up · Waist · Plate · 380 Armor · +10 Strength · +11 Stamina · +11 Intellect · +4 Mana per 5 sec · +12 Spell Power"),
+      }),
+    ]);
+  }
+  if (gearSlot.name === "Legs") {
+    return slot("pre-raid-degen-legs", "Legs", "inv_pants_04", [
+      item("epic-vindication-legs", "Premier Marshal's Chevalier Legplates", "PvP · Rank 10 seal upgrade", {
+        itemId: 272784,
+        icon: "inv_pants_04",
+        quality: "Epic",
+        enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
+        tooltip: epicVindicationTooltip("646 Armor · +15 Strength · +34 Stamina · +14 Critical Strike · +14 Spell Power"),
+      }),
+    ]);
+  }
+  if (gearSlot.name === "Feet") {
+    return slot("pre-raid-degen-feet", "Feet", "./assets/icons/item-272781.jpg", [
+      item("epic-vindication-boots", "Premier Knight-Champion's Chevalier Boots", "PvP · Rank 9 seal upgrade", {
+        itemId: 272781,
+        icon: "./assets/icons/item-272781.jpg",
+        quality: "Epic",
+        enchant: enchant("OPTIMAL", "Mystic Rugged Armor Kit · +6 Spell Power / +40 Armor", "final", "Mystic Heavy Armor Kit · +4 Spell Power / +24 Armor"),
+        tooltip: epicVindicationTooltip("507 Armor · +12 Strength · +26 Stamina · +8 Intellect · +14 Spell Power"),
+      }),
+    ]);
+  }
+  return gearSlot;
+});
+
 const PVP_LOADOUT_TARGETS = new Set(
   [...leftSlots, ...rightSlots].flatMap((gearSlot) => gearSlot.items.map((candidate) => candidate.id)),
 );
@@ -600,6 +680,10 @@ function epicVindicationTooltip(stats) {
 
 function lightforgeTooltip(stats) {
   return `${stats} · Lightforge Armor — (2) +8 All Resistances · (3) +18 Spell Damage and Healing · (4) 7% chance when struck by a harmful spell to silence the caster for 3 sec (60 sec cooldown) · (5) Chance on melee autoattack and spellcast to gain +65 Spell Damage and Healing for 10 sec · (6) +8 Mana per 5 sec`;
+}
+
+function soulforgeTooltip(stats) {
+  return `${stats} · Soulforge Armor — (2) +8 All Resistances · (3) +8 Mana per 5 sec · (4) Chance on melee autoattack and spellcast to gain +65 Spell Damage and Healing for 10 sec · (5) 7% chance when struck by a harmful spell to silence the caster for 3 sec (60 sec cooldown) · (6) +23 Spell Damage and Healing`;
 }
 
 function slot(id, name, icon, items) {
@@ -769,10 +853,14 @@ function render() {
   document.querySelector("#gearRight").innerHTML = rightSlots.map(slotMarkup).join("");
   document.querySelector("#preRaidGearLeft").innerHTML = preRaidLeftSlots.map(slotMarkup).join("");
   document.querySelector("#preRaidGearRight").innerHTML = preRaidRightSlots.map(slotMarkup).join("");
+  document.querySelector("#preRaidDegenGearLeft").innerHTML = preRaidDegenLeftSlots.map(slotMarkup).join("");
+  document.querySelector("#preRaidDegenGearRight").innerHTML = preRaidDegenRightSlots.map(slotMarkup).join("");
   document.querySelector("#pvpConsumables").innerHTML = consumableGroupsMarkup(PVP_CONSUMABLE_GROUPS, PVP_CONSUMABLES);
   document.querySelector("#raidConsumables").innerHTML = consumableGroupsMarkup(RAID_CONSUMABLE_GROUPS, RAID_CONSUMABLES);
+  document.querySelector("#degenRaidConsumables").innerHTML = consumableGroupsMarkup(RAID_CONSUMABLE_GROUPS, RAID_CONSUMABLES);
   document.querySelector("#pvpStatRecap").innerHTML = loadoutSummaryMarkup(leftSlots, rightSlots);
   document.querySelector("#preRaidStatRecap").innerHTML = loadoutSummaryMarkup(preRaidLeftSlots, preRaidRightSlots);
+  document.querySelector("#preRaidDegenStatRecap").innerHTML = loadoutSummaryMarkup(preRaidDegenLeftSlots, preRaidDegenRightSlots);
   bindTooltips();
   updateProgress();
 }
@@ -883,15 +971,22 @@ function candidateSetName(candidate) {
 }
 
 function activeLoadoutSlots() {
-  return document.querySelector('[data-gear-tab="pre-raid"]')?.classList.contains("active")
-    ? [preRaidLeftSlots, preRaidRightSlots]
-    : [leftSlots, rightSlots];
+  if (document.querySelector('[data-gear-tab="pre-raid-degen"]')?.classList.contains("active")) {
+    return [preRaidDegenLeftSlots, preRaidDegenRightSlots];
+  }
+  if (document.querySelector('[data-gear-tab="pre-raid"]')?.classList.contains("active")) {
+    return [preRaidLeftSlots, preRaidRightSlots];
+  }
+  return [leftSlots, rightSlots];
 }
 
 function mythicSimExport(loadoutId) {
-  const [left, right] = loadoutId === "pre-raid"
-    ? [preRaidLeftSlots, preRaidRightSlots]
-    : [leftSlots, rightSlots];
+  const loadouts = {
+    "pvp-starter": [leftSlots, rightSlots],
+    "pre-raid": [preRaidLeftSlots, preRaidRightSlots],
+    "pre-raid-degen": [preRaidDegenLeftSlots, preRaidDegenRightSlots],
+  };
+  const [left, right] = loadouts[loadoutId] ?? loadouts["pvp-starter"];
   const slotsByName = new Map([...left, ...right].map((gearSlot) => [gearSlot.name, gearSlot]));
   const items = MYTHICSIM_SLOT_ORDER.flatMap((slotName) => {
     const candidate = slotsByName.get(slotName)?.items[0];
@@ -903,7 +998,11 @@ function mythicSimExport(loadoutId) {
   });
 
   return JSON.stringify({
-    name: loadoutId === "pre-raid" ? "Grimar Pre-raid" : "Grimar PvP",
+    name: {
+      "pvp-starter": "Grimar PvP",
+      "pre-raid": "Grimar Pre-raid",
+      "pre-raid-degen": "Grimar Pre-Raid Degen",
+    }[loadoutId] ?? "Grimar PvP",
     realm: "",
     flavor: "forever",
     race: "Human",
@@ -951,7 +1050,11 @@ function setupMythicSimExport() {
     button.addEventListener("click", () => {
       const loadoutId = button.dataset.mythicsimExport;
       textarea.value = mythicSimExport(loadoutId);
-      title.textContent = loadoutId === "pre-raid" ? "Export pre-raid loadout" : "Export PvP loadout";
+      title.textContent = {
+        "pvp-starter": "Export PvP loadout",
+        "pre-raid": "Export pre-raid loadout",
+        "pre-raid-degen": "Export Pre-Raid Degen loadout",
+      }[loadoutId] ?? "Export loadout";
       dialog.showModal();
       textarea.focus();
       textarea.select();
@@ -1007,6 +1110,8 @@ function allGearItems() {
     ...rightSlots.flatMap((gearSlot) => gearSlot.items),
     ...preRaidLeftSlots.flatMap((gearSlot) => gearSlot.items),
     ...preRaidRightSlots.flatMap((gearSlot) => gearSlot.items),
+    ...preRaidDegenLeftSlots.flatMap((gearSlot) => gearSlot.items),
+    ...preRaidDegenRightSlots.flatMap((gearSlot) => gearSlot.items),
     ...PVP_CONSUMABLES,
     ...RAID_CONSUMABLES,
   ];
@@ -1085,7 +1190,7 @@ function formatItemTooltip(text, equippedPieces = 0) {
         return `<span class="wow-set-name">${setBonusStart[1]}</span><span class="wow-effect wow-set-bonus ${bonusClass}">${highlightItemStats(setBonusStart[2])}</span>`;
       }
       const setBonus = /^\(\d+\)/.test(line);
-      const effect = /^(Equip:|Use:|Increases|Reduces|Harmful|doubled|\(\d+\))/i.test(line);
+      const effect = /^(Equip:|Use:|Chance|Increases|Reduces|Harmful|doubled|\(\d+\))/i.test(line);
       const itemLevel = /^Item Level/i.test(line);
       const bonusClass = setBonus ? ` ${setBonusClass(line, equippedPieces)}` : "";
       return `<span class="${effect ? `wow-effect${setBonus ? ` wow-set-bonus${bonusClass}` : ""}` : itemLevel ? "wow-item-level" : "wow-stat"}">${highlightItemStats(line)}</span>`;

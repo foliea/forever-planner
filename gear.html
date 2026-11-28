@@ -68,6 +68,9 @@
         <button class="gear-tab" type="button" data-gear-tab="pre-raid">
           Pre-raid
         </button>
+        <button class="gear-tab" type="button" data-gear-tab="pre-raid-degen">
+          Pre-Raid Degen
+        </button>
       </nav>
 
       <section class="gear-workspace gear-tab-panel active" data-gear-panel="pvp-starter">
@@ -329,6 +332,45 @@
           </p>
         </section>
       </section>
+
+      <section class="gear-workspace gear-tab-panel" data-gear-panel="pre-raid-degen" hidden>
+        <div class="gear-toolbar">
+          <div>
+            <p class="section-label">Loadout 03</p>
+            <h2>Pre-Raid Degen</h2>
+          </div>
+          <div class="gear-toolbar-actions">
+            <span class="modifier-tag shift">SOULFORGE + EPIC PVP</span>
+            <button class="button ghost" type="button" data-mythicsim-export="pre-raid-degen">
+              Export to MythicSim
+            </button>
+          </div>
+        </div>
+
+        <div class="character-sheet">
+          <div class="gear-column" id="preRaidDegenGearLeft"></div>
+
+          <div class="character-core stats-core">
+            <p>Human Paladin</p>
+            <strong>Retribution</strong>
+            <span class="character-subtitle">Soulforge with epic PvP upgrades</span>
+            <div class="stat-recap" id="preRaidDegenStatRecap"></div>
+          </div>
+
+          <div class="gear-column" id="preRaidDegenGearRight"></div>
+        </div>
+
+        <section class="consumables-panel" aria-labelledby="degenRaidConsumablesTitle">
+          <div class="consumables-heading">
+            <div>
+              <p class="section-label">Consumable kit</p>
+              <h3 id="degenRaidConsumablesTitle">Raid preparation</h3>
+            </div>
+            <p>Bring the full buff stack and Major Spellblasting Potions. Matching badge color and family label means a shared lockout or exclusive buff slot.</p>
+          </div>
+          <div class="consumables-grid" id="degenRaidConsumables"></div>
+        </section>
+      </section>
     </main>
 
     <dialog id="mythicSimExportDialog">
@@ -361,6 +403,6 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="./gear.js?v=106"></script>
+    <script src="./gear.js?v=108"></script>
   </body>
 </html>
