@@ -1,6 +1,5 @@
 const GEAR_STORAGE_KEY = "lightbind-shockadin-gear-v1";
 const GUIDE_STORAGE_KEY = "lightbind-shockadin-guide-v1";
-const ROADMAP_STORAGE_KEY = "lightbind-retribution-roadmap-v2";
 const ACTION_BAR_STORAGE_KEY = "lightbind-paladin-layout-v1";
 const ICON_ROOT = "./assets/icons/";
 const MYTHICSIM_SHOCKADIN_TALENTS = "05025210221021--0523330110130033";
@@ -114,174 +113,6 @@ const SUMMARY_STATS = [
   ["spellPenetration", "Spell Penetration"],
   ["mp5", "Mana / 5 sec"],
   ["resistance", "All Resistances"],
-];
-
-const PVP_RANKS = [
-  "No rank",
-  "Private",
-  "Corporal",
-  "Sergeant",
-  "Master Sergeant",
-  "Sergeant Major",
-  "Knight",
-  "Knight-Lieutenant",
-  "Knight-Captain",
-  "Knight-Champion",
-  "Lieutenant Commander",
-  "Commander",
-  "Marshal",
-  "Field Marshal",
-  "Grand Marshal",
-];
-
-const ROADMAP_ACTIONS = [
-  roadmapAction("greater-insignia", "Greater Insignia of the Alliance", "purchase", 1, {
-    minRank: 2, honor: 5250, rewardId: "greater-insignia-alliance",
-    reason: "Your essential crowd-control break and first rank reward.",
-  }),
-  roadmapAction("shroud-exile", "In Dreams — Shroud of the Exile", "quest", 50, {
-    rewardId: "shroud-of-the-exile",
-    reason: "Take the spell-damage cloak for the offensive PvP loadout.",
-  }),
-  roadmapAction("base-wrists", "Premier Chevalier Armsplints", "purchase", 55, {
-    honor: 4500, marks: { wsg: 10 }, rewardId: "vindication-wrists",
-    reason: "Buy the rare base early; it is required for the Rank 8 epic wrist upgrade.",
-  }),
-  roadmapAction("base-belt", "Premier Chevalier Cinch", "purchase", 55, {
-    honor: 6000, marks: { ab: 10 }, rewardId: "vindication-waist",
-    reason: "Buy the rare base early; it is required for the Rank 8 epic belt upgrade.",
-  }),
-  roadmapAction("base-boots", "Premier Chevalier Sabatons", "purchase", 55, {
-    honor: 7500, marks: { darkspear: 10 }, rewardId: "vindication-boots",
-    reason: "Required for the Rank 9 epic boots.",
-  }),
-  roadmapAction("base-gloves", "Premier Chevalier Gauntlets", "purchase", 55, {
-    honor: 7500, marks: { wsg: 10 }, rewardId: "vindication-hands",
-    reason: "Combines with boots for the Vindication 2-piece bonus.",
-  }),
-  roadmapAction("base-shoulders", "Premier Chevalier Shoulders", "purchase", 55, {
-    honor: 6350, marks: { ab: 10 }, rewardId: "vindication-shoulders",
-    reason: "Low-cost set piece on the path to Vindication 4-piece.",
-  }),
-  roadmapAction("base-legs", "Premier Chevalier Leggings", "purchase", 55, {
-    honor: 9000, marks: { wsg: 15 }, rewardId: "vindication-legs",
-    reason: "High-value set piece that helps complete the PvP 4-piece.",
-  }),
-  roadmapAction("base-head", "Premier Chevalier Headguard", "purchase", 55, {
-    honor: 9000, marks: { av: 15 }, rewardId: "vindication-head",
-    reason: "Later set purchase; collect AV Marks while completing the spear quest.",
-  }),
-  roadmapAction("base-chest", "Premier Chevalier Breastplate", "purchase", 55, {
-    honor: 9350, marks: { ab: 15 }, rewardId: "vindication-chest",
-    reason: "Finish the six-piece set after the cheaper breakpoints.",
-  }),
-  roadmapAction("seal-wrists", "Epic Chevalier wrist upgrade", "purchase", 60, {
-    minRank: 8, honor: 1200, dependsOn: ["base-wrists"], rewardId: "epic-vindication-wrists",
-    reason: "Rank 8 seal converts the rare Armsplints into epic Armguards.",
-  }),
-  roadmapAction("seal-belt", "Epic Chevalier belt upgrade", "purchase", 60, {
-    minRank: 8, honor: 1500, dependsOn: ["base-belt"], rewardId: "epic-vindication-waist",
-    reason: "Rank 8 seal converts the rare Cinch into the epic PvP belt.",
-  }),
-  roadmapAction("seal-boots", "Epic Chevalier boots upgrade", "purchase", 60, {
-    minRank: 9, honor: 1500, dependsOn: ["base-boots"], rewardId: "epic-vindication-boots",
-    reason: "Rank 9 seal upgrades the boots while preserving mixed-set counting.",
-  }),
-  roadmapAction("seal-gloves", "Epic Chevalier gloves upgrade", "purchase", 60, {
-    minRank: 10, honor: 2250, dependsOn: ["base-gloves"], rewardId: "epic-vindication-hands",
-    reason: "Rank 10 upgrade; prioritize it once raids are open.",
-  }),
-  roadmapAction("seal-shoulders", "Epic Chevalier shoulder upgrade", "purchase", 60, {
-    minRank: 12, honor: 2250, dependsOn: ["base-shoulders"], rewardId: "epic-vindication-shoulders",
-    reason: "Rank 12 seal converts the rare shoulders into Premier Marshal's Chevalier Pauldrons.",
-  }),
-  roadmapAction("seal-legs", "Epic Chevalier leg upgrade", "purchase", 60, {
-    minRank: 12, honor: 2650, dependsOn: ["base-legs"], rewardId: "epic-vindication-legs",
-    reason: "Rank 12 seal converts the rare leggings into Premier Marshal's Chevalier Legplates.",
-  }),
-  roadmapAction("seal-head", "Epic Chevalier head upgrade", "purchase", 60, {
-    minRank: 13, dependsOn: ["base-head"], rewardId: "epic-vindication-head",
-    reason: "Rank 13 seal converts the rare headguard into the Field Marshal epic; its Honor price is not confirmed yet.",
-  }),
-  roadmapAction("seal-chest", "Epic Chevalier chest upgrade", "purchase", 60, {
-    minRank: 13, honor: 2650, dependsOn: ["base-chest"], rewardId: "epic-vindication-chest",
-    reason: "Rank 13 seal converts the rare breastplate into the Field Marshal epic.",
-  }),
-  roadmapAction("sanctified-orb-quest", "Forging the Mightstone — Sanctified Orb", "quest", 50, {
-    rewardId: "sanctified-orb",
-    reason: "Already obtained: a reliable +15 Spell Power trinket for both PvP and pre-raid.",
-  }),
-  roadmapAction("unstoppable-force", "Alterac Valley — The Unstoppable Force", "purchase", 55, {
-    rewardId: "unstoppable-force",
-    reason: "Already obtained; use it in both loadouts for its Strength, Stamina, Critical Strike, and stun proc.",
-  }),
-  roadmapAction("blood-martyr-quest", "Aurius / Baron Rivendare — Blood of the Martyr", "dungeon", 58, {
-    rewardId: "blood-martyr", group: "Stratholme",
-    reason: "Complete the Aurius event while running Baron Rivendare and select the ring reward.",
-  }),
-  roadmapAction("emberfury-talisman", "UBRS — Emberfury Talisman", "dungeon", 56, {
-    rewardId: "emberfury-talisman", group: "UBRS",
-    reason: "Already obtained from Pyroguard Emberseer; equipped in the PvP loadout.",
-  }),
-  roadmapAction("grand-crusaders-helm", "Stratholme Live — Grand Crusader's Helm", "dungeon", 58, {
-    rewardId: "grand-crusaders-helm", group: "Stratholme Live",
-    reason: "Balnazzar plate helm with Strength, Stamina, and +17 Holy Spell Damage.",
-  }),
-  roadmapAction("heartflame-gauntlets", "Shaper's Terrace — Heartflame Gauntlets", "dungeon", 58, {
-    rewardId: "heartflame-gauntlets", group: "Shaper's Terrace",
-    reason: "Cinder/Vitrix plate gloves with Intellect, 1% Crit, and +18 Holy Spell Damage.",
-  }),
-  roadmapAction("battleborn-armbraces", "UBRS — Battleborn Armbraces", "dungeon", 58, {
-    rewardId: "battleborn-armbraces", group: "UBRS",
-    reason: "Already obtained from Warchief Rend Blackhand; supplies 1% Hit and 1% Critical Strike.",
-  }),
-  roadmapAction("arcanoweave-cloak-roadmap", "Buy Arcanoweave Cloak", "currency", 60, {
-    rewardId: "arcanoweave-cloak",
-    reason: "Undermine vendor cloak adds the final 1% Hit plus 16 Spell Power without replacing plate armor.",
-  }),
-  roadmapAction("lightforge-belt-buy", "Buy Lightforge Belt", "market", 53, {
-    rewardId: "lightforge-belt",
-    reason: "Already obtained; completes the three-piece Lightforge bonus and adds another 0.5% Hit.",
-  }),
-  roadmapAction("lightforge-shoulders", "UBRS — Lightforge Spaulders", "dungeon", 59, {
-    rewardId: "lightforge-spaulders", group: "UBRS",
-    reason: "Already obtained from The Beast; one of the three efficient Lightforge pieces.",
-  }),
-  roadmapAction("lightforge-chest", "UBRS — Lightforge Breastplate", "dungeon", 59, {
-    rewardId: "lightforge-breastplate", group: "UBRS",
-    reason: "Already obtained from General Drakkisath; a core piece of the planned Lightforge mix.",
-  }),
-  roadmapAction("don-julios-band", "Alterac Valley — Don Julio's Band", "purchase", 55, {
-    rewardId: "don-julios-band", group: "Alterac Valley",
-    reason: "Predictable shared ring with 1% Hit, 1% Critical Strike, and +14 Attack Power for both loadouts.",
-  }),
-  roadmapAction("jeremans-bauble", "Mount Hyjal — Return to Jereman", "quest", 60, {
-    rewardId: "jeremans-bauble", group: "Mount Hyjal",
-    reason: "Guaranteed quest ring with +15 Spell Power and +11 Intellect; replaces Blood of the Martyr in the pre-raid set.",
-  }),
-  roadmapAction("draconic", "UBRS — Draconic Infused Emblem", "dungeon", 59, {
-    rewardId: "draconic-emblem", group: "UBRS",
-    reason: "Already obtained from General Drakkisath; equipped in the pre-raid loadout.",
-  }),
-  roadmapAction("libram-law-roadmap", "Libram of Law", "currency", 60, {
-    rewardId: "libram-law",
-    reason: "Shared PvP and pre-raid relic target from Undermine after the core armor and trinket goals.",
-  }),
-];
-
-const CORE_PRE_RAID_PRIORITY = [
-  "sanctified-orb-quest",
-  "unstoppable-force",
-  "grand-crusaders-helm",
-  "don-julios-band",
-  "battleborn-armbraces",
-  "lightforge-shoulders",
-  "lightforge-chest",
-  "draconic",
-  "heartflame-gauntlets",
-  "lightforge-belt-buy",
-  "arcanoweave-cloak-roadmap",
-  "jeremans-bauble",
 ];
 
 const PVP_CONSUMABLES = [
@@ -715,28 +546,10 @@ const hadStoredGear = localStorage.getItem(GEAR_STORAGE_KEY) !== null;
 let obtained = loadObtained();
 let lockedObtained = new Set();
 let completedGuideItems = loadSavedSet(GUIDE_STORAGE_KEY);
-let roadmapState = loadRoadmapState();
 let toastTimer;
 
 function questStep(title, location, objective) {
   return { title, location, objective };
-}
-
-function roadmapAction(id, title, type, minLevel, options = {}) {
-  return {
-    id,
-    title,
-    type,
-    minLevel,
-    minRank: options.minRank ?? 0,
-    honor: options.honor ?? 0,
-    marks: options.marks ?? {},
-    dependsOn: options.dependsOn ?? [],
-    rewardId: options.rewardId,
-    reason: options.reason ?? "",
-    group: options.group,
-    optional: options.optional ?? false,
-  };
 }
 
 function item(id, name, source, options = {}) {
@@ -861,46 +674,6 @@ function saveGuideProgress() {
   localStorage.setItem(GUIDE_STORAGE_KEY, JSON.stringify([...completedGuideItems]));
 }
 
-function defaultRoadmapState() {
-  return {
-    level: 42,
-    rank: 0,
-    weeklyCapReached: false,
-    honor: 0,
-    expectedCapHonor: 0,
-    marks: { av: 0, ab: 0, wsg: 0, darkspear: 0 },
-    completed: [],
-    skipped: [],
-    transactions: {},
-  };
-}
-
-function normalizeRoadmapState(saved) {
-  const defaults = defaultRoadmapState();
-  if (!saved || typeof saved !== "object") return defaults;
-  return {
-    ...defaults,
-    ...saved,
-    marks: { ...defaults.marks, ...(saved.marks ?? {}) },
-    completed: Array.isArray(saved.completed) ? saved.completed : [],
-    skipped: Array.isArray(saved.skipped) ? saved.skipped : [],
-    transactions: saved.transactions && typeof saved.transactions === "object" ? saved.transactions : {},
-  };
-}
-
-function loadRoadmapState() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(ROADMAP_STORAGE_KEY));
-    return normalizeRoadmapState(saved);
-  } catch {
-    return defaultRoadmapState();
-  }
-}
-
-function saveRoadmapState() {
-  localStorage.setItem(ROADMAP_STORAGE_KEY, JSON.stringify(roadmapState));
-}
-
 function candidateMarkup(candidate, compact = false) {
   const checked = obtained.has(candidate.id);
   const pending = !candidate.trackable;
@@ -1000,350 +773,8 @@ function render() {
   document.querySelector("#raidConsumables").innerHTML = consumableGroupsMarkup(RAID_CONSUMABLE_GROUPS, RAID_CONSUMABLES);
   document.querySelector("#pvpStatRecap").innerHTML = loadoutSummaryMarkup(leftSlots, rightSlots);
   document.querySelector("#preRaidStatRecap").innerHTML = loadoutSummaryMarkup(preRaidLeftSlots, preRaidRightSlots);
-  renderRoadmap();
   bindTooltips();
   updateProgress();
-}
-
-function renderRoadmap() {
-  syncRoadmapControls();
-  const evaluation = evaluateRoadmap();
-  document.querySelector("#roadmapDecision").innerHTML = decisionMarkup(evaluation.decision);
-  document.querySelector("#roadmapNow").innerHTML = evaluation.now.map(roadmapCardMarkup).join("") || emptyRoadmapMarkup("Nothing urgent.");
-  document.querySelector("#roadmapNext").innerHTML = evaluation.next.map(roadmapCardMarkup).join("") || emptyRoadmapMarkup("No queued objective.");
-  document.querySelector("#roadmapLater").innerHTML = evaluation.later.map(roadmapCardMarkup).join("") || emptyRoadmapMarkup("No blocked objective.");
-  document.querySelector("#roadmapCompleted").innerHTML = evaluation.completed.map(completedRoadmapCardMarkup).join("") || emptyRoadmapMarkup("No completed objectives yet.");
-  document.querySelector("#roadmapCompletedCount").textContent = evaluation.completed.length;
-}
-
-function evaluateRoadmap() {
-  const activeActions = ROADMAP_ACTIONS.filter((action) => !isRoadmapActionDone(action));
-  const completed = ROADMAP_ACTIONS.filter(isRoadmapActionDone);
-  const affordablePurchase = activeActions.find((action) =>
-    action.type === "purchase" &&
-    !roadmapState.skipped.includes(action.id) &&
-    actionBlockers(action).length === 0 &&
-    actionAffordable(action),
-  );
-  const nextPurchase = activeActions.find((action) =>
-    action.type === "purchase" &&
-    !roadmapState.skipped.includes(action.id) &&
-    actionBlockers(action).length === 0,
-  );
-  const coreUpgrade = CORE_PRE_RAID_PRIORITY
-    .map((id) => activeActions.find((action) => action.id === id))
-    .find((action) =>
-      action &&
-      !roadmapState.skipped.includes(action.id) &&
-      actionBlockers(action).length === 0
-    );
-  const decision = honorDecision(affordablePurchase, nextPurchase, coreUpgrade);
-  const now = [];
-  const next = [];
-  const later = [];
-
-  if (!roadmapState.weeklyCapReached) {
-    now.push({
-      synthetic: true,
-      id: "weekly-cap",
-      title: "Cap Rank Points for this reset",
-      type: "pvp",
-      reason: "This always comes first. Target the Marks needed by your next PvP purchase while capping.",
-      meta: roadmapState.rank ? `Current rank: ${PVP_RANKS[roadmapState.rank]}` : "Starting from Rank 0",
-    });
-  } else if (decision.mode === "farm") {
-    now.push({
-      synthetic: true,
-      id: "honor-farm",
-      title: `Keep farming for ${decision.target.title}`,
-      type: "pvp",
-      reason: decision.detail,
-      meta: decision.meta,
-    });
-  }
-
-  activeActions.forEach((action) => {
-    const blockers = actionBlockers(action);
-    if (roadmapState.skipped.includes(action.id)) {
-      later.push({ ...action, state: "skipped", blockers: ["Deferred manually"] });
-      return;
-    }
-    if (blockers.length) {
-      const onlyLevelBlocked = blockers.every((blocker) => blocker.startsWith("Requires level"));
-      const destination = onlyLevelBlocked && action.type !== "purchase" ? next : later;
-      destination.push({ ...action, state: "blocked", blockers });
-      return;
-    }
-
-    if (action.type === "purchase") {
-      if (roadmapState.weeklyCapReached && decision.mode === "spend" && action.id === affordablePurchase?.id) now.push({ ...action, state: "affordable" });
-      else if (roadmapState.weeklyCapReached && decision.mode === "farm" && action.id === nextPurchase?.id) now.push({ ...action, state: "target" });
-      else next.push({ ...action, state: "waiting", blockers: affordabilityBlockers(action) });
-      return;
-    }
-
-    if (!roadmapState.weeklyCapReached) {
-      next.push({ ...action, state: "after-cap" });
-      return;
-    }
-
-    if (action.type === "quest") {
-      (decision.mode === "farm" ? next : now).push({ ...action, state: "available" });
-      return;
-    }
-    if (action.type === "dungeon") {
-      const sameRun = decision.mode === "dungeon" &&
-        (action.id === decision.target?.id || (action.group && action.group === decision.target?.group));
-      (sameRun ? now : next).push({ ...action, state: "available" });
-      return;
-    }
-    if (decision.mode === "dungeon" && action.id === decision.target?.id) {
-      now.push({ ...action, state: "available" });
-      return;
-    }
-    next.push({ ...action, state: "available" });
-  });
-
-  now.sort((a, b) => roadmapSortScore(a, decision, true) - roadmapSortScore(b, decision, true));
-  next.sort((a, b) => {
-    const priorityDifference = roadmapSortScore(a, decision, false) - roadmapSortScore(b, decision, false);
-    return priorityDifference || (a.minLevel ?? 0) - (b.minLevel ?? 0);
-  });
-
-  return {
-    decision,
-    now,
-    next,
-    later,
-    completed,
-  };
-}
-
-function roadmapSortScore(action, decision, isNow) {
-  if (action.synthetic) return 0;
-  if (action.id === decision.target?.id) return 1;
-  if (decision.mode === "dungeon") {
-    const coreIndex = CORE_PRE_RAID_PRIORITY.indexOf(action.id);
-    if (coreIndex >= 0) return 2 + coreIndex;
-    if (action.group && action.group === decision.target?.group) return 8;
-    if (action.type === "quest") return 12;
-    if (action.type === "dungeon" || action.type === "market") return 16;
-    if (action.type === "purchase") return 30;
-  }
-  if (decision.mode === "spend" && action.type === "purchase") return 2;
-  if (isNow && action.type === "quest") return 10;
-  return 20;
-}
-
-function honorDecision(affordablePurchase, nextPurchase, coreUpgrade) {
-  if (!roadmapState.weeklyCapReached) {
-    return {
-      mode: "cap",
-      title: "Cap PvP first",
-      detail: "The Honor-versus-dungeon decision unlocks after you mark this reset capped.",
-    };
-  }
-  if (coreUpgrade && roadmapState.honor < 24000) {
-    return {
-      mode: "dungeon",
-      target: coreUpgrade,
-      title: `Prioritize ${coreUpgrade.title}`,
-      detail: "Your core pre-raid route takes priority over extra Honor farming. Use the Honor naturally earned by next reset instead.",
-    };
-  }
-  if (affordablePurchase) {
-    return {
-      mode: "spend",
-      title: `Spend now: ${affordablePurchase.title}`,
-      detail: "You can buy this target from your current balance. Completing it here will deduct its Honor and Marks.",
-    };
-  }
-  if (!nextPurchase) {
-    return {
-      mode: "dungeon",
-      title: "Go to quests and dungeons",
-      detail: "No currently unlocked PvP purchase needs additional farming.",
-    };
-  }
-  if (roadmapState.honor >= 24000 && !actionAffordable(nextPurchase)) {
-    return {
-      mode: "dungeon",
-      title: "Preserve Honor-cap headroom",
-      detail: `You are near the 25,000 Honor cap but cannot buy ${nextPurchase.title} yet. Stop farming Honor until its blocker clears.`,
-    };
-  }
-  const markGaps = missingMarks(nextPurchase);
-  if (markGaps.length) {
-    return {
-      mode: "farm",
-      target: nextPurchase,
-      title: `Keep farming ${markGaps.map((entry) => entry.label).join(" / ")}`,
-      detail: `${nextPurchase.title} is unlocked, but ${markGaps.map((entry) => `${entry.missing} ${entry.label}`).join(" and ")} still block the purchase.`,
-      meta: purchaseCostLabel(nextPurchase),
-    };
-  }
-  const honorGap = Math.max(0, nextPurchase.honor - roadmapState.honor);
-  if (!roadmapState.expectedCapHonor) {
-    return {
-      mode: "unknown",
-      title: "Choose using your first cap result",
-      detail: `${nextPurchase.title} needs ${honorGap.toLocaleString()} more Honor. Record the Honor normally earned while capping to know whether to farm now or let next reset cover it.`,
-    };
-  }
-  if (honorGap > roadmapState.expectedCapHonor) {
-    const farmNow = honorGap - roadmapState.expectedCapHonor;
-    return {
-      mode: "farm",
-      target: nextPurchase,
-      title: `Farm ${farmNow.toLocaleString()} Honor, then go dungeons`,
-      detail: `Leave the final ${roadmapState.expectedCapHonor.toLocaleString()} Honor for next reset's normal rank cap.`,
-      meta: `${roadmapState.honor.toLocaleString()} / ${nextPurchase.honor.toLocaleString()} Honor`,
-    };
-  }
-  return {
-    mode: "dungeon",
-    title: "Go to quests and dungeons",
-    detail: `Next reset's expected ${roadmapState.expectedCapHonor.toLocaleString()} Honor covers the ${honorGap.toLocaleString()} gap for ${nextPurchase.title}.`,
-  };
-}
-
-function actionBlockers(action) {
-  const blockers = [];
-  if (roadmapState.level < action.minLevel) blockers.push(`Requires level ${action.minLevel}`);
-  if (roadmapState.rank < action.minRank) blockers.push(`Requires Rank ${action.minRank} — ${PVP_RANKS[action.minRank]}`);
-  action.dependsOn.forEach((dependency) => {
-    const dependencyAction = ROADMAP_ACTIONS.find((candidate) => candidate.id === dependency);
-    if (dependencyAction && !isRoadmapActionDone(dependencyAction)) blockers.push(`First complete ${dependencyAction.title}`);
-  });
-  return blockers;
-}
-
-function missingMarks(action) {
-  const names = { av: "AV Marks", ab: "AB Marks", wsg: "WSG Marks", darkspear: "Darkspear Marks" };
-  return Object.entries(action.marks)
-    .map(([mark, required]) => ({ mark, label: names[mark], missing: Math.max(0, required - roadmapState.marks[mark]) }))
-    .filter((entry) => entry.missing);
-}
-
-function affordabilityBlockers(action) {
-  const blockers = [];
-  if (action.honor > roadmapState.honor) blockers.push(`${(action.honor - roadmapState.honor).toLocaleString()} Honor short`);
-  blockers.push(...missingMarks(action).map((entry) => `${entry.missing} ${entry.label} short`));
-  return blockers;
-}
-
-function actionAffordable(action) {
-  return action.honor <= roadmapState.honor && missingMarks(action).length === 0;
-}
-
-function hasPurchaseCost(action) {
-  return action.honor > 0 || Object.keys(action.marks).length > 0;
-}
-
-function isRoadmapActionDone(action) {
-  return roadmapState.completed.includes(action.id) || (action.rewardId && obtained.has(action.rewardId));
-}
-
-function purchaseCostLabel(action) {
-  const parts = [];
-  if (action.honor) parts.push(`${action.honor.toLocaleString()} Honor`);
-  Object.entries(action.marks).forEach(([mark, count]) => {
-    const label = { av: "AV", ab: "AB", wsg: "WSG", darkspear: "Darkspear" }[mark];
-    parts.push(`${count} ${label} Marks`);
-  });
-  return parts.join(" · ") || "Rank reward";
-}
-
-function decisionMarkup(decision) {
-  return `
-    <span>${decision.mode === "farm" ? "Battlegrounds" : decision.mode === "spend" ? "Vendor" : decision.mode === "cap" ? "Weekly reset" : "Recommended route"}</span>
-    <div>
-      <strong>${decision.title}</strong>
-      <p>${decision.detail}</p>
-      ${decision.meta ? `<small>${decision.meta}</small>` : ""}
-    </div>
-  `;
-}
-
-function roadmapCardMarkup(action) {
-  const rewardAttribute = action.rewardId ? ` data-reward-id="${action.rewardId}"` : "";
-  const loadoutLabel = roadmapLoadoutLabel(action.rewardId);
-  const purchaseBlocked = action.type === "purchase" &&
-    (!actionAffordable(action) || actionBlockers(action).length > 0);
-  const completeLabel = action.type === "purchase"
-    ? purchaseBlocked ? "Need currency" : hasPurchaseCost(action) ? "Buy & deduct" : "Claim"
-    : action.state === "skipped" ? "Complete anyway" : "Done";
-  const cost = action.synthetic
-    ? action.meta
-    : action.type === "purchase"
-      ? purchaseCostLabel(action)
-      : action.group || (action.minLevel > roadmapState.level ? `Available at level ${action.minLevel}` : "");
-  const blockers = action.blockers?.length ? action.blockers : [];
-  return `
-    <article class="roadmap-card ${action.state ?? ""}">
-      <div class="roadmap-card-head">
-        <span>${roadmapTypeLabel(action.type)}</span>
-        <div>
-          ${loadoutLabel ? `<b>${loadoutLabel}</b>` : ""}
-          ${action.optional ? "<em>Optional</em>" : ""}
-        </div>
-      </div>
-      <strong${rewardAttribute}>${action.title}</strong>
-      <p>${action.reason}</p>
-      ${cost ? `<small>${cost}</small>` : ""}
-      ${blockers.length ? `<div class="roadmap-blockers">${blockers.join(" · ")}</div>` : ""}
-      ${action.synthetic ? "" : `
-        <div class="roadmap-card-actions">
-          <button type="button" data-roadmap-complete="${action.id}" ${purchaseBlocked ? "disabled" : ""}>${completeLabel}</button>
-          <button type="button" data-roadmap-skip="${action.id}">${action.state === "skipped" ? "Restore" : "Defer"}</button>
-        </div>
-      `}
-    </article>
-  `;
-}
-
-function completedRoadmapCardMarkup(action) {
-  const rewardAttribute = action.rewardId ? ` data-reward-id="${action.rewardId}"` : "";
-  const transaction = roadmapState.transactions[action.id];
-  return `
-    <article class="roadmap-card completed">
-      <div class="roadmap-card-head">
-        <span>${roadmapTypeLabel(action.type)}</span>
-        <div><b>Completed</b></div>
-      </div>
-      <strong${rewardAttribute}>${action.title}</strong>
-      ${transaction ? `<small>Spent ${purchaseCostLabel(action)}</small>` : ""}
-      <div class="roadmap-card-actions">
-        <button type="button" data-roadmap-undo="${action.id}">Undo${transaction ? " & refund" : ""}</button>
-      </div>
-    </article>
-  `;
-}
-
-function roadmapLoadoutLabel(rewardId) {
-  if (!rewardId) return "";
-  const inPvp = PVP_LOADOUT_TARGETS.has(rewardId);
-  const inPreRaid = PRE_RAID_LOADOUT_TARGETS.has(rewardId);
-  if (inPvp && inPreRaid) return "Both loadouts";
-  if (inPvp) return "PvP loadout";
-  if (inPreRaid) return "Pre-raid loadout";
-  return "";
-}
-
-function roadmapTypeLabel(type) {
-  return {
-    purchase: "PvP purchase",
-    quest: "Quest",
-    dungeon: "Dungeon",
-    craft: "Crafted",
-    market: "Auction House",
-    currency: "Currency",
-    pvp: "PvP",
-  }[type] ?? type;
-}
-
-function emptyRoadmapMarkup(message) {
-  return `<p class="roadmap-empty">${message}</p>`;
 }
 
 function loadoutSummaryMarkup(left, right) {
@@ -1848,139 +1279,6 @@ function hideQuestTooltip() {
   document.querySelector("#questPanelTooltip")?.remove();
 }
 
-function setupRoadmapControls() {
-  const rankSelect = document.querySelector("#roadmapRank");
-  rankSelect.innerHTML = PVP_RANKS
-    .map((name, rank) => `<option value="${rank}">${rank ? `Rank ${rank} — ` : ""}${name}</option>`)
-    .join("");
-
-  const numericBindings = {
-    roadmapLevel: ["level", 1, 60],
-    roadmapRank: ["rank", 0, 14],
-    roadmapHonor: ["honor", 0, 25000],
-    roadmapCapHonor: ["expectedCapHonor", 0, 25000],
-    roadmapMarkAv: ["marks.av", 0, 999],
-    roadmapMarkAb: ["marks.ab", 0, 999],
-    roadmapMarkWsg: ["marks.wsg", 0, 999],
-    roadmapMarkDarkspear: ["marks.darkspear", 0, 999],
-  };
-
-  Object.entries(numericBindings).forEach(([id, [path, min, max]]) => {
-    const input = document.querySelector(`#${id}`);
-    input.addEventListener("change", () => {
-      const value = Math.min(max, Math.max(min, Number(input.value) || 0));
-      setRoadmapValue(path, value);
-      saveRoadmapState();
-      render();
-    });
-  });
-
-  document.querySelector("#roadmapWeeklyCap").addEventListener("change", (event) => {
-    roadmapState.weeklyCapReached = event.target.checked;
-    saveRoadmapState();
-    render();
-  });
-
-  document.querySelector("#roadmapNewReset").addEventListener("click", () => {
-    roadmapState.weeklyCapReached = false;
-    saveRoadmapState();
-    render();
-    showToast("New reset started — cap Rank Points first");
-  });
-
-  document.querySelector(".roadmap-shell").addEventListener("click", (event) => {
-    const completeButton = event.target.closest("[data-roadmap-complete]");
-    const skipButton = event.target.closest("[data-roadmap-skip]");
-    const undoButton = event.target.closest("[data-roadmap-undo]");
-    if (completeButton) completeRoadmapAction(completeButton.dataset.roadmapComplete);
-    if (skipButton) toggleSkippedRoadmapAction(skipButton.dataset.roadmapSkip);
-    if (undoButton) undoRoadmapAction(undoButton.dataset.roadmapUndo);
-  });
-}
-
-function syncRoadmapControls() {
-  const values = {
-    roadmapLevel: roadmapState.level,
-    roadmapRank: roadmapState.rank,
-    roadmapHonor: roadmapState.honor,
-    roadmapCapHonor: roadmapState.expectedCapHonor,
-    roadmapMarkAv: roadmapState.marks.av,
-    roadmapMarkAb: roadmapState.marks.ab,
-    roadmapMarkWsg: roadmapState.marks.wsg,
-    roadmapMarkDarkspear: roadmapState.marks.darkspear,
-  };
-  Object.entries(values).forEach(([id, value]) => {
-    const input = document.querySelector(`#${id}`);
-    if (input && document.activeElement !== input) input.value = value;
-  });
-  document.querySelector("#roadmapWeeklyCap").checked = roadmapState.weeklyCapReached;
-}
-
-function setRoadmapValue(path, value) {
-  if (path.startsWith("marks.")) {
-    roadmapState.marks[path.split(".")[1]] = value;
-  } else {
-    roadmapState[path] = value;
-  }
-}
-
-function completeRoadmapAction(actionId) {
-  const action = ROADMAP_ACTIONS.find((candidate) => candidate.id === actionId);
-  if (!action) return;
-  if (action.type === "purchase" && (!actionAffordable(action) || actionBlockers(action).length)) {
-    showToast("That purchase is not available from your current balance");
-    return;
-  }
-  if (action.type === "purchase" && hasPurchaseCost(action)) {
-    roadmapState.honor = Math.max(0, roadmapState.honor - action.honor);
-    Object.entries(action.marks).forEach(([mark, amount]) => {
-      roadmapState.marks[mark] = Math.max(0, roadmapState.marks[mark] - amount);
-    });
-    roadmapState.transactions[action.id] = {
-      honor: action.honor,
-      marks: { ...action.marks },
-    };
-  }
-  if (!roadmapState.completed.includes(actionId)) roadmapState.completed.push(actionId);
-  roadmapState.skipped = roadmapState.skipped.filter((id) => id !== actionId);
-  if (action.rewardId) obtained.add(action.rewardId);
-  saveRoadmapState();
-  saveObtained();
-  render();
-  showToast(`${action.title} completed`);
-}
-
-function undoRoadmapAction(actionId) {
-  const action = ROADMAP_ACTIONS.find((candidate) => candidate.id === actionId);
-  if (!action) return;
-  const transaction = roadmapState.transactions[actionId];
-  if (transaction) {
-    roadmapState.honor = Math.min(25000, roadmapState.honor + (transaction.honor ?? 0));
-    Object.entries(transaction.marks ?? {}).forEach(([mark, amount]) => {
-      roadmapState.marks[mark] = (roadmapState.marks[mark] ?? 0) + amount;
-    });
-    delete roadmapState.transactions[actionId];
-  }
-  roadmapState.completed = roadmapState.completed.filter((id) => id !== actionId);
-  if (action.rewardId && !lockedObtained.has(action.rewardId)) {
-    obtained.delete(action.rewardId);
-  }
-  saveRoadmapState();
-  saveObtained();
-  render();
-  showToast(`${action.title} restored${transaction ? " and currency refunded" : ""}`);
-}
-
-function toggleSkippedRoadmapAction(actionId) {
-  if (roadmapState.skipped.includes(actionId)) {
-    roadmapState.skipped = roadmapState.skipped.filter((id) => id !== actionId);
-  } else {
-    roadmapState.skipped.push(actionId);
-  }
-  saveRoadmapState();
-  render();
-}
-
 async function saveRepositoryProfile() {
   if (!window.showSaveFilePicker) {
     showToast("Profile-file saving requires Chrome or Edge");
@@ -2006,7 +1304,6 @@ async function saveRepositoryProfile() {
     lockedObtainedGear: [...lockedObtained],
     obtainedGear: [...obtained],
     completedGuideItems: [...completedGuideItems],
-    roadmap: roadmapState,
   };
   const handle = await window.showSaveFilePicker({
     suggestedName: "grimar-profile.json",
@@ -2043,10 +1340,6 @@ async function hydrateRepositoryProfile() {
     completedGuideItems = new Set(profile.completedGuideItems);
     saveGuideProgress();
   }
-  if (!hadStoredGear && profile.roadmap && typeof profile.roadmap === "object") {
-    roadmapState = normalizeRoadmapState(profile.roadmap);
-    saveRoadmapState();
-  }
   render();
   updateGuideChecklist();
 }
@@ -2060,13 +1353,11 @@ document.querySelector("#saveProfileButton").addEventListener("click", () => {
 });
 
 document.querySelector("#resetGearButton").addEventListener("click", () => {
-  if (!window.confirm("Clear all gear, roadmap, and guide progress?")) return;
+  if (!window.confirm("Clear all gear and guide progress?")) return;
   obtained = new Set(lockedObtained);
   completedGuideItems = new Set();
-  roadmapState = defaultRoadmapState();
   saveObtained();
   saveGuideProgress();
-  saveRoadmapState();
   render();
   updateGuideChecklist();
   showToast("All progress reset");
@@ -2133,7 +1424,6 @@ function setupGearTabs() {
   });
 }
 
-setupRoadmapControls();
 render();
 setupGearTabs();
 hydrateRepositoryProfile().catch(console.error);

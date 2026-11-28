@@ -33,7 +33,6 @@
         <span>FOREVER BUILD 1.60.1.70707</span>
       </div>
       <div class="header-actions">
-        <a class="button ghost button-link" href="./index.html">Action bars</a>
         <button class="button ghost" id="saveProfileButton" type="button">
           Save profile file
         </button>
@@ -69,93 +68,7 @@
         <button class="gear-tab" type="button" data-gear-tab="pre-raid">
           Pre-raid
         </button>
-        <button class="gear-tab" type="button" data-gear-tab="roadmap">
-          Roadmap
-        </button>
       </nav>
-
-      <section class="roadmap-shell gear-tab-panel" data-gear-panel="roadmap" aria-labelledby="roadmapTitle" hidden>
-        <div class="roadmap-heading">
-          <div>
-            <p class="section-label">Adaptive gearing roadmap</p>
-            <h2 id="roadmapTitle">One plan. Updated by your progress.</h2>
-          </div>
-          <p>Cap PvP first each reset, spend intelligently, then route into the highest-value quests and dungeons.</p>
-        </div>
-
-        <div class="roadmap-controls">
-          <label>
-            <span>Level</span>
-            <input id="roadmapLevel" type="number" min="1" max="60" inputmode="numeric">
-          </label>
-          <label>
-            <span>PvP rank</span>
-            <select id="roadmapRank"></select>
-          </label>
-          <label>
-            <span>Honor</span>
-            <input id="roadmapHonor" type="number" min="0" max="25000" step="100" inputmode="numeric">
-          </label>
-          <label>
-            <span>Honor earned while capping</span>
-            <input id="roadmapCapHonor" type="number" min="0" max="25000" step="100" inputmode="numeric">
-          </label>
-          <label>
-            <span>AV Marks</span>
-            <input id="roadmapMarkAv" type="number" min="0" step="1" inputmode="numeric">
-          </label>
-          <label>
-            <span>AB Marks</span>
-            <input id="roadmapMarkAb" type="number" min="0" step="1" inputmode="numeric">
-          </label>
-          <label>
-            <span>WSG Marks</span>
-            <input id="roadmapMarkWsg" type="number" min="0" step="1" inputmode="numeric">
-          </label>
-          <label>
-            <span>Darkspear Marks</span>
-            <input id="roadmapMarkDarkspear" type="number" min="0" step="1" inputmode="numeric">
-          </label>
-        </div>
-
-        <div class="roadmap-reset-row">
-          <label class="roadmap-cap-toggle">
-            <input id="roadmapWeeklyCap" type="checkbox">
-            <span>Rank Points capped this reset</span>
-          </label>
-          <button class="button ghost" id="roadmapNewReset" type="button">Start new reset</button>
-        </div>
-
-        <article class="roadmap-decision" id="roadmapDecision" aria-live="polite"></article>
-
-        <div class="roadmap-columns">
-          <section>
-            <div class="roadmap-column-title">
-              <span class="roadmap-priority-dot now"></span>
-              <h3>Do now</h3>
-            </div>
-            <div class="roadmap-list" id="roadmapNow"></div>
-          </section>
-          <section>
-            <div class="roadmap-column-title">
-              <span class="roadmap-priority-dot next"></span>
-              <h3>Next</h3>
-            </div>
-            <div class="roadmap-list" id="roadmapNext"></div>
-          </section>
-          <section>
-            <div class="roadmap-column-title">
-              <span class="roadmap-priority-dot later"></span>
-              <h3>Blocked / later</h3>
-            </div>
-            <div class="roadmap-list" id="roadmapLater"></div>
-          </section>
-        </div>
-        <details class="roadmap-completed">
-          <summary>Completed objectives <span id="roadmapCompletedCount">0</span></summary>
-          <div class="roadmap-list" id="roadmapCompleted"></div>
-        </details>
-      </section>
 
       <section class="gear-workspace gear-tab-panel active" data-gear-panel="pvp-starter">
         <div class="gear-toolbar">
@@ -448,6 +361,6 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <script src="./gear.js?v=105"></script>
+    <script src="./gear.js?v=106"></script>
   </body>
 </html>
